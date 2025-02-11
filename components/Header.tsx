@@ -110,12 +110,17 @@ import { Menu, X, Sun, Moon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useTheme } from './Theme-Provider'
 
-const navigation = [
-  { name: 'Home', href: '/' },
-  { name: 'Projects', href: '/projects' },
-  { name: 'Blog', href: '/blog' },
-  { name: 'Contact', href: '/contact' },
-]
+type NavigationItem = {
+    name: string;
+    href: string;
+  }
+  
+  const navigation: NavigationItem[] = [
+    { name: 'Home', href: '/' },
+    { name: 'Projects', href: '/projects' },
+    { name: 'Blog', href: '/blog' },
+    { name: 'Contact', href: '/contact' },
+  ]
 
 export const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
@@ -153,7 +158,7 @@ export const Header = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
   }
 
-  const handleMobileNavClick = (href: string) => {
+  const handleMobileNavClick = () => {
     setIsMobileMenuOpen(false)
   }
 
@@ -224,7 +229,7 @@ export const Header = () => {
                     <Link
                       href={item.href}
                       className="flex w-full justify-center rounded-lg py-3 text-lg font-medium transition-colors hover:bg-primary/10 hover:text-primary"
-                      onClick={() => handleMobileNavClick(item.href)}
+                      onClick={handleMobileNavClick}
                     >
                       {item.name}
                     </Link>
