@@ -3,6 +3,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/Theme-Provider";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import ContactMe from "@/components/ContactMe";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,6 +24,7 @@ export default function RootLayout({
               <main className="flex-1">
                 {children}
               </main>
+              <ContactMe />
               <Footer />
             </div>
           </ThemeProvider>
