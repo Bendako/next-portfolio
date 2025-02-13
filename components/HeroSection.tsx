@@ -16,8 +16,8 @@ const HeroSection = ({
   name = "Ben Dako",
   title = "Full Stack Developer",
   description = "I build things, automate shit",
-  githubUrl = "https://github.com/johndoe",
-  linkedinUrl = "https://linkedin.com/in/johndoe",
+  githubUrl = "https://github.com/Bendako",
+  linkedinUrl = "https://www.linkedin.com/in/bendako/",
   resumePath = "/resume.pdf"
 }: HeroSectionProps) => {
   const handleScrollToProjects = () => {

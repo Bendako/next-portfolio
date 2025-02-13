@@ -4,7 +4,7 @@ import { Mail, GithubIcon, LinkedinIcon, Download } from 'lucide-react';
 
 const AboutSection = () => {
   const handleContactClick = () => {
-    window.location.href = 'mailto:your.email@example.com';
+    window.location.href = 'mailto:bendk1994@gmail.com';
   };
 
   const handleResumeDownload = () => {
