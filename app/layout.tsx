@@ -4,6 +4,7 @@ import { ThemeProvider } from "@/components/Theme-Provider";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import ContactMe from "@/components/ContactMe";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -27,6 +28,7 @@ export default function RootLayout({
               <ContactMe />
               <Footer />
             </div>
+            <Toaster />
           </ThemeProvider>
       </body>
     </html>

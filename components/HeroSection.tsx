@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { ArrowDown, Download, Github, Linkedin } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
+
 
 type HeroSectionProps = {
   name?: string;
@@ -18,12 +20,52 @@ const HeroSection = ({
   description = "I build things, automate shit",
   githubUrl = "https://github.com/Bendako",
   linkedinUrl = "https://www.linkedin.com/in/bendako/",
-  resumePath = "/resume.pdf"
+  resumePath = "@/public/ben-dako-cv.pdf"
 }: HeroSectionProps) => {
+  const { toast } = useToast();
+
+
   const handleScrollToProjects = () => {
     const projectsSection = document.getElementById('projects');
     projectsSection?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  const handleDownloadResume = useCallback(async () => {
+    try {
+      const response = await fetch('/ben-dako-cv.pdf');
+      
+      if (!response.ok) {
+        throw new Error('Failed to download resume');
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      
+      link.href = url;
+      link.download = 'ben-dako-cv.pdf';
+      document.body.appendChild(link);
+      link.click();
+      
+      // Cleanup
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+
+      toast({
+        title: "Success",
+        description: "Resume downloaded successfully!",
+        duration: 3000,
+      });
+    } catch (error) {
+      console.error('Error downloading resume:', error);
+      toast({
+        title: "Error",
+        description: "Failed to download resume. Please try again later.",
+        variant: "destructive",
+      });
+    }
+  }, [toast]);
+
 
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
@@ -101,6 +143,7 @@ const HeroSection = ({
                 <a
                   href={resumePath}
                   download
+                  onClick={handleDownloadResume}
                   aria-label="Download Resume"
                 >
                   <Download className="h-4 w-4" />
