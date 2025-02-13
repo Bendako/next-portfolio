@@ -2,7 +2,9 @@ import React, { useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { ArrowDown, Download, Github, Linkedin } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
+// import { useToast } from '@/hooks/use-toast';
+import { useScrollTo } from '@/hooks/useScrollTo';
+import { toast } from '@/hooks/use-toast';
 
 
 type HeroSectionProps = {
@@ -22,14 +24,13 @@ const HeroSection = ({
   linkedinUrl = "https://www.linkedin.com/in/bendako/",
   resumePath = "@/public/ben-dako-cv.pdf"
 }: HeroSectionProps) => {
-  const { toast } = useToast();
+  const scrollToElement = useScrollTo();
 
 
   const handleScrollToProjects = () => {
-    const projectsSection = document.getElementById('projects');
-    projectsSection?.scrollIntoView({ behavior: 'smooth' });
+    scrollToElement('projects');
   };
-
+  
   const handleDownloadResume = useCallback(async () => {
     try {
       const response = await fetch('/ben-dako-cv.pdf');
@@ -48,7 +49,6 @@ const HeroSection = ({
       link.click();
       
       // Cleanup
-      document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
 
       toast({
@@ -64,7 +64,7 @@ const HeroSection = ({
         variant: "destructive",
       });
     }
-  }, [toast]);
+  }, []);
 
 
   const fadeInUp = {
