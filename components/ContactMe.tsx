@@ -191,33 +191,33 @@ const ContactSection = () => {
           <CardContent>
             <div className="space-y-6">
               <a
-                href="mailto:your.email@example.com"
+                href="mailto:bendk1994@gmail.com"
                 className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <Mail className="w-5 h-5" />
-                <span>your.email@example.com</span>
+                <span>bendk1994@gmail.com</span>
               </a>
               
               <a
-                href="https://github.com/yourusername"
+                href="https://github.com/Bendako"
                 className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <Github className="w-5 h-5" />
-                <span>GitHub Profile</span>
+                <span>Bendako</span>
               </a>
               
               <a
-                href="https://linkedin.com/in/yourusername"
+                href="https://www.linkedin.com/in/bendako/"
                 className="flex items-center gap-3 p-3 rounded-lg hover:bg-accent transition-colors"
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <Linkedin className="w-5 h-5" />
-                <span>LinkedIn Profile</span>
+                <span>bendako</span>
               </a>
             </div>
           </CardContent>
