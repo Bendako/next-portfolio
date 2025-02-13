@@ -3,7 +3,23 @@ import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { ArrowDown, Download, Github, Linkedin } from 'lucide-react';
 
-const HeroSection = () => {
+type HeroSectionProps = {
+  name?: string;
+  title?: string;
+  description?: string;
+  githubUrl?: string;
+  linkedinUrl?: string;
+  resumePath?: string;
+};
+
+const HeroSection = ({
+  name = "Ben Dako",
+  title = "Full Stack Developer",
+  description = "I build things, automate shit",
+  githubUrl = "https://github.com/johndoe",
+  linkedinUrl = "https://linkedin.com/in/johndoe",
+  resumePath = "/resume.pdf"
+}: HeroSectionProps) => {
   const handleScrollToProjects = () => {
     const projectsSection = document.getElementById('projects');
     projectsSection?.scrollIntoView({ behavior: 'smooth' });
@@ -43,7 +59,7 @@ const HeroSection = () => {
               transition={{ delay: 0.3 }}
               className="text-4xl md:text-6xl font-bold tracking-tight"
             >
-              John Doe
+              {name}
             </motion.h1>
 
             <motion.p 
@@ -51,7 +67,7 @@ const HeroSection = () => {
               transition={{ delay: 0.4 }}
               className="text-xl md:text-2xl font-semibold text-muted-foreground"
             >
-              Full Stack Developer & UI/UX Designer
+              {title}
             </motion.p>
 
             <motion.p 
@@ -59,8 +75,7 @@ const HeroSection = () => {
               transition={{ delay: 0.5 }}
               className="text-lg text-muted-foreground max-w-2xl mx-auto"
             >
-              I craft modern web experiences using React, Next.js, and TypeScript. 
-              Passionate about creating accessible, performant, and beautiful user interfaces.
+              {description}
             </motion.p>
 
             <motion.div 
@@ -84,7 +99,7 @@ const HeroSection = () => {
                 asChild
               >
                 <a
-                  href="/resume.pdf"
+                  href={resumePath}
                   download
                   aria-label="Download Resume"
                 >
@@ -106,7 +121,7 @@ const HeroSection = () => {
                 asChild
               >
                 <a
-                  href="https://github.com/johndoe"
+                  href={githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -121,7 +136,7 @@ const HeroSection = () => {
                 asChild
               >
                 <a
-                  href="https://linkedin.com/in/johndoe"
+                  href={linkedinUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
