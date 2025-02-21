@@ -167,7 +167,7 @@ export const Header = () => {
       <div className="container flex h-16 items-center justify-between">
         <div className="flex items-center">
           <Link href="/" className="flex items-center space-x-2">
-            <span className="font-bold">Portfolio</span>
+            <span className="font-bold ml-2">Portfolio</span>
           </Link>
         </div>
 
