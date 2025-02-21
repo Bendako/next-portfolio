@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Menu, X, Sun, Moon } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useTheme } from './Theme-Provider'
+import { useScrollTo } from '@/hooks/useScrollTo'
 
 type NavigationItem = {
     name: string;
@@ -19,6 +20,7 @@ type NavigationItem = {
 export const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const { theme, setTheme } = useTheme()
+  const scrollToElement = useScrollTo()
 
   // Close mobile menu when window is resized to desktop size
   useEffect(() => {
@@ -56,6 +58,11 @@ export const Header = () => {
     setIsMobileMenuOpen(false)
   }
 
+  const handleContactScroll = () => {
+    scrollToElement('contact')
+    handleMobileNavClick()
+  }
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center justify-between">
@@ -73,6 +80,10 @@ export const Header = () => {
                 <Link
                   href={item.href}
                   className="text-sm font-medium transition-colors hover:text-primary"
+                  onClick={item.name === 'Contact' ? (e) => {
+                    e.preventDefault()
+                    handleContactScroll()
+                  } : undefined}
                 >
                   {item.name}
                 </Link>
@@ -123,7 +134,10 @@ export const Header = () => {
                     <Link
                       href={item.href}
                       className="flex w-full justify-center rounded-lg py-3 text-lg font-medium transition-colors hover:bg-primary/10 hover:text-primary"
-                      onClick={handleMobileNavClick}
+                      onClick={item.name === 'Contact' ? (e) => {
+                        e.preventDefault()
+                        handleContactScroll()
+                      } : handleMobileNavClick}
                     >
                       {item.name}
                     </Link>
