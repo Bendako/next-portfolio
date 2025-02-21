@@ -69,7 +69,7 @@ const ProjectsSection = () => {
   return (
     <>
       <HeroSection />
-      <section className="py-20 bg-muted/30">
+      <section id="projects" className="py-20 bg-muted/30">
         <div className="container px-4 mx-auto">
           <h2 className="text-3xl font-bold mb-12 text-center">Featured Projects</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
