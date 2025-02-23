@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
-import { ArrowDown, Download, Github, Linkedin } from 'lucide-react';
+import { ArrowDown, Download, Github, Linkedin, Moon, Sun } from 'lucide-react';
 // import { useToast } from '@/hooks/use-toast';
 import { useScrollTo } from '@/hooks/useScrollTo';
 import { toast } from '@/hooks/use-toast';
-
+import { useTheme } from './Theme-Provider';
 
 type HeroSectionProps = {
   name?: string;
@@ -25,7 +25,7 @@ const HeroSection = ({
   resumePath = "@/public/ben-dako-cv.pdf"
 }: HeroSectionProps) => {
   const scrollToElement = useScrollTo();
-
+  const { theme, setTheme } = useTheme();
 
   const handleScrollToProjects = () => {
     scrollToElement('projects');
@@ -66,6 +66,9 @@ const HeroSection = ({
     }
   }, []);
 
+  const handleThemeToggle = () => {
+    setTheme(theme === 'dark' ? 'light' : 'dark');
+  };
 
   const fadeInUp = {
     initial: { opacity: 0, y: 20 },
@@ -88,6 +91,21 @@ const HeroSection = ({
             animate="animate"
             className="space-y-6"
           >
+            <motion.div 
+              {...fadeInUp}
+              transition={{ delay: 0.8 }}
+              className="flex items-center justify-center gap-4 pt-4"
+            >
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={handleThemeToggle}
+                aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}
+              >
+                {theme === 'dark' ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+              </Button>
+            </motion.div>
+
             <motion.p 
               {...fadeInUp} 
               transition={{ delay: 0.2 }}
@@ -155,58 +173,57 @@ const HeroSection = ({
             <motion.div 
               {...fadeInUp}
               transition={{ delay: 0.7 }}
-              className="flex items-center justify-center gap-4 pt-8"
+              className="flex flex-col items-center justify-center pt-8"
             >
-              <Button
-                variant="ghost"
-                size="icon"
-                aria-label="Visit GitHub Profile"
-                asChild
-              >
-                <a
-                  href={githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+              <motion.div className="flex items-center justify-center gap-4">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  aria-label="Visit GitHub Profile"
+                  asChild
                 >
-                  <Github className="h-5 w-5" />
-                </a>
-              </Button>
+                  <a
+                    href={githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Github className="h-5 w-5" />
+                  </a>
+                </Button>
 
-              <Button
-                variant="ghost"
-                size="icon"
-                aria-label="Visit LinkedIn Profile"
-                asChild
-              >
-                <a
-                  href={linkedinUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  aria-label="Visit LinkedIn Profile"
+                  asChild
                 >
-                  <Linkedin className="h-5 w-5" />
-                </a>
-              </Button>
+                  <a
+                    href={linkedinUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <Linkedin className="h-5 w-5" />
+                  </a>
+                </Button>
+              </motion.div>
+
+              <div className="mt-4">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  aria-label="Scroll to Projects"
+                  onClick={handleScrollToProjects}
+                  className="animate-bounce"
+                >
+                  <ArrowDown className="h-6 w-6" />
+                </Button>
+              </div>
             </motion.div>
+
           </motion.div>
         </div>
       </div>
 
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1, duration: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-      >
-        <Button
-          variant="ghost"
-          size="icon"
-          aria-label="Scroll to Projects"
-          onClick={handleScrollToProjects}
-          className="animate-bounce"
-        >
-          <ArrowDown className="h-6 w-6" />
-        </Button>
-      </motion.div>
     </section>
   );
 };

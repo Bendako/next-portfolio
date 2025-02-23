@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/Theme-Provider";
-import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import ContactMe from "@/components/ContactMe";
 import { Toaster } from "@/components/ui/toaster";
@@ -21,7 +20,6 @@ export default function RootLayout({
       <body suppressHydrationWarning>
           <ThemeProvider>
             <div className="relative flex min-h-screen flex-col bg-background">
-            <Header />
               <main className="flex-1">
                 {children}
               </main>
