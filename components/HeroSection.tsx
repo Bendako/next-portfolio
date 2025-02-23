@@ -81,7 +81,7 @@ const HeroSection = ({
         <div className="absolute -bottom-32 -right-32 w-64 h-64 bg-primary/10 rounded-full blur-3xl" />
       </div>
 
-      <div className="container px-4 mx-auto relative z-10">
+      <div className="container mt-[-96px] px-4 mx-auto relative z-10">
         <div className="max-w-3xl mx-auto text-center">
           <motion.div
             initial="initial"
