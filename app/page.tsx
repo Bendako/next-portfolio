@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Github, ExternalLink } from 'lucide-react';
 import  imagePlaceholer  from "./image-placeholder.webp";
 import HeroSection from '@/components/HeroSection';
+import jobcenterimage from '@/public/jobcenterimage.png';
 
 interface Project {
   title: string;
@@ -19,12 +20,12 @@ interface Project {
 const ProjectsSection = () => {
   const projects: Project[] = [
     {
-      title: "E-Commerce Platform",
-      description: "A full-featured e-commerce solution built with Next.js and TypeScript",
+      title: "Job Center",
+      description: "job tracking app",
       technologies: ["Next.js", "TypeScript", "TailwindCSS", "Prisma"],
-      imageUrl: imagePlaceholer,
-      githubUrl: "https://github.com/username/project",
-      liveUrl: "https://project-demo.com"
+      imageUrl: jobcenterimage,
+      githubUrl: "https://github.com/Bendako/jobs-center",
+      liveUrl: "https://jobs-center.vercel.app/"
     },
     {
       title: "Task Management App",
