@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { motion } from 'framer-motion';
 import { ArrowDown, Download, Github, Linkedin, Moon, Sun } from 'lucide-react';
-// import { useToast } from '@/hooks/use-toast';
 import { useScrollTo } from '@/hooks/useScrollTo';
 import { toast } from '@/hooks/use-toast';
 import { useTheme } from './Theme-Provider';
@@ -13,7 +12,6 @@ type HeroSectionProps = {
   description?: string;
   githubUrl?: string;
   linkedinUrl?: string;
-  resumePath?: string;
 };
 
 const HeroSection = ({
@@ -22,7 +20,6 @@ const HeroSection = ({
   description = "I build things, automate shit",
   githubUrl = "https://github.com/Bendako",
   linkedinUrl = "https://www.linkedin.com/in/bendako/",
-  resumePath = "@/public/ben-dako-cv.pdf"
 }: HeroSectionProps) => {
   const scrollToElement = useScrollTo();
   const { theme, setTheme } = useTheme();
@@ -31,12 +28,15 @@ const HeroSection = ({
     scrollToElement('projects');
   };
   
-  const handleDownloadResume = useCallback(async () => {
+  const handleDownloadResume = useCallback(async (e: React.MouseEvent) => {
+    e.preventDefault(); // Prevent the default anchor behavior
+    
     try {
+      // Use the correct path to the PDF file in the public directory
       const response = await fetch('/ben-dako-cv.pdf');
       
       if (!response.ok) {
-        throw new Error('Failed to download resume');
+        throw new Error(`Failed to download resume: ${response.status} ${response.statusText}`);
       }
 
       const blob = await response.blob();
@@ -47,9 +47,12 @@ const HeroSection = ({
       link.download = 'ben-dako-cv.pdf';
       document.body.appendChild(link);
       link.click();
+      document.body.removeChild(link); // Remove link from the DOM
       
-      // Cleanup
-      window.URL.revokeObjectURL(url);
+      // Delay the URL revocation to ensure the download starts
+      setTimeout(() => {
+        window.URL.revokeObjectURL(url);
+      }, 100);
 
       toast({
         title: "Success",
@@ -64,7 +67,7 @@ const HeroSection = ({
         variant: "destructive",
       });
     }
-  }, []);
+  }, [toast]);
 
   const handleThemeToggle = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
@@ -156,17 +159,10 @@ const HeroSection = ({
                 variant="outline"
                 size="lg"
                 className="gap-2"
-                asChild
+                onClick={handleDownloadResume}
               >
-                <a
-                  href={resumePath}
-                  download
-                  onClick={handleDownloadResume}
-                  aria-label="Download Resume"
-                >
-                  <Download className="h-4 w-4" />
-                  Download Resume
-                </a>
+                <Download className="h-4 w-4" />
+                Download Resume
               </Button>
             </motion.div>
 
