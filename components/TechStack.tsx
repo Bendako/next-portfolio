@@ -4,15 +4,15 @@ import { TbBrandNextjs, TbBrandTypescript } from 'react-icons/tb';
 import { SiExpress } from 'react-icons/si';
 
 const technologies = [
-  { name: 'JavaScript', icon: <FaJsSquare className="w-12 h-12" /> },
-  { name: 'TypeScript', icon: <TbBrandTypescript className="w-12 h-12" /> },
   { name: 'HTML', icon: <FaHtml5 className="w-12 h-12" /> },
   { name: 'CSS', icon: <FaCss3Alt className="w-12 h-12" /> },
+  { name: 'JavaScript', icon: <FaJsSquare className="w-12 h-12" /> },
+  { name: 'TypeScript', icon: <TbBrandTypescript className="w-12 h-12" /> },
   { name: 'React', icon: <FaReact className="w-12 h-12" /> },
   { name: 'Next.js', icon: <TbBrandNextjs className="w-12 h-12" /> },
-  { name: 'Python', icon: <FaPython className="w-12 h-12" /> },
   { name: 'Node.js', icon: <FaNodeJs className="w-12 h-12" /> },
   { name: 'Express.js', icon: <SiExpress className="w-12 h-12" /> },
+  { name: 'Python', icon: <FaPython className="w-12 h-12" /> },
 ];
 
 const TechStack = () => {
