@@ -272,16 +272,18 @@
   
 //   export default HomePage;
 
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import { Card, CardHeader, CardContent, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Github, ExternalLink } from 'lucide-react';
+import jobcenterimage from '@/public/jobcenterimage.png';
+import imagePlaceholer from '@/app/image-placeholder.webp'; // Assuming it's here, adjust if not
 
 interface Project {
   title: string;
   description: string;
   technologies: string[];
-  imageUrl: string;
+  imageUrl: string | StaticImageData;
   githubUrl: string;
   liveUrl: string;
 }
@@ -289,61 +291,56 @@ interface Project {
 const ProjectsSection = () => {
   const projects: Project[] = [
     {
-      title: "E-Commerce Platform",
-      description: "A full-featured e-commerce solution built with Next.js and TypeScript",
+      title: "Job Center",
+      description: "job tracking app",
       technologies: ["Next.js", "TypeScript", "TailwindCSS", "Prisma"],
-      imageUrl: "/api/placeholder/600/400",
-      githubUrl: "https://github.com/username/project",
-      liveUrl: "https://project-demo.com"
+      imageUrl: jobcenterimage,
+      githubUrl: "https://github.com/Bendako/jobs-center",
+      liveUrl: "https://jobs-center.vercel.app/"
     },
     {
-        title: "E-Commerce Platform",
-        description: "A full-featured e-commerce solution built with Next.js and TypeScript",
-        technologies: ["Next.js", "TypeScript", "TailwindCSS", "Prisma"],
-        imageUrl: "/api/placeholder/600/400",
-        githubUrl: "https://github.com/username/project",
-        liveUrl: "https://project-demo.com"
-      },
-      {
-        title: "E-Commerce Platform",
-        description: "A full-featured e-commerce solution built with Next.js and TypeScript",
-        technologies: ["Next.js", "TypeScript", "TailwindCSS", "Prisma"],
-        imageUrl: "/api/placeholder/600/400",
-        githubUrl: "https://github.com/username/project",
-        liveUrl: "https://project-demo.com"
-      },
-      {
-        title: "E-Commerce Platform",
-        description: "A full-featured e-commerce solution built with Next.js and TypeScript",
-        technologies: ["Next.js", "TypeScript", "TailwindCSS", "Prisma"],
-        imageUrl: "/api/placeholder/600/400",
-        githubUrl: "https://github.com/username/project",
-        liveUrl: "https://project-demo.com"
-      },
-    // Add more projects as needed
+      title: "Task Management App",
+      description: "A collaborative task management application with real-time updates",
+      technologies: ["React", "Firebase", "TailwindCSS", "Redux"],
+      imageUrl: imagePlaceholer, // placeholder
+      githubUrl: "https://github.com/username/project2",
+      liveUrl: "https://project-demo2.com"
+    },
+    {
+      title: "Portfolio Website",
+      description: "A modern portfolio website built with Next.js and TailwindCSS",
+      technologies: ["Next.js", "TypeScript", "TailwindCSS", "Framer Motion"],
+      imageUrl: imagePlaceholer, // placeholder
+      githubUrl: "https://github.com/username/project3",
+      liveUrl: "https://project-demo3.com"
+    },
   ];
 
   const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     const target = e.currentTarget as HTMLImageElement;
-    target.src = '/api/placeholder/600/400';
+    // Replace with a more generic placeholder if imagePlaceholer itself can fail
+    target.src = '/image-placeholder.webp'; 
   };
 
   return (
     <section id="projects" className="py-20 bg-muted/30">
       <div className="container px-4 mx-auto">
         <h2 className="text-3xl font-bold mb-12 text-center">Featured Projects</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {projects.map((project) => (
-            <Card key={project.title} className="overflow-hidden">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {projects.map((project, index) => (
+            <Card 
+              key={`${project.title}-${index}`}
+              className="overflow-hidden hover:shadow-lg transition-shadow duration-300"
+            >
               <CardHeader className="p-0">
-                <div className="relative w-full h-48">
+                <div className="relative w-full aspect-video">
                   <Image
                     src={project.imageUrl}
                     alt={`Screenshot of ${project.title}`}
                     fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                     className="object-cover rounded-t-lg"
-                    priority={false}
+                    priority={index < 2} // Prioritize loading images for first few projects
                     quality={75}
                     onError={handleImageError}
                   />
@@ -355,7 +352,7 @@ const ProjectsSection = () => {
                 <div className="flex flex-wrap gap-2">
                   {project.technologies.map((tech) => (
                     <span
-                      key={tech}
+                      key={`${project.title}-${tech}`}
                       className="px-3 py-1 rounded-full bg-primary/10 text-primary text-sm"
                     >
                       {tech}
@@ -375,9 +372,10 @@ const ProjectsSection = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`View ${project.title} source code on GitHub`}
+                    className="inline-flex items-center"
                   >
                     <Github className="h-4 w-4" />
-                    Code
+                    <span>Code</span>
                   </a>
                 </Button>
                 <Button
@@ -390,9 +388,10 @@ const ProjectsSection = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Visit ${project.title} live demo`}
+                    className="inline-flex items-center"
                   >
                     <ExternalLink className="h-4 w-4" />
-                    Live Demo
+                    <span>Live Demo</span>
                   </a>
                 </Button>
               </CardFooter>
