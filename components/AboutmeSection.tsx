@@ -1,17 +1,6 @@
 import React from 'react';
-import { Button } from "@/components/ui/button";
-import { Mail, GithubIcon, LinkedinIcon, Download } from 'lucide-react';
 
 const AboutMeSection = () => {
-  const handleContactClick = () => {
-    window.location.href = 'mailto:bendk1994@gmail.com';
-  };
-
-  const handleResumeDownload = () => {
-    // Implement resume download logic
-    console.log('Downloading resume...');
-  };
-
   return (
     <section id="about" className="py-20 bg-muted/30">
       <div className="container px-4 mx-auto">
