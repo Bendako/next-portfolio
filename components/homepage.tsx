@@ -109,7 +109,7 @@ const ProjectsSection = () => {
                   ))}
                 </div>
               </CardContent>
-              <CardFooter className="p-6 pt-0 flex gap-4">
+              <CardFooter className={`p-6 pt-0 flex gap-4 ${project.title === "Next.js Starter CLI" ? "justify-center" : ""}`}>
                 <Button
                   variant="outline"
                   size="sm"
@@ -127,22 +127,24 @@ const ProjectsSection = () => {
                     <span>Code</span>
                   </a>
                 </Button>
-                <Button
-                  size="sm"
-                  className="gap-2"
-                  asChild
-                >
-                  <a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`Visit ${project.title} live demo`}
-                    className="inline-flex items-center"
+                {project.title !== "Next.js Starter CLI" && (
+                  <Button
+                    size="sm"
+                    className="gap-2"
+                    asChild
                   >
-                    <ExternalLink className="h-4 w-4" />
-                    <span>Live Demo</span>
-                  </a>
-                </Button>
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Visit ${project.title} live demo`}
+                      className="inline-flex items-center"
+                    >
+                      <ExternalLink className="h-4 w-4" />
+                      <span>Live Demo</span>
+                    </a>
+                  </Button>
+                )}
               </CardFooter>
             </Card>
           ))}
