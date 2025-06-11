@@ -17,44 +17,52 @@ interface Project {
 const ProjectsSection = () => {
   const projects: Project[] = [
     {
-      title: "AI SaaS Platform",
-      description: "A comprehensive AI SaaS platform with features like conversation, image, video, music, and code generation.",
-      technologies: ["Next.js", "TypeScript", "TailwindCSS", "Prisma", "Stripe"],
-      imageUrl: "/jobcenterimage.png", 
-      githubUrl: "https://github.com/Bendako/next-ai-saas",
-      liveUrl: "https://next-ai-saas-two.vercel.app/"
-    },
-    {
-      title: "Discord Clone",
-      description: "A real-time communication platform mirroring Discord's core functionalities.",
-      technologies: ["Next.js", "TypeScript", "TailwindCSS", "Socket.io", "Prisma"],
+      title: "Jobs Center",
+      description: "A comprehensive job tracking application for managing job applications, interviews, and career opportunities with an intuitive interface.",
+      technologies: ["Next.js", "TypeScript", "TailwindCSS", "Prisma", "Vercel"],
       imageUrl: "/jobcenterimage.png",
-      githubUrl: "https://github.com/Bendako/next-discord-clone",
-      liveUrl: "https://next-discord-clone-production-a563.up.railway.app/"
+      githubUrl: "https://github.com/Bendako/jobs-center",
+      liveUrl: "https://jobs-center.vercel.app/"
     },
     {
-      title: "Spotify Clone",
-      description: "A music streaming service clone that replicates Spotify's user experience.",
-      technologies: ["Next.js", "TypeScript", "TailwindCSS", "Supabase"],
-      imageUrl: "/jobcenterimage.png",
-      githubUrl: "https://github.com/Bendako/next-spotify-clone",
-      liveUrl: "https://next-spotify-clone-swart.vercel.app/"
-    },
-    {
-      title: "E-Commerce Platform",
-      description: "A full-featured e-commerce solution built with Next.js and TypeScript",
-      technologies: ["Next.js", "TypeScript", "TailwindCSS", "Prisma"],
-      imageUrl: "/jobcenterimage.png",
-      githubUrl: "https://github.com/username/project",
-      liveUrl: "https://project-demo.com"
-    },
-    {
-      title: "next-clerk-convex-starter-mcp",
-      description: "A bash script that automates creating a fully configured Next.js app with TypeScript, Tailwind CSS, Convex, and Clerk",
-      technologies: ["Next.js", "TypeScript", "TailwindCSS", "Convex", "Clerk", "Shell"],
+      title: "Next.js Starter CLI",
+      description: "A powerful bash script that automates creating professional Next.js applications with TypeScript, Tailwind CSS, Convex database, and Clerk authentication. Features MCP server integration for Claude Desktop.",
+      technologies: ["Shell", "JavaScript", "Next.js", "TypeScript", "Convex", "Clerk"],
       imageUrl: "/jobcenterimage.png",
       githubUrl: "https://github.com/Bendako/next-starter-script",
       liveUrl: "https://github.com/Bendako/next-starter-script"
+    },
+    {
+      title: "Next.js Starter MCP Landing",
+      description: "Professional marketing landing page for the Next.js Starter MCP tool. Features modern design, interactive demos, and comprehensive documentation to showcase the CLI automation capabilities.",
+      technologies: ["Next.js", "TypeScript", "TailwindCSS", "Vercel"],
+      imageUrl: "/next-mcp-landingpage.png",
+      githubUrl: "https://github.com/Bendako/next-starter-mcp-landing-page",
+      liveUrl: "https://next-starter-mcp-landing-page.vercel.app/"
+    },
+    {
+      title: "LetterBlast",
+      description: "An innovative 3D educational game where players practice English by shooting floating letters to form words. Features multiple difficulty levels, engaging 3D gameplay, and cross-platform support for learning through interactive entertainment.",
+      technologies: ["Next.js", "TypeScript", "Three.js", "TailwindCSS", "React"],
+      imageUrl: "/letter-blast-game.png",
+      githubUrl: "https://github.com/Bendako/LetterBlast",
+      liveUrl: "https://letter-blast.vercel.app/"
+    },
+    {
+      title: "React Quiz App",
+      description: "An interactive quiz application built with React featuring multiple categories, difficulty levels, and question types. Users can customize their quiz experience with options for number of questions (1-50), category selection (sports, entertainment, etc.), and difficulty settings.",
+      technologies: ["React", "JavaScript", "CSS", "HTML"],
+      imageUrl: "/quiz-game.png",
+      githubUrl: "https://github.com/Bendako/react-quiz-app",
+      liveUrl: "https://react-quiz-app-iota.vercel.app/"
+    },
+    {
+      title: "Expense Tracker App",
+      description: "A comprehensive personal finance management application for tracking income and expenses. Features real-time balance calculation, transaction history, and an intuitive interface for adding and managing financial transactions with clear income/expense categorization.",
+      technologies: ["React", "JavaScript", "CSS", "HTML"],
+      imageUrl: "/expense-tracker-app.png",
+      githubUrl: "https://github.com/Bendako/Expense-Tracker-App",
+      liveUrl: "https://expense-tracker-app-react.vercel.app/"
     }
   ];
 
@@ -72,19 +80,21 @@ const ProjectsSection = () => {
               key={`${project.title}-${index}`}
               className="overflow-hidden hover:shadow-lg transition-shadow duration-300"
             >
-              <CardHeader className="p-0">
-                <div className="relative w-full aspect-video">
-                  <Image
-                    src={project.imageUrl}
-                    alt={`Screenshot of ${project.title}`}
-                    fill
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    className="object-cover rounded-t-lg"
-                    quality={75}
-                    onError={handleImageError}
-                  />
-                </div>
-              </CardHeader>
+              {project.title !== "Next.js Starter CLI" && (
+                <CardHeader className="p-0">
+                  <div className="relative w-full aspect-video">
+                    <Image
+                      src={project.imageUrl}
+                      alt={`Screenshot of ${project.title}`}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover rounded-t-lg"
+                      quality={75}
+                      onError={handleImageError}
+                    />
+                  </div>
+                </CardHeader>
+              )}
               <CardContent className="p-6">
                 <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
                 <p className="text-muted-foreground mb-4">{project.description}</p>
