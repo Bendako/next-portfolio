@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/Theme-Provider";
-import { Footer } from "@/components/Footer";
-import ContactMe from "@/components/ContactMe";
-import { Toaster } from "@/components/ui/toaster";
+import { LocaleProvider } from "@/components/Locale-Provider";
 
 export const metadata: Metadata = {
   title: "Ben Dako | Full Stack Developer | Next.js & React Expert",
@@ -40,20 +38,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="he" dir="rtl" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var l=localStorage.getItem('portfolio-locale');if(l!=='he'&&l!=='en')l='he';document.documentElement.lang=l;document.documentElement.dir=l==='he'?'rtl':'ltr';var t=localStorage.getItem('theme');if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.classList.add(t)}catch(e){document.documentElement.lang='he';document.documentElement.dir='rtl'}})()`,
+          }}
+        />
+      </head>
       <body suppressHydrationWarning>
-          <ThemeProvider>
-            <div className="relative flex min-h-screen flex-col bg-background">
-              <main className="flex-1">
-                {children}
-              </main>
-              <ContactMe />
-              <Footer />
-            </div>
-            <Toaster />
-          </ThemeProvider>
+        <ThemeProvider>
+          <LocaleProvider>{children}</LocaleProvider>
+        </ThemeProvider>
       </body>
     </html>
-    
   );
 }

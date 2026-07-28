@@ -67,7 +67,7 @@ const HeroSection = ({
         variant: "destructive",
       });
     }
-  }, [toast]);
+  }, []);
 
   const handleThemeToggle = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
