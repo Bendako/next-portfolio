@@ -11,9 +11,14 @@ Ship exactly one approved issue without allowing two environments to edit the sa
 
 1. Read `AGENTS.md`, `docs/agents/issue-tracker.md`, `docs/agents/domain.md`, and `docs/agents/collaboration.md`.
 2. Fetch the complete GitHub issue, including comments and labels.
-3. Confirm the issue has an approved scope and acceptance criteria. If it does not, route to `/grill-with-docs` or `/to-spec`; do not invent missing requirements.
+3. Confirm the issue carries the `ready-for-agent` label and has an approved scope and acceptance criteria. If either approval signal is missing, route to `/grill-with-docs` or `/to-spec`; do not invent missing requirements or start implementation.
 4. Inspect the worktree. Preserve unrelated changes and stop if they overlap the ticket.
-5. Never implement on `main` or `master`. Create or switch to one feature branch owned by the current environment:
+
+## Claim and branch
+
+1. Claim the issue using the configured GitHub workflow. Assignment is the first remote write.
+2. Fetch the current `origin/main`.
+3. Never implement on `main` or `master`. Create the feature branch from current `origin/main`, or verify that the current branch is already the issue's owned feature branch:
    - `codex/<issue>-<slug>`
    - `cursor/<issue>-<slug>`
    - `hermes/<issue>-<slug>`
@@ -27,14 +32,13 @@ If the required executor is unavailable, stop and report the missing capability 
 
 ## Execute
 
-1. Claim the issue using the configured GitHub workflow. This is the first remote write.
-2. Use `/implement`, or the equivalent installed TDD and review skills in Hermes.
-3. Agree the test seams before adding tests.
-4. Work in narrow red-green vertical slices. Keep the diff limited to the issue.
-5. Run focused checks during implementation.
-6. Run every verification command required by `AGENTS.md` before review. Run tests when the repository has a test suite; never report an absent test suite as passing.
-7. Run `/code-review` with two independent reviewers: Standards and Spec.
-8. Fix accepted findings, then rerun every affected check.
+1. Use `/implement`, or the equivalent installed TDD and review skills in Hermes.
+2. Agree the test seams before adding tests.
+3. Work in narrow red-green vertical slices. Keep the diff limited to the issue.
+4. Run focused checks during implementation.
+5. Run every verification command required by `AGENTS.md` before review. Run tests when the repository has a test suite; never report an absent test suite as passing.
+6. Run `/code-review` with two independent reviewers: Standards and Spec.
+7. Fix accepted findings, then rerun every affected check.
 
 ## Publish
 

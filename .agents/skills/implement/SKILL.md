@@ -15,7 +15,7 @@ Before editing:
 
 Use /tdd where possible, at pre-agreed seams.
 
-Run typechecking regularly, single test files regularly, and the full test suite once at the end.
+Run typechecking regularly. When the repository has a test suite, run focused tests regularly and the full suite once at the end. If no test suite exists, report that clearly instead of inventing a test command.
 
 Once done, use /code-review to review the work.
 

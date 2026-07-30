@@ -12,10 +12,10 @@ Route work through the curated skills installed in this repository.
 
 1. Run `/grill-with-docs` to sharpen an idea and record domain terms or durable decisions.
 2. If a question needs a runnable answer, bridge to a fresh session with `/handoff`, run `/prototype`, then bring the conclusion back.
-3. If the implementation fits one fresh context, run `/implement`.
+3. If the implementation fits one fresh context, start a fresh `/ship-feature` session. It will run `/implement` inside the required issue, branch, review, and Draft PR lifecycle.
 4. If it needs multiple contexts, run `/to-spec`, then `/to-tickets`, and start a fresh `/ship-feature` session for each ticket.
 
-`/implement` drives `/tdd`, runs the project checks, and closes with `/code-review`. `/ship-feature` adds the cross-environment branch and PR lifecycle.
+`/implement` is an internal implementation step. User-requested implementation work enters through `/ship-feature` so task size never bypasses the cross-environment branch and PR lifecycle.
 
 ## On-ramps
 
