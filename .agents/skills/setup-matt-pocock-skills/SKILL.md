@@ -60,7 +60,7 @@ Confirm:
 - the GitHub repository name is correct;
 - the approval label exists;
 - `.cursor/skills` resolves to `.agents/skills`;
-- `ship-feature` passes its validator;
+- `ship-feature/SKILL.md` frontmatter parses and contains the required `name` and `description`; if the current harness provides a skill validator, run it and report the exact command;
 - no secrets, memory, sessions, or machine-local configuration entered the diff.
 
 Report what was verified and what still requires a separate environment, such as Hermes skill discovery on the VPS.
