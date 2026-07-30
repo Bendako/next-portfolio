@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ship Feature"
+  short_description: "Ship one issue safely through review and PR"
+  default_prompt: "Use $ship-feature to implement the selected GitHub issue on a feature branch and prepare a reviewed PR."
