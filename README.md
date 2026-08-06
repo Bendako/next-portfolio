@@ -5,8 +5,9 @@ Product Builder under the SYSTEMS / BTD identity. The layout remains RTL so
 elements keep their positions while visitors switch the interface language,
 and light or dark theme preferences persist.
 
-This working tree is a local release candidate. It has not been deployed by
-this implementation task.
+The site deploys to production on Vercel from `main`. A GitHub Actions
+workflow (`.github/workflows/ci.yml`) runs the full verification suite on
+every pull request and push to `main`.
 
 ## Tech Stack
 
@@ -69,7 +70,8 @@ Substantive Hebrew and English copy is centralized and type-checked in
 
 ## Verification
 
-Run the static gates above, then use the production server to inspect `/` and a
+CI runs the gates above automatically on every pull request. For a manual
+pass, run them locally, then use the production server to inspect `/` and a
 missing route. Check both languages and themes at 360, 768, 1280, and 1440 CSS
 pixels, including anchor targets, keyboard focus, persistence after reload,
 horizontal overflow, reduced-motion behavior, and the browser console.
