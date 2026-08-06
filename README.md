@@ -64,6 +64,8 @@ pnpm start
   contact API.
 - Visible keyboard focus, a skip link, reduced-motion rules, responsive layouts,
   and a custom bilingual/theme-aware 404.
+- Branded Open Graph / Twitter cards (`summary_large_image`) generated from
+  `app/opengraph-image.tsx` with `metadataBase` pointing at the live site URL.
 
 Substantive Hebrew and English copy is centralized and type-checked in
 `data/portfolio.ts`.

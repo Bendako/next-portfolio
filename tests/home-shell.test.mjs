@@ -76,3 +76,17 @@ test('contact destinations and custom 404 are honest and usable', () => {
   assert.match(notFound, /href="\/"/)
   assert.match(notFound, /useLocale/)
 })
+
+test('social metadata publishes a branded Open Graph card', () => {
+  const layout = read('app/layout.tsx')
+  const openGraphImage = read('app/opengraph-image.tsx')
+  const twitterImage = read('app/twitter-image.tsx')
+
+  assert.match(layout, /metadataBase:\s*new URL\(siteUrl\)/)
+  assert.match(layout, /card:\s*"summary_large_image"/)
+  assert.match(openGraphImage, /SYSTEMS/)
+  assert.match(openGraphImage, /\/ BTD/)
+  assert.match(openGraphImage, /Hybrid Product Builder/)
+  assert.match(openGraphImage, /export const size = \{\s*width: 1200,\s*height: 630,\s*\}/)
+  assert.match(twitterImage, /from '\.\/opengraph-image'/)
+})

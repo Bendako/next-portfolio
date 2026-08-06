@@ -6,7 +6,10 @@ import { LocaleProvider } from "@/components/Locale-Provider";
 const siteTitle = "SYSTEMS / BTD | Hybrid Product Builder";
 const siteDescription = "בן דאקו — Hybrid Product Builder שמחבר חשיבה מוצרית, מערכות Full Stack ואוטומציית AI תחומה עם בקרה ואימות.";
 
+const siteUrl = "https://next-portfolio-nine-chi.vercel.app";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: siteTitle,
   description: siteDescription,
   keywords: [
@@ -25,14 +28,14 @@ export const metadata: Metadata = {
   openGraph: {
     title: siteTitle,
     description: siteDescription,
-    url: "https://next-portfolio-nine-chi.vercel.app",
+    url: siteUrl,
     siteName: "SYSTEMS / BTD",
     locale: "he_IL",
     alternateLocale: ["en_US"],
     type: "website",
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: siteTitle,
     description: siteDescription,
   },
@@ -47,7 +50,6 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
-
 };
 
 export default function RootLayout({
