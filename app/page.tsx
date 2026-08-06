@@ -1,17 +1,5 @@
-"use client";
-
-import HeroSection from '@/components/HeroSection';
-import AboutMeSection from '@/components/AboutmeSection';
-import TechStack from '@/components/TechStack';
-import ProjectsSection from '@/components/homepage';
+import PortfolioShell from '@/components/PortfolioShell'
 
 export default function HomePage() {
-  return (
-    <div className="flex flex-col min-h-screen">
-      <HeroSection />
-      <AboutMeSection />
-      <TechStack />
-      <ProjectsSection /> 
-    </div>
-  );
+  return <PortfolioShell currentYear={new Date().getFullYear()} />
 }

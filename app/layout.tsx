@@ -1,25 +1,41 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/components/Theme-Provider";
-import { Footer } from "@/components/Footer";
-import ContactMe from "@/components/ContactMe";
-import { Toaster } from "@/components/ui/toaster";
+import { LocaleProvider } from "@/components/Locale-Provider";
+
+const siteTitle = "SYSTEMS / BTD | Hybrid Product Builder";
+const siteDescription = "בן דאקו — Hybrid Product Builder שמחבר חשיבה מוצרית, מערכות Full Stack ואוטומציית AI תחומה עם בקרה ואימות.";
 
 export const metadata: Metadata = {
-  title: "Ben Dako | Full Stack Developer | Next.js & React Expert",
-  description: "Full-stack developer specializing in Next.js, React, and automation tools. View my portfolio of web applications, games, and developer tools.",
-  keywords: "Ben Dako, Full Stack Developer, Next.js, React, TypeScript, Web Development, Portfolio, JavaScript, Three.js, Automation Tools",
+  title: siteTitle,
+  description: siteDescription,
+  keywords: [
+    "SYSTEMS / BTD",
+    "Ben Dako",
+    "Hybrid Product Builder",
+    "Full Stack",
+    "Next.js",
+    "React",
+    "AI agents",
+    "bounded automation",
+    "product engineering",
+  ],
   authors: [{ name: "Ben Dako" }],
   creator: "Ben Dako",
   openGraph: {
-    title: "Ben Dako | Full Stack Developer",
-    description: "Full-stack developer specializing in Next.js, React, and automation tools. Building scalable web applications and interactive experiences.",
+    title: siteTitle,
+    description: siteDescription,
     url: "https://next-portfolio-nine-chi.vercel.app",
-    siteName: "Ben Dako Portfolio",
-    locale: "en_US",
+    siteName: "SYSTEMS / BTD",
+    locale: "he_IL",
+    alternateLocale: ["en_US"],
     type: "website",
   },
-
+  twitter: {
+    card: "summary",
+    title: siteTitle,
+    description: siteDescription,
+  },
   robots: {
     index: true,
     follow: true,
@@ -40,20 +56,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="he" dir="rtl" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var l=localStorage.getItem('portfolio-locale');if(l!=='he'&&l!=='en')l='he';document.documentElement.lang=l;var t=localStorage.getItem('theme');if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.classList.add(t)}catch(e){document.documentElement.lang='he'}})()`,
+          }}
+        />
+      </head>
       <body suppressHydrationWarning>
-          <ThemeProvider>
-            <div className="relative flex min-h-screen flex-col bg-background">
-              <main className="flex-1">
-                {children}
-              </main>
-              <ContactMe />
-              <Footer />
-            </div>
-            <Toaster />
-          </ThemeProvider>
+        <ThemeProvider>
+          <LocaleProvider>{children}</LocaleProvider>
+        </ThemeProvider>
       </body>
     </html>
-    
   );
 }
