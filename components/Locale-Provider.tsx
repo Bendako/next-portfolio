@@ -42,13 +42,11 @@ export function LocaleProvider({ children }: { children: React.ReactNode }) {
       // The in-memory fallback keeps the control usable for this session.
     }
     document.documentElement.lang = nextLocale
-    document.documentElement.dir = nextLocale === 'he' ? 'rtl' : 'ltr'
     window.dispatchEvent(new Event('locale-change'))
   }, [])
 
   useEffect(() => {
     document.documentElement.lang = locale
-    document.documentElement.dir = locale === 'he' ? 'rtl' : 'ltr'
   }, [locale])
 
   return <LocaleContext.Provider value={{ locale, setLocale }}>{children}</LocaleContext.Provider>

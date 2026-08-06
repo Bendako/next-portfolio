@@ -15,21 +15,21 @@ export default function NotFound() {
     <main className="not-found-shell">
       <div className="not-found-controls">
         <button className="control-button language-button" type="button" onClick={() => setLocale(locale === 'he' ? 'en' : 'he')}>
-          <Languages aria-hidden="true" />{content.controls.switchLanguage}
+          <Languages aria-hidden="true" /><span dir="auto">{content.controls.switchLanguage}</span>
         </button>
         <button className="control-button icon-button" type="button" aria-label={theme === 'dark' ? content.controls.switchToLight : content.controls.switchToDark} onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}>
           {theme === 'dark' ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}
         </button>
       </div>
       <section className="not-found-panel">
-        <p className="eyebrow">{content.notFound.eyebrow}</p>
-        <h1>{content.notFound.title}</h1>
-        <p>{content.notFound.body}</p>
+        <p className="eyebrow"><span dir="auto">{content.notFound.eyebrow}</span></p>
+        <h1 dir="auto">{content.notFound.title}</h1>
+        <p dir="auto">{content.notFound.body}</p>
         <Link
           href="/"
           className="button primary-button"
         >
-          {content.notFound.homeCta}
+          <span dir="auto">{content.notFound.homeCta}</span>
         </Link>
       </section>
     </main>

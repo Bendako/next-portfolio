@@ -43,6 +43,19 @@ export type PortfolioContent = {
     tags: string[]
     diagram: string[]
   }>
+  publicWorkIntro: { eyebrow: string; title: string; description: string }
+  publicWorkLabels: { source: string; live: string }
+  publicWorks: Array<{
+    publicWorkId: 'starter' | 'jobs' | 'letterblast'
+    index: string
+    category: string
+    status: string
+    title: string
+    description: string
+    tags: string[]
+    sourceUrl: string
+    liveUrl?: string
+  }>
   about: { eyebrow: string; title: string; body: string }
   contact: {
     eyebrow: string
@@ -65,7 +78,7 @@ export const contactLinks = {
 export const portfolioContent = {
   he: {
     skipLink: 'דילוג לתוכן הראשי',
-    brandLabel: 'בן דאקו — דף הבית',
+    brandLabel: 'SYSTEMS / BTD — דף הבית',
     nav: { work: 'עבודות', about: 'אודות', contact: 'יצירת קשר' },
     controls: {
       switchLanguage: 'English',
@@ -130,21 +143,46 @@ export const portfolioContent = {
         tags: ['Agents', 'Durable state', 'Policies', 'Independent QA'], diagram: ['TRIGGER', 'ROUTER', 'POLICY', 'ACTION', 'QA', 'HUMAN GATE'],
       },
     ],
+    publicWorkIntro: {
+      eyebrow: '03 / PUBLIC PROOF', title: 'קוד ומוצרים שאפשר לפתוח',
+      description: 'שלוש הוכחות ציבוריות שמרחיבות את התמונה: כלי פיתוח, מערכת Full Stack וחוויית למידה אינטראקטיבית.',
+    },
+    publicWorkLabels: { source: 'לקוד', live: 'למוצר החי' },
+    publicWorks: [
+      {
+        publicWorkId: 'starter', index: '01', category: 'DEVELOPER TOOLING + MCP', status: 'OPEN SOURCE + LIVE', title: 'Next.js Starter MCP',
+        description: 'כלי שמאחד אוטומציית setup ל־Next.js עם TypeScript, Tailwind, Convex ו־Clerk, לצד אתר מוצר ציבורי.',
+        tags: ['Next.js', 'Automation', 'MCP', 'Developer Experience'],
+        sourceUrl: 'https://github.com/Bendako/next-starter-script', liveUrl: 'https://next-starter-mcp-landing-page.vercel.app/',
+      },
+      {
+        publicWorkId: 'jobs', index: '02', category: 'FULL-STACK PRODUCT', status: 'PUBLIC REPOSITORY', title: 'Jobs Center',
+        description: 'מערכת לניהול חיפוש עבודה, מועמדויות וראיונות. הקוד נשאר ציבורי; קישור הדמו הושמט עד שיחזור לפעילות.',
+        tags: ['Next.js', 'TypeScript', 'Prisma', 'Product Workflow'],
+        sourceUrl: 'https://github.com/Bendako/jobs-center',
+      },
+      {
+        publicWorkId: 'letterblast', index: '03', category: 'INTERACTIVE LEARNING', status: 'OPEN SOURCE + LIVE', title: 'LetterBlast',
+        description: 'משחק לימוד אנגלית שהופך תרגול מילים לחוויה תלת־ממדית אינטראקטיבית בדפדפן.',
+        tags: ['Next.js', 'TypeScript', 'Three.js', 'Interaction Design'],
+        sourceUrl: 'https://github.com/Bendako/LetterBlast', liveUrl: 'https://letter-blast.vercel.app/',
+      },
+    ],
     about: {
-      eyebrow: '03 / ABOUT', title: 'בין החלטת מוצר לביצוע אחראי',
+      eyebrow: '04 / ABOUT', title: 'בין החלטת מוצר לביצוע אחראי',
       body: 'אני אוהב לעבוד במקום שבו צריך להבין את האדם שמאחורי הבקשה, לקבל החלטות מוצר מדויקות, ולבנות את המערכת שמגשימה אותן. מבחינתי AI הוא שכבת יכולת — לא תחליף לאחריות, לבדיקות או לשיקול דעת אנושי.',
     },
     contact: {
-      eyebrow: '04 / CONTACT', title: 'יש מוצר, מערכת או תהליך שכדאי לבנות נכון?',
+      eyebrow: '05 / CONTACT', title: 'יש מוצר, מערכת או תהליך שכדאי לבנות נכון?',
       body: 'אפשר לפנות ישירות במייל לגבי תפקידי פיתוח ומוצר, בניית מערכות או שיתוף פעולה. אין כאן טופס מדומה — רק ערוצי קשר אמיתיים.',
       emailCta: 'שליחת מייל', githubLabel: 'פרופיל GitHub', linkedinLabel: 'פרופיל LinkedIn',
     },
-    footer: { identity: 'BEN.DAKO / HYBRID PRODUCT BUILDER', note: 'מוצר, Full Stack ו־AI תחום — עם בקרה ואימות.' },
+    footer: { identity: 'SYSTEMS / BTD — HYBRID PRODUCT BUILDER', note: 'מוצר, Full Stack ו־AI תחום — עם בקרה ואימות.' },
     notFound: { eyebrow: '404 / NOT FOUND', title: 'העמוד הזה לא נמצא', body: 'הכתובת אינה קיימת או שהעמוד הועבר. אפשר לחזור לדף הבית ולהמשיך משם.', homeCta: 'חזרה לדף הבית' },
   },
   en: {
     skipLink: 'Skip to main content',
-    brandLabel: 'Ben Dako — homepage',
+    brandLabel: 'SYSTEMS / BTD — homepage',
     nav: { work: 'Work', about: 'About', contact: 'Contact' },
     controls: {
       switchLanguage: 'עברית',
@@ -205,16 +243,41 @@ export const portfolioContent = {
         tags: ['Agents', 'Durable state', 'Policies', 'Independent QA'], diagram: ['TRIGGER', 'ROUTER', 'POLICY', 'ACTION', 'QA', 'HUMAN GATE'],
       },
     ],
+    publicWorkIntro: {
+      eyebrow: '03 / PUBLIC PROOF', title: 'Code and products you can open',
+      description: 'Three public proofs that broaden the picture: developer tooling, a full-stack system, and an interactive learning experience.',
+    },
+    publicWorkLabels: { source: 'View source', live: 'Open live product' },
+    publicWorks: [
+      {
+        publicWorkId: 'starter', index: '01', category: 'DEVELOPER TOOLING + MCP', status: 'OPEN SOURCE + LIVE', title: 'Next.js Starter MCP',
+        description: 'A tool combining automated Next.js setup with TypeScript, Tailwind, Convex, and Clerk, supported by a public product site.',
+        tags: ['Next.js', 'Automation', 'MCP', 'Developer Experience'],
+        sourceUrl: 'https://github.com/Bendako/next-starter-script', liveUrl: 'https://next-starter-mcp-landing-page.vercel.app/',
+      },
+      {
+        publicWorkId: 'jobs', index: '02', category: 'FULL-STACK PRODUCT', status: 'PUBLIC REPOSITORY', title: 'Jobs Center',
+        description: 'A system for managing a job search, applications, and interviews. The code remains public; the demo link is omitted until it is operational again.',
+        tags: ['Next.js', 'TypeScript', 'Prisma', 'Product Workflow'],
+        sourceUrl: 'https://github.com/Bendako/jobs-center',
+      },
+      {
+        publicWorkId: 'letterblast', index: '03', category: 'INTERACTIVE LEARNING', status: 'OPEN SOURCE + LIVE', title: 'LetterBlast',
+        description: 'An English-learning game that turns vocabulary practice into an interactive 3D browser experience.',
+        tags: ['Next.js', 'TypeScript', 'Three.js', 'Interaction Design'],
+        sourceUrl: 'https://github.com/Bendako/LetterBlast', liveUrl: 'https://letter-blast.vercel.app/',
+      },
+    ],
     about: {
-      eyebrow: '03 / ABOUT', title: 'From product judgment to responsible delivery',
+      eyebrow: '04 / ABOUT', title: 'From product judgment to responsible delivery',
       body: 'I like working where understanding the person behind a request, making precise product decisions, and building the system are all part of the same job. To me, AI is a capability layer — not a substitute for ownership, testing, or human judgment.',
     },
     contact: {
-      eyebrow: '04 / CONTACT', title: 'Have a product, system, or process worth building well?',
+      eyebrow: '05 / CONTACT', title: 'Have a product, system, or process worth building well?',
       body: 'Reach out directly about engineering and product roles, system building, or collaboration. There is no simulated form here — only real contact channels.',
       emailCta: 'Send an email', githubLabel: 'GitHub profile', linkedinLabel: 'LinkedIn profile',
     },
-    footer: { identity: 'BEN.DAKO / HYBRID PRODUCT BUILDER', note: 'Product, full stack, and bounded AI — with control and verification.' },
+    footer: { identity: 'SYSTEMS / BTD — HYBRID PRODUCT BUILDER', note: 'Product, full stack, and bounded AI — with control and verification.' },
     notFound: { eyebrow: '404 / NOT FOUND', title: 'This page could not be found', body: 'The address does not exist or the page may have moved. Return home to continue.', homeCta: 'Back to homepage' },
   },
 } satisfies Record<Locale, PortfolioContent>

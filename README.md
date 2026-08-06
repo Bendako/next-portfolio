@@ -1,8 +1,9 @@
 # Portfolio Home Shell
 
 A bilingual, evidence-led portfolio shell positioning Ben Dako as a Hybrid
-Product Builder. Hebrew/RTL is the default; visitors can switch the complete
-interface to English/LTR and choose a persistent light or dark theme.
+Product Builder under the SYSTEMS / BTD identity. The layout remains RTL so
+elements keep their positions while visitors switch the interface language,
+and light or dark theme preferences persist.
 
 This working tree is a local release candidate. It has not been deployed by
 this implementation task.
@@ -22,10 +23,12 @@ Use pnpm only; `package-lock.json` is intentionally not used.
 
 ```bash
 pnpm install --frozen-lockfile
+pnpm exec playwright install chromium
 pnpm run lint
 pnpm run typecheck
 pnpm run test
 pnpm run build
+pnpm run test:e2e
 pnpm audit --prod
 ```
 
@@ -44,14 +47,18 @@ pnpm start
 
 ## Home shell behavior
 
-- Hebrew-first RTL with a complete English LTR toggle. The locale is stored as
-  `portfolio-locale` (`he` or `en`); missing or invalid values fall back to
-  Hebrew.
+- Hebrew-first content with a complete English toggle and a stable RTL layout.
+  The locale is stored as `portfolio-locale` (`he` or `en`); missing or invalid
+  values fall back to Hebrew. Changing the locale updates the document language
+  without mirroring the interface.
 - Light/dark mode uses a stored `theme` value first, then the operating-system
   preference. Invalid values safely fall back to the system preference.
 - Header anchors lead to Work, About, and Contact sections on the same page.
 - Exactly three evidence-backed capability panels and two public-safe featured
   work cards: נווה בשדרה and the internal AI-agent/SBEA system.
+- A compact public-proof ledger links to three selected projects: Next.js
+  Starter MCP, Jobs Center, and LetterBlast. Unavailable demos are omitted
+  instead of publishing broken links.
 - Direct email, GitHub, and LinkedIn links only. There is no contact form or
   contact API.
 - Visible keyboard focus, a skip link, reduced-motion rules, responsive layouts,
