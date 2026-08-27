@@ -38,7 +38,7 @@ body {
   overflow-x: hidden;
   color: hsl(var(--foreground));
   background: hsl(var(--background));
-  font-family: Arial, sans-serif;
+  font-family: var(--font-heebo), Arial, sans-serif;
   line-height: 1.6;
 }
 a,

@@ -61,6 +61,9 @@ test("document keeps a stable RTL layout and safely persists locale and theme", 
   const themeProvider = read("components/Theme-Provider.tsx");
 
   assert.match(layout, /<html lang="he" dir="rtl"/);
+  assert.match(layout, /Heebo/);
+  assert.match(layout, /heebo\.variable/);
+  assert.match(globals, /var\(--font-heebo\)/);
   assert.match(layout, /portfolio-locale/);
   assert.match(layout, /prefers-color-scheme: dark/);
   assert.match(

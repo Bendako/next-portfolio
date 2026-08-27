@@ -8,6 +8,9 @@ test('publishes the BTD company identity', async ({ page }) => {
     'בונים מוצרים דיגיטליים שעובדים בעולם האמיתי.',
   )
   await expect(page.locator('footer strong')).toHaveText('BTD / PRODUCT & TECHNOLOGY')
+  expect(
+    await page.locator('body').evaluate((element) => getComputedStyle(element).fontFamily),
+  ).toMatch(/Heebo/i)
 })
 
 test('presents two engines and four process steps', async ({ page }) => {
