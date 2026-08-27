@@ -4,39 +4,17 @@ import { ThemeProvider } from "@/components/Theme-Provider";
 import { LocaleProvider } from "@/components/Locale-Provider";
 
 export const metadata: Metadata = {
-  title: "Ben Dako | Full Stack Developer | Next.js & React Expert",
-  description: "Full-stack developer specializing in Next.js, React, and automation tools. View my portfolio of web applications, games, and developer tools.",
-  keywords: "Ben Dako, Full Stack Developer, Next.js, React, TypeScript, Web Development, Portfolio, JavaScript, Three.js, Automation Tools",
-  authors: [{ name: "Ben Dako" }],
-  creator: "Ben Dako",
+  title: "BTD / Product & Technology",
+  description: "BTD builds and operates digital products and selected end-to-end systems.",
+  keywords: ["BTD", "product", "technology", "full stack", "automation", "AI", "operations"],
   openGraph: {
-    title: "Ben Dako | Full Stack Developer",
-    description: "Full-stack developer specializing in Next.js, React, and automation tools. Building scalable web applications and interactive experiences.",
-    url: "https://next-portfolio-nine-chi.vercel.app",
-    siteName: "Ben Dako Portfolio",
-    locale: "en_US",
+    title: "BTD / Product & Technology",
+    description: "Digital products and selected end-to-end systems.",
     type: "website",
   },
-
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="he" dir="rtl" suppressHydrationWarning>
       <head>

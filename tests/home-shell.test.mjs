@@ -1,62 +1,80 @@
-import assert from 'node:assert/strict'
-import { readFileSync } from 'node:fs'
-import test from 'node:test'
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import test from "node:test";
 
-const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), 'utf8')
+const read = (path) =>
+  readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
+const appSource = () =>
+  [
+    "app/page.tsx",
+    "app/layout.tsx",
+    "app/not-found.tsx",
+    "components/PortfolioShell.tsx",
+    "data/portfolio.ts",
+  ]
+    .map(read)
+    .join("\n");
 
-test('home shell replaces the legacy composition with the required section contract', () => {
-  const page = read('app/page.tsx')
-  const shell = read('components/PortfolioShell.tsx')
+test("home shell exposes the approved BTD-only structure", () => {
+  const page = read("app/page.tsx");
+  const shell = read("components/PortfolioShell.tsx");
+  const content = read("data/portfolio.ts");
 
-  assert.match(page, /PortfolioShell/)
-  assert.doesNotMatch(page, /HeroSection|AboutmeSection|TechStack|ProjectsSection/)
-  assert.equal((shell.match(/<header\b/g) ?? []).length, 1)
-  assert.equal((shell.match(/<footer\b/g) ?? []).length, 1)
-  assert.match(shell, /id="work"/)
-  assert.match(shell, /id="about"/)
-  assert.match(shell, /id="contact"/)
-  assert.match(shell, /data-capability-panel/)
-  assert.match(shell, /data-work-card/)
-  assert.doesNotMatch(shell, /<form\b|<input\b|<textarea\b/)
-})
+  assert.match(page, /PortfolioShell/);
+  assert.equal((shell.match(/<header\b/g) ?? []).length, 1);
+  assert.equal((shell.match(/<footer\b/g) ?? []).length, 1);
+  assert.match(shell, /id="what"/);
+  assert.match(shell, /id="engines"/);
+  assert.match(shell, /id="process"/);
+  assert.match(shell, /data-engine-card/);
+  assert.match(shell, /data-process-step/);
+  assert.match(shell, /aria-modal="true"/);
+  assert.doesNotMatch(
+    shell,
+    /<form\b|<input\b|<textarea\b|mailto:|github\.com|linkedin\.com/,
+  );
+  assert.match(content, /BTD \/ PRODUCT & TECHNOLOGY/);
+  assert.match(content, /מוצרים בבעלות BTD/);
+  assert.match(content, /מערכות end-to-end נבחרות/);
+  assert.match(content, /בונים מוצרים דיגיטליים שעובדים בעולם האמיתי\./);
+});
 
-test('typed bilingual content contains exactly three capabilities and two approved works', () => {
-  const content = read('data/portfolio.ts')
+test("typed bilingual content has two engines and four process steps per locale", () => {
+  const content = read("data/portfolio.ts");
+  assert.match(content, /satisfies Record<Locale, PortfolioContent>/);
 
-  assert.match(content, /satisfies Record<Locale, PortfolioContent>/)
-  assert.match(content, /Hybrid Product Builder/)
-  assert.match(content, /נווה בשדרה/)
-  assert.match(content, /AI-agent\/SBEA/)
-  assert.doesNotMatch(content, /Jobs Center|LetterBlast|Expense Tracker/)
-
-  for (const locale of ['he', 'en']) {
-    const localeBlock = content.split(`${locale}: {`)[1]?.split(locale === 'he' ? '\n  en: {' : '\n} satisfies')[0]
-    assert.ok(localeBlock, `missing ${locale} locale`)
-    assert.equal((localeBlock.match(/capabilityId:/g) ?? []).length, 3)
-    assert.equal((localeBlock.match(/workId:/g) ?? []).length, 2)
+  for (const locale of ["he", "en"]) {
+    const localeBlock = content
+      .split(`${locale}: {`)[1]
+      ?.split(locale === "he" ? "\n  en: {" : "\n} satisfies")[0];
+    assert.ok(localeBlock, `missing ${locale} locale`);
+    assert.equal((localeBlock.match(/engineId:/g) ?? []).length, 2);
+    assert.equal((localeBlock.match(/stepId:/g) ?? []).length, 4);
   }
-})
+});
 
-test('document defaults to Hebrew RTL and initializes persisted locale and theme safely', () => {
-  const layout = read('app/layout.tsx')
-  const localeProvider = read('components/Locale-Provider.tsx')
-  const themeProvider = read('components/Theme-Provider.tsx')
+test("document defaults to Hebrew RTL and safely persists locale and theme", () => {
+  const layout = read("app/layout.tsx");
+  const localeProvider = read("components/Locale-Provider.tsx");
+  const themeProvider = read("components/Theme-Provider.tsx");
 
-  assert.match(layout, /<html lang="he" dir="rtl"/)
-  assert.match(layout, /portfolio-locale/)
-  assert.match(layout, /prefers-color-scheme: dark/)
-  assert.match(localeProvider, /savedLocale === 'en' \|\| savedLocale === 'he'/)
-  assert.match(localeProvider, /document\.documentElement\.dir/)
-  assert.match(themeProvider, /savedTheme === 'dark' \|\| savedTheme === 'light'/)
-})
+  assert.match(layout, /<html lang="he" dir="rtl"/);
+  assert.match(layout, /portfolio-locale/);
+  assert.match(layout, /prefers-color-scheme: dark/);
+  assert.match(
+    localeProvider,
+    /savedLocale === 'en' \|\| savedLocale === 'he'/,
+  );
+  assert.match(localeProvider, /document\.documentElement\.dir/);
+  assert.match(
+    themeProvider,
+    /savedTheme === 'dark' \|\| savedTheme === 'light'/,
+  );
+});
 
-test('contact destinations and custom 404 are honest and usable', () => {
-  const content = read('data/portfolio.ts')
-  const notFound = read('app/not-found.tsx')
-
-  assert.match(content, /mailto:bendk1994@gmail\.com/)
-  assert.match(content, /https:\/\/github\.com\/Bendako/)
-  assert.match(content, /https:\/\/www\.linkedin\.com\/in\/bendako\//)
-  assert.match(notFound, /href="\/"/)
-  assert.match(notFound, /useLocale/)
-})
+test("app-facing source contains no person-led or evidence-led legacy positioning", () => {
+  assert.doesNotMatch(
+    appSource(),
+    /Ben Dako|BEN\.DAKO|בן\s*(?:דקו|דאקו)|\bBD\b|Hybrid Product Builder|נווה בשדרה|AI-agent\/SBEA|LinkedIn|GitHub|mailto:|founder/i,
+  );
+});

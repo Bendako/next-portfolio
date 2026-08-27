@@ -1,186 +1,224 @@
-"use client"
+"use client";
 
-import { ArrowDown, ArrowUpLeft, Github, Languages, Linkedin, Mail, Moon, Sun } from 'lucide-react'
-import { contactLinks, portfolioContent } from '@/data/portfolio'
-import { useLocale } from '@/components/Locale-Provider'
-import { useTheme } from '@/components/Theme-Provider'
-
-function SectionHeading({ eyebrow, title, description }: { eyebrow: string; title: string; description?: string }) {
-  return (
-    <div className="section-heading">
-      <div>
-        <p className="eyebrow">{eyebrow}</p>
-        <h2>{title}</h2>
-      </div>
-      {description ? <p className="section-description">{description}</p> : null}
-    </div>
-  )
-}
-
-function SystemDiagram({ nodes, label }: { nodes: string[]; label: string }) {
-  return (
-    <div className="system-diagram" role="img" aria-label={label}>
-      {nodes.map((node, index) => (
-        <div className={index === 1 || index === nodes.length - 1 ? 'diagram-node active' : 'diagram-node'} key={node}>
-          {node}
-        </div>
-      ))}
-    </div>
-  )
-}
+import { useEffect, useRef, useState } from "react";
+import { Languages, Moon, Sun, X } from "lucide-react";
+import { portfolioContent } from "@/data/portfolio";
+import { useLocale } from "@/components/Locale-Provider";
+import { useTheme } from "@/components/Theme-Provider";
 
 export default function PortfolioShell() {
-  const { locale, setLocale } = useLocale()
-  const { theme, setTheme } = useTheme()
-  const content = portfolioContent[locale]
-  const currentYear = new Date().getFullYear()
+  const { locale, setLocale } = useLocale();
+  const { theme, setTheme } = useTheme();
+  const content = portfolioContent[locale];
+  const [reviewOpen, setReviewOpen] = useState(false);
+  const openerRef = useRef<HTMLButtonElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const wasOpenRef = useRef(false);
 
+  useEffect(() => {
+    if (!reviewOpen) {
+      if (wasOpenRef.current) openerRef.current?.focus();
+      wasOpenRef.current = false;
+      return;
+    }
+
+    wasOpenRef.current = true;
+    const dialog = dialogRef.current;
+    const focusable = dialog?.querySelectorAll<HTMLElement>(
+      'button, [href], [tabindex]:not([tabindex="-1"])',
+    );
+    focusable?.[0]?.focus();
+
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setReviewOpen(false);
+      if (event.key !== "Tab" || !focusable?.length) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [reviewOpen]);
   return (
     <div className="site-shell">
-      <a className="skip-link" href="#main-content">{content.skipLink}</a>
-
+      <a className="skip-link" href="#main-content">
+        {content.skipLink}
+      </a>
       <header className="site-header">
         <div className="shell-container header-inner">
           <a className="brand" href="#top" aria-label={content.brandLabel}>
             <span className="signal-dot" aria-hidden="true" />
-            <span>BEN.DAKO</span>
-            <span className="brand-suffix">/ SYSTEMS</span>
+            <span>BTD</span>
+            <span className="brand-suffix">/ PRODUCT &amp; TECHNOLOGY</span>
           </a>
-          <nav className="site-nav" aria-label={locale === 'he' ? 'ניווט ראשי' : 'Primary navigation'}>
-            <a href="#work">{content.nav.work}</a>
-            <a href="#about">{content.nav.about}</a>
-            <a href="#contact">{content.nav.contact}</a>
+          <nav
+            className="site-nav"
+            aria-label={locale === "he" ? "ניווט ראשי" : "Primary navigation"}
+          >
+            <a href="#what">{content.nav.what}</a>
+            <a href="#engines">{content.nav.engines}</a>
+            <a href="#process">{content.nav.process}</a>
           </nav>
           <div className="header-controls">
-            <button className="control-button language-button" type="button" onClick={() => setLocale(locale === 'he' ? 'en' : 'he')}>
+            <button
+              className="control-button"
+              type="button"
+              onClick={() => setLocale(locale === "he" ? "en" : "he")}
+            >
               <Languages aria-hidden="true" />
               <span>{content.controls.switchLanguage}</span>
             </button>
             <button
               className="control-button icon-button"
               type="button"
-              aria-label={theme === 'dark' ? content.controls.switchToLight : content.controls.switchToDark}
-              title={theme === 'dark' ? content.controls.switchToLight : content.controls.switchToDark}
-              onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+              aria-label={
+                theme === "dark" ? content.controls.switchToLight : content.controls.switchToDark
+              }
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             >
-              {theme === 'dark' ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}
+              {theme === "dark" ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}
             </button>
           </div>
         </div>
       </header>
-
       <main id="main-content">
         <section className="hero-section" id="top">
           <div className="shell-container hero-layout">
-            <div className="hero-copy">
-              <p className="eyebrow"><span className="signal-dot" aria-hidden="true" />{content.hero.eyebrow}</p>
-              <h1>{content.hero.title}<br /><span>{content.hero.accent}</span></h1>
+            <div>
+              <p className="eyebrow">
+                <span className="signal-dot" aria-hidden="true" />
+                {content.hero.eyebrow}
+              </p>
+              <h1>{content.hero.title}</h1>
               <p className="hero-description">{content.hero.description}</p>
               <div className="hero-actions">
-                <a className="button primary-button" href="#work">{content.hero.primaryCta}<ArrowDown aria-hidden="true" /></a>
-                <a className="button secondary-button" href="#contact">{content.hero.secondaryCta}</a>
+                <a className="button primary-button" href="#what">
+                  {content.hero.primaryCta}
+                </a>
+                <button
+                  ref={openerRef}
+                  className="button secondary-button"
+                  type="button"
+                  onClick={() => setReviewOpen(true)}
+                >
+                  {content.hero.secondaryCta}
+                </button>
               </div>
             </div>
-
-            <div className="console-panel" aria-label={content.hero.consoleLabel}>
-              <div className="console-bar">
-                <span>portfolio.systems / illustrative</span>
-                <span className="console-lights" aria-hidden="true"><i /><i /><i /></span>
-              </div>
-              <div className="console-content">
-                <p className="console-caption">{content.hero.consoleCaption}</p>
-                {content.hero.consoleRows.map((row, index) => (
-                  <div className="console-row" key={row.signal}>
-                    <span className="console-index">0{index + 1}</span>
-                    <span className="console-signal">{row.signal}</span>
-                    <span className="console-detail">{row.detail}</span>
-                    <span className="console-state">{row.state}</span>
-                  </div>
-                ))}
-              </div>
+            <div className="hero-mark" aria-hidden="true">
+              <span>BTD</span>
+              <i />
+              <i />
+              <i />
             </div>
           </div>
         </section>
-
-        <section className="content-section" aria-labelledby="capabilities-title">
-          <div className="shell-container">
-            <div id="capabilities-title">
-              <SectionHeading {...content.capabilitiesIntro} />
-            </div>
-            <div className="capabilities-grid">
-              {content.capabilities.map((capability) => (
-                <article className="capability-panel" data-capability-panel key={capability.capabilityId}>
-                  <span className="panel-index">{capability.index}</span>
-                  <h3>{capability.title}</h3>
-                  <p>{capability.description}</p>
-                  <div className="evidence-block">
-                    <span>{capability.evidenceLabel}</span>
-                    <p>{capability.evidence}</p>
-                  </div>
-                </article>
-              ))}
-            </div>
+        <section className="content-section" id="what" aria-labelledby="what-title">
+          <div className="shell-container prose-section">
+            <p className="eyebrow">{content.what.eyebrow}</p>
+            <h2 id="what-title">{content.what.title}</h2>
+            <p>{content.what.body}</p>
           </div>
         </section>
-
-        <section className="content-section work-section" id="work" aria-labelledby="work-title">
+        <section className="content-section" id="engines" aria-labelledby="engines-title">
           <div className="shell-container">
-            <div id="work-title"><SectionHeading {...content.workIntro} /></div>
-            <div className="work-grid">
-              {content.works.map((work) => (
-                <article className="work-card" data-work-card key={work.workId}>
-                  <div className="work-meta"><span>{work.index} / {work.category}</span><strong>{work.status}</strong></div>
-                  <h3>{work.title}</h3>
-                  <div className="work-narrative">
-                    <div><span>{content.workLabels.context}</span><p>{work.context}</p></div>
-                    <div><span>{content.workLabels.contribution}</span><p>{work.contribution}</p></div>
-                    <div><span>{content.workLabels.boundary}</span><p>{work.boundary}</p></div>
-                  </div>
-                  <SystemDiagram nodes={work.diagram} label={`${work.title} — ${content.workLabels.abstraction}`} />
-                  <ul className="tag-list" aria-label={locale === 'he' ? 'יכולות וטכנולוגיות' : 'Capabilities and technologies'}>
-                    {work.tags.map((tag) => <li key={tag}>{tag}</li>)}
+            <div className="section-heading">
+              <div>
+                <p className="eyebrow">{content.engines.eyebrow}</p>
+                <h2 id="engines-title">{content.engines.title}</h2>
+              </div>
+              <p className="section-description">{content.engines.body}</p>
+            </div>
+            <div className="engine-grid">
+              {content.engines.items.map((engine, index) => (
+                <article className="engine-card" data-engine-card key={engine.engineId}>
+                  <span className="panel-index">0{index + 1}</span>
+                  <h3>{engine.title}</h3>
+                  <p>{engine.description}</p>
+                  <ul>
+                    {engine.details.map((detail) => (
+                      <li key={detail}>{detail}</li>
+                    ))}
                   </ul>
                 </article>
               ))}
             </div>
           </div>
         </section>
-
-        <section className="content-section about-section" id="about" aria-labelledby="about-title">
-          <div className="shell-container about-layout">
-            <p className="eyebrow">{content.about.eyebrow}</p>
-            <div>
-              <h2 id="about-title">{content.about.title}</h2>
-              <p>{content.about.body}</p>
-            </div>
-          </div>
-        </section>
-
-        <section className="contact-section" id="contact" aria-labelledby="contact-title">
-          <div className="shell-container contact-inner">
-            <p className="eyebrow">{content.contact.eyebrow}</p>
-            <h2 id="contact-title">{content.contact.title}</h2>
-            <p>{content.contact.body}</p>
-            <div className="contact-actions">
-              <a className="button primary-button" href={contactLinks.email}><Mail aria-hidden="true" />{content.contact.emailCta}</a>
-              <a className="social-link" href={contactLinks.github} target="_blank" rel="noopener noreferrer"><Github aria-hidden="true" />{content.contact.githubLabel}<ArrowUpLeft aria-hidden="true" /></a>
-              <a className="social-link" href={contactLinks.linkedin} target="_blank" rel="noopener noreferrer"><Linkedin aria-hidden="true" />{content.contact.linkedinLabel}<ArrowUpLeft aria-hidden="true" /></a>
-            </div>
+        <section
+          className="content-section process-section"
+          id="process"
+          aria-labelledby="process-title"
+        >
+          <div className="shell-container">
+            <p className="eyebrow">{content.process.eyebrow}</p>
+            <h2 id="process-title">{content.process.title}</h2>
+            <p className="section-description">{content.process.body}</p>
+            <ol className="process-list">
+              {content.process.items.map((step, index) => (
+                <li data-process-step key={step.stepId}>
+                  <span>0{index + 1}</span>
+                  <div>
+                    <h3>{step.title}</h3>
+                    <p>{step.description}</p>
+                  </div>
+                </li>
+              ))}
+            </ol>
           </div>
         </section>
       </main>
-
       <footer className="site-footer">
         <div className="shell-container footer-inner">
-          <div><strong>{content.footer.identity}</strong><p>{content.footer.note}</p></div>
-          <div className="footer-links">
-            <a href={contactLinks.email}>EMAIL</a>
-            <a href={contactLinks.github} target="_blank" rel="noopener noreferrer">GITHUB</a>
-            <a href={contactLinks.linkedin} target="_blank" rel="noopener noreferrer">LINKEDIN</a>
-          </div>
-          <span>© {currentYear}</span>
+          <strong>{content.footer.identity}</strong>
+          <span>{content.footer.note}</span>
         </div>
       </footer>
+      {reviewOpen ? (
+        <div
+          className="modal-backdrop"
+          role="presentation"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) setReviewOpen(false);
+          }}
+        >
+          <div
+            ref={dialogRef}
+            className="review-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="review-title"
+            aria-describedby="review-description"
+          >
+            <button
+              className="modal-close"
+              type="button"
+              aria-label={content.review.close}
+              onClick={() => setReviewOpen(false)}
+            >
+              <X aria-hidden="true" />
+            </button>
+            <p className="eyebrow">{content.review.eyebrow}</p>
+            <h2 id="review-title">{content.review.title}</h2>
+            <p id="review-description">{content.review.body}</p>
+            <button
+              className="button primary-button"
+              type="button"
+              onClick={() => setReviewOpen(false)}
+            >
+              {content.review.cta}
+            </button>
+          </div>
+        </div>
+      ) : null}
     </div>
-  )
+  );
 }
