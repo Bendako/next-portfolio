@@ -42,6 +42,10 @@ yarn-error.log*
 # local agent plans and private desktop attachments
 /.hermes/
 
+# local design sketches and package store
+/sketches/
+/.pnpm-store/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
