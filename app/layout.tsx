@@ -3,33 +3,21 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/Theme-Provider";
 import { LocaleProvider } from "@/components/Locale-Provider";
 
-const siteTitle = "SYSTEMS / BTD | Hybrid Product Builder";
-const siteDescription = "בן דאקו — Hybrid Product Builder שמחבר חשיבה מוצרית, מערכות Full Stack ואוטומציית AI תחומה עם בקרה ואימות.";
-
+const siteTitle = "BTD / Product & Technology";
+const siteDescription =
+  "BTD builds and operates digital products and selected end-to-end systems.";
 const siteUrl = "https://next-portfolio-nine-chi.vercel.app";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: siteTitle,
   description: siteDescription,
-  keywords: [
-    "SYSTEMS / BTD",
-    "Ben Dako",
-    "Hybrid Product Builder",
-    "Full Stack",
-    "Next.js",
-    "React",
-    "AI agents",
-    "bounded automation",
-    "product engineering",
-  ],
-  authors: [{ name: "Ben Dako" }],
-  creator: "Ben Dako",
+  keywords: ["BTD", "product", "technology", "full stack", "automation", "AI", "operations"],
   openGraph: {
     title: siteTitle,
-    description: siteDescription,
+    description: "Digital products and selected end-to-end systems.",
     url: siteUrl,
-    siteName: "SYSTEMS / BTD",
+    siteName: "BTD",
     locale: "he_IL",
     alternateLocale: ["en_US"],
     type: "website",
@@ -45,24 +33,20 @@ export const metadata: Metadata = {
     googleBot: {
       index: true,
       follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
     },
   },
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="he" dir="rtl" suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var l=localStorage.getItem('portfolio-locale');if(l!=='he'&&l!=='en')l='he';document.documentElement.lang=l;var t=localStorage.getItem('theme');if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.classList.add(t)}catch(e){document.documentElement.lang='he'}})()`,
+            __html: `(function(){try{var l=localStorage.getItem('portfolio-locale');if(l!=='he'&&l!=='en')l='he';document.documentElement.lang=l;document.documentElement.dir=l==='he'?'rtl':'ltr';var t=localStorage.getItem('theme');if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.classList.add(t)}catch(e){document.documentElement.lang='he';document.documentElement.dir='rtl'}})()`,
           }}
         />
       </head>
