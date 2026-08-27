@@ -59,8 +59,10 @@ html[lang='en'] .hero-copy,
 html[lang='en'] .prose-section,
 html[lang='en'] .section-heading,
 html[lang='en'] .engine-card,
+html[lang='en'] .work-card,
 html[lang='en'] .process-list li,
-html[lang='en'] .review-modal,
+html[lang='en'] .founder-panel,
+html[lang='en'] .contact-panel,
 html[lang='en'] .footer-inner,
 html[lang='en'] .not-found-panel {
   direction: ltr;
@@ -208,6 +210,7 @@ p {
 }
 .button {
   display: inline-flex;
+  gap: 0.45rem;
   align-items: center;
   justify-content: center;
   min-height: 46px;
@@ -216,6 +219,9 @@ p {
   border-radius: 0.35rem;
   text-decoration: none;
   font-weight: 700;
+}
+.button svg {
+  width: 1rem;
 }
 .primary-button {
   color: hsl(var(--primary-foreground));
@@ -319,6 +325,102 @@ p {
   color: hsl(var(--primary));
   content: "↗";
 }
+.work-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+.work-card {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.3rem, 3vw, 2rem);
+  background: hsl(var(--surface) / 0.8);
+  border: 1px solid hsl(var(--border));
+}
+.work-tag {
+  align-self: start;
+  margin-bottom: 1.6rem;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid hsl(var(--border));
+  color: hsl(var(--primary));
+  font:
+    700 0.72rem ui-monospace,
+    monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.work-card h3 {
+  font-size: 1.2rem;
+}
+.work-card > p {
+  flex: 1;
+  margin-top: 0.8rem;
+  color: hsl(var(--muted));
+  font-size: 0.95rem;
+}
+.work-links {
+  display: flex;
+  gap: 1.1rem;
+  margin-top: 1.6rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid hsl(var(--border));
+}
+.work-links a {
+  display: inline-flex;
+  gap: 0.25rem;
+  align-items: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+.work-links a:hover {
+  color: hsl(var(--primary));
+}
+.work-links svg {
+  width: 0.9rem;
+  color: hsl(var(--primary));
+}
+.founder-panel {
+  max-width: 920px;
+}
+.founder-panel > p:not(.eyebrow) {
+  max-width: 760px;
+  margin-top: 1.5rem;
+  color: hsl(var(--muted));
+  font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+}
+.founder-links {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 2rem;
+}
+.founder-links svg {
+  color: hsl(var(--primary));
+}
+.contact-panel {
+  max-width: 720px;
+  text-align: center;
+}
+.contact-panel > p:not(.eyebrow) {
+  margin-top: 1.5rem;
+  color: hsl(var(--muted));
+  font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+}
+.contact-email {
+  margin-top: 1.6rem;
+  color: hsl(var(--accent));
+  font:
+    700 clamp(1.1rem, 2.5vw, 1.5rem) ui-monospace,
+    monospace;
+  letter-spacing: 0.02em;
+}
+.contact-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 1.6rem;
+}
 .process-section .section-description {
   margin-top: 1rem;
 }
@@ -371,46 +473,6 @@ p {
 .footer-inner span {
   color: hsl(var(--muted));
 }
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 50;
-  display: grid;
-  place-items: center;
-  padding: 1.25rem;
-  background: hsl(28 17% 7% / 0.72);
-}
-.review-modal {
-  position: relative;
-  width: min(540px, 100%);
-  padding: clamp(1.5rem, 5vw, 3rem);
-  color: hsl(var(--foreground));
-  background: hsl(var(--background));
-  border: 1px solid hsl(var(--border));
-  box-shadow: 0 20px 80px hsl(28 17% 7% / 0.35);
-}
-.review-modal h2 {
-  padding-inline-end: 2rem;
-  font-size: clamp(1.8rem, 5vw, 3rem);
-}
-.review-modal > p:not(.eyebrow) {
-  margin: 1.2rem 0 1.7rem;
-  color: hsl(var(--muted));
-}
-.modal-close {
-  position: absolute;
-  inset-block-start: 1rem;
-  inset-inline-end: 1rem;
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  background: transparent;
-  border: 1px solid hsl(var(--border));
-}
-.modal-close svg {
-  width: 1.1rem;
-}
 @media (max-width: 800px) {
   .header-inner {
     grid-template-columns: 1fr auto;
@@ -439,6 +501,9 @@ p {
   .section-description {
     margin-top: 1rem;
   }
+  .work-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
   .process-list {
     grid-template-columns: repeat(2, 1fr);
   }
@@ -451,6 +516,9 @@ p {
     display: none;
   }
   .engine-grid {
+    grid-template-columns: 1fr;
+  }
+  .work-grid {
     grid-template-columns: 1fr;
   }
   .process-list {

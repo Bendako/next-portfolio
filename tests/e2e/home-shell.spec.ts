@@ -63,22 +63,33 @@ test('persists language and theme preferences across reloads', async ({ page }) 
   await expect(page.locator('html')).toHaveClass(/light/)
 })
 
-test('opens and closes the internal review modal with keyboard support', async ({ page }) => {
+test('presents five live work items with working links', async ({ page }) => {
   await page.goto('/')
 
-  const opener = page.getByRole('button', { name: 'פתיחת סקירה פנימית' })
-  await opener.click()
+  await expect(page.locator('[data-work-card]')).toHaveCount(5)
+  await expect(page.locator('a[href="https://letter-blast.vercel.app/"]')).toBeVisible()
+  await expect(
+    page.locator('a[href="https://next-starter-mcp-landing-page.vercel.app/"]'),
+  ).toBeVisible()
+  await expect(
+    page.locator('a[href="https://github.com/Bendako/next-starter-script"]'),
+  ).toBeVisible()
+})
 
-  const dialog = page.getByRole('dialog')
-  await expect(dialog).toBeVisible()
-  await expect(dialog).toHaveAttribute('aria-modal', 'true')
-  await expect(dialog.getByRole('heading', { name: 'הסקירה מוכנה להתחלה' })).toBeVisible()
-  await expect(page.getByRole('button', { name: 'סגירת חלון הסקירה' })).toBeFocused()
+test('introduces the founder and offers a real contact path', async ({ page }) => {
+  await page.goto('/')
 
-  await page.keyboard.press('Escape')
-
-  await expect(dialog).toHaveCount(0)
-  await expect(opener).toBeFocused()
+  await expect(page.locator('#founder')).toContainText('בן דאקו')
+  await expect(
+    page.locator('#founder a[href="https://github.com/Bendako"]'),
+  ).toBeVisible()
+  await expect(
+    page.locator('#founder a[href="https://www.linkedin.com/in/bendako/"]'),
+  ).toBeVisible()
+  await expect(
+    page.locator('#contact a[href="mailto:bendk1994@gmail.com"]'),
+  ).toBeVisible()
+  await expect(page.locator('#contact')).toContainText('bendk1994@gmail.com')
 })
 
 test('serves a bilingual 404 that links back home without moving its controls', async ({ page }) => {
@@ -135,7 +146,7 @@ test('supports keyboard focus, anchors, reduced motion, and a clean console', as
   await expect(page.locator('#process')).toBeInViewport()
 
   const motionStyles = await page
-    .getByRole('link', { name: 'להכיר את BTD' })
+    .getByRole('link', { name: 'לראות מה בנינו' })
     .evaluate((element) => {
       const style = getComputedStyle(element)
       return {

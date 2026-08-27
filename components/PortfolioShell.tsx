@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Languages, Moon, Sun, X } from "lucide-react";
-import { portfolioContent } from "@/data/portfolio";
+import { ArrowUpRight, Check, Copy, Languages, Mail, Moon, Sun } from "lucide-react";
+import { founderLinks, portfolioContent } from "@/data/portfolio";
 import { useLocale } from "@/components/Locale-Provider";
 import { useTheme } from "@/components/Theme-Provider";
 
@@ -10,43 +10,26 @@ export default function PortfolioShell() {
   const { locale, setLocale } = useLocale();
   const { theme, setTheme } = useTheme();
   const content = portfolioContent[locale];
-  const [reviewOpen, setReviewOpen] = useState(false);
-  const openerRef = useRef<HTMLButtonElement>(null);
-  const dialogRef = useRef<HTMLDivElement>(null);
-  const wasOpenRef = useRef(false);
+  const [copied, setCopied] = useState(false);
+  const copyResetRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
-    if (!reviewOpen) {
-      if (wasOpenRef.current) openerRef.current?.focus();
-      wasOpenRef.current = false;
-      return;
-    }
-
-    wasOpenRef.current = true;
-    const dialog = dialogRef.current;
-    const focusable = dialog?.querySelectorAll<HTMLElement>(
-      'button, [href], [tabindex]:not([tabindex="-1"])',
-    );
-    focusable?.[0]?.focus();
-
-    const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setReviewOpen(false);
-      if (event.key !== "Tab" || !focusable?.length) return;
-
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
+    return () => {
+      if (copyResetRef.current) clearTimeout(copyResetRef.current);
     };
+  }, []);
 
-    document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
-  }, [reviewOpen]);
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(founderLinks.email);
+      setCopied(true);
+      if (copyResetRef.current) clearTimeout(copyResetRef.current);
+      copyResetRef.current = setTimeout(() => setCopied(false), 2500);
+    } catch {
+      // Clipboard access can be denied; the visible address keeps contact possible.
+    }
+  };
+
   return (
     <div className="site-shell">
       <a className="skip-link" href="#main-content">
@@ -65,7 +48,9 @@ export default function PortfolioShell() {
           >
             <a href="#what">{content.nav.what}</a>
             <a href="#engines">{content.nav.engines}</a>
+            <a href="#work">{content.nav.work}</a>
             <a href="#process">{content.nav.process}</a>
+            <a href="#contact">{content.nav.contact}</a>
           </nav>
           <div className="header-controls">
             <button
@@ -100,17 +85,12 @@ export default function PortfolioShell() {
               <h1>{content.hero.title}</h1>
               <p className="hero-description">{content.hero.description}</p>
               <div className="hero-actions">
-                <a className="button primary-button" href="#what">
+                <a className="button primary-button" href="#work">
                   {content.hero.primaryCta}
                 </a>
-                <button
-                  ref={openerRef}
-                  className="button secondary-button"
-                  type="button"
-                  onClick={() => setReviewOpen(true)}
-                >
+                <a className="button secondary-button" href="#contact">
                   {content.hero.secondaryCta}
-                </button>
+                </a>
               </div>
             </div>
             <div className="hero-mark" aria-hidden="true">
@@ -153,6 +133,38 @@ export default function PortfolioShell() {
             </div>
           </div>
         </section>
+        <section className="content-section" id="work" aria-labelledby="work-title">
+          <div className="shell-container">
+            <div className="section-heading">
+              <div>
+                <p className="eyebrow">{content.work.eyebrow}</p>
+                <h2 id="work-title">{content.work.title}</h2>
+              </div>
+              <p className="section-description">{content.work.body}</p>
+            </div>
+            <div className="work-grid">
+              {content.work.items.map((item) => (
+                <article className="work-card" data-work-card key={item.workId}>
+                  <span className="work-tag">{item.tag}</span>
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                  <div className="work-links">
+                    {item.liveUrl ? (
+                      <a href={item.liveUrl} target="_blank" rel="noreferrer">
+                        {content.work.liveLabel}
+                        <ArrowUpRight aria-hidden="true" />
+                      </a>
+                    ) : null}
+                    <a href={item.codeUrl} target="_blank" rel="noreferrer">
+                      {content.work.codeLabel}
+                      <ArrowUpRight aria-hidden="true" />
+                    </a>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
         <section
           className="content-section process-section"
           id="process"
@@ -175,6 +187,53 @@ export default function PortfolioShell() {
             </ol>
           </div>
         </section>
+        <section className="content-section" id="founder" aria-labelledby="founder-title">
+          <div className="shell-container founder-panel">
+            <p className="eyebrow">{content.founder.eyebrow}</p>
+            <h2 id="founder-title">{content.founder.title}</h2>
+            <p>{content.founder.body}</p>
+            <div className="founder-links">
+              <a
+                className="control-button"
+                href={founderLinks.github}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {content.founder.githubLabel}
+                <ArrowUpRight aria-hidden="true" />
+              </a>
+              <a
+                className="control-button"
+                href={founderLinks.linkedin}
+                target="_blank"
+                rel="noreferrer"
+              >
+                {content.founder.linkedinLabel}
+                <ArrowUpRight aria-hidden="true" />
+              </a>
+            </div>
+          </div>
+        </section>
+        <section className="content-section" id="contact" aria-labelledby="contact-title">
+          <div className="shell-container contact-panel">
+            <p className="eyebrow">{content.contact.eyebrow}</p>
+            <h2 id="contact-title">{content.contact.title}</h2>
+            <p>{content.contact.body}</p>
+            <p className="contact-email" dir="ltr">
+              {founderLinks.email}
+            </p>
+            <div className="contact-actions">
+              <a className="button primary-button" href={`mailto:${founderLinks.email}`}>
+                <Mail aria-hidden="true" />
+                {content.contact.emailCta}
+              </a>
+              <button className="button secondary-button" type="button" onClick={copyEmail}>
+                {copied ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}
+                {copied ? content.contact.copiedNote : content.contact.copyCta}
+              </button>
+            </div>
+          </div>
+        </section>
       </main>
       <footer className="site-footer">
         <div className="shell-container footer-inner">
@@ -182,43 +241,6 @@ export default function PortfolioShell() {
           <span>{content.footer.note}</span>
         </div>
       </footer>
-      {reviewOpen ? (
-        <div
-          className="modal-backdrop"
-          role="presentation"
-          onMouseDown={(event) => {
-            if (event.target === event.currentTarget) setReviewOpen(false);
-          }}
-        >
-          <div
-            ref={dialogRef}
-            className="review-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="review-title"
-            aria-describedby="review-description"
-          >
-            <button
-              className="modal-close"
-              type="button"
-              aria-label={content.review.close}
-              onClick={() => setReviewOpen(false)}
-            >
-              <X aria-hidden="true" />
-            </button>
-            <p className="eyebrow">{content.review.eyebrow}</p>
-            <h2 id="review-title">{content.review.title}</h2>
-            <p id="review-description">{content.review.body}</p>
-            <button
-              className="button primary-button"
-              type="button"
-              onClick={() => setReviewOpen(false)}
-            >
-              {content.review.cta}
-            </button>
-          </div>
-        </div>
-      ) : null}
     </div>
   );
 }
