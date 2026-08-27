@@ -92,7 +92,7 @@ export default function PortfolioShell() {
       <main id="main-content">
         <section className="hero-section" id="top">
           <div className="shell-container hero-layout">
-            <div>
+            <div className="hero-copy">
               <p className="eyebrow">
                 <span className="signal-dot" aria-hidden="true" />
                 {content.hero.eyebrow}

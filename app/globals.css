@@ -53,6 +53,18 @@ button {
   outline: 3px solid hsl(var(--accent));
   outline-offset: 4px;
 }
+/* Stable-RTL layout: the document keeps dir="rtl" in both languages so
+   nothing moves when the locale toggles; only text blocks flip direction. */
+html[lang='en'] .hero-copy,
+html[lang='en'] .prose-section,
+html[lang='en'] .section-heading,
+html[lang='en'] .engine-card,
+html[lang='en'] .process-list li,
+html[lang='en'] .review-modal,
+html[lang='en'] .footer-inner,
+html[lang='en'] .not-found-panel {
+  direction: ltr;
+}
 .site-shell {
   min-height: 100vh;
   background:
