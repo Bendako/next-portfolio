@@ -414,6 +414,7 @@ p {
 @media (max-width: 800px) {
   .header-inner {
     grid-template-columns: 1fr auto;
+    padding-top: 0.8rem;
   }
   .site-nav {
     grid-column: 1 / -1;
