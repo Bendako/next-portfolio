@@ -1,7 +1,15 @@
 import type { Metadata } from "next";
+import { Heebo } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/Theme-Provider";
 import { LocaleProvider } from "@/components/Locale-Provider";
+
+const heebo = Heebo({
+  subsets: ["hebrew", "latin"],
+  weight: ["400", "700", "900"],
+  display: "swap",
+  variable: "--font-heebo",
+});
 
 const siteTitle = "BTD / Product & Technology";
 const siteDescription =
@@ -53,7 +61,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="he" dir="rtl" suppressHydrationWarning>
+    <html lang="he" dir="rtl" className={heebo.variable} suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
