@@ -3,14 +3,40 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/Theme-Provider";
 import { LocaleProvider } from "@/components/Locale-Provider";
 
+const siteTitle = "BTD / Product & Technology";
+const siteDescription =
+  "BTD builds and operates digital products and selected end-to-end systems.";
+const siteUrl = "https://next-portfolio-nine-chi.vercel.app";
+
 export const metadata: Metadata = {
-  title: "BTD / Product & Technology",
-  description: "BTD builds and operates digital products and selected end-to-end systems.",
+  metadataBase: new URL(siteUrl),
+  title: siteTitle,
+  description: siteDescription,
   keywords: ["BTD", "product", "technology", "full stack", "automation", "AI", "operations"],
   openGraph: {
-    title: "BTD / Product & Technology",
+    title: siteTitle,
     description: "Digital products and selected end-to-end systems.",
+    url: siteUrl,
+    siteName: "BTD",
+    locale: "he_IL",
+    alternateLocale: ["en_US"],
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteTitle,
+    description: siteDescription,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
