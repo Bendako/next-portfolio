@@ -53,8 +53,9 @@ test("typed bilingual content has two engines and four process steps per locale"
   }
 });
 
-test("document defaults to Hebrew RTL and safely persists locale and theme", () => {
+test("document keeps a stable RTL layout and safely persists locale and theme", () => {
   const layout = read("app/layout.tsx");
+  const globals = read("app/globals.css");
   const localeProvider = read("components/Locale-Provider.tsx");
   const themeProvider = read("components/Theme-Provider.tsx");
 
@@ -65,7 +66,8 @@ test("document defaults to Hebrew RTL and safely persists locale and theme", () 
     localeProvider,
     /savedLocale === 'en' \|\| savedLocale === 'he'/,
   );
-  assert.match(localeProvider, /document\.documentElement\.dir/);
+  assert.doesNotMatch(localeProvider, /document\.documentElement\.dir/);
+  assert.match(globals, /html\[lang='en'\] \.hero-copy/);
   assert.match(
     themeProvider,
     /savedTheme === 'dark' \|\| savedTheme === 'light'/,

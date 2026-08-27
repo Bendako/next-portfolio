@@ -19,23 +19,33 @@ test('presents two engines and four process steps', async ({ page }) => {
   await expect(page.locator('#engines')).toContainText('מערכות end-to-end נבחרות')
 })
 
-test('mirrors the document direction when switching language', async ({ page }) => {
+test('switches language without moving the layout', async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 })
   await page.goto('/')
 
   await expect(page.locator('html')).toHaveAttribute('lang', 'he')
   await expect(page.locator('html')).toHaveAttribute('dir', 'rtl')
-  const rtlBrandX = (await page.locator('.brand').boundingBox())?.x
+
+  const stableSelectors = ['.brand', '.header-controls', '.hero-actions', '.hero-mark']
+  const xPositions = async () =>
+    Promise.all(
+      stableSelectors.map(async (selector) => (await page.locator(selector).boundingBox())?.x),
+    )
+  const hebrewPositions = await xPositions()
 
   await page.getByRole('button', { name: 'English' }).click()
 
   await expect(page.locator('html')).toHaveAttribute('lang', 'en')
-  await expect(page.locator('html')).toHaveAttribute('dir', 'ltr')
+  await expect(page.locator('html')).toHaveAttribute('dir', 'rtl')
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
     'We build digital products that work in the real world.',
   )
-  const ltrBrandX = (await page.locator('.brand').boundingBox())?.x
-  expect(ltrBrandX).not.toBe(rtlBrandX)
+  expect(
+    await page
+      .getByRole('heading', { level: 1 })
+      .evaluate((element) => getComputedStyle(element).direction),
+  ).toBe('ltr')
+  expect(await xPositions()).toEqual(hebrewPositions)
 })
 
 test('persists language and theme preferences across reloads', async ({ page }) => {
@@ -49,7 +59,7 @@ test('persists language and theme preferences across reloads', async ({ page }) 
   await page.reload()
 
   await expect(page.locator('html')).toHaveAttribute('lang', 'en')
-  await expect(page.locator('html')).toHaveAttribute('dir', 'ltr')
+  await expect(page.locator('html')).toHaveAttribute('dir', 'rtl')
   await expect(page.locator('html')).toHaveClass(/light/)
 })
 
@@ -71,16 +81,18 @@ test('opens and closes the internal review modal with keyboard support', async (
   await expect(opener).toBeFocused()
 })
 
-test('serves a bilingual 404 that links back home', async ({ page }) => {
+test('serves a bilingual 404 that links back home without moving its controls', async ({ page }) => {
   const response = await page.goto('/definitely-missing')
 
   expect(response?.status()).toBe(404)
   await expect(page.getByRole('heading', { name: 'העמוד הזה לא נמצא' })).toBeVisible()
+  const hebrewControlsX = (await page.locator('.not-found-controls').boundingBox())?.x
 
   await page.getByRole('button', { name: 'English' }).click()
 
   await expect(page.getByRole('heading', { name: 'This page could not be found' })).toBeVisible()
   await expect(page.getByRole('link', { name: 'Back to homepage' })).toHaveAttribute('href', '/')
+  expect((await page.locator('.not-found-controls').boundingBox())?.x).toBe(hebrewControlsX)
 })
 
 test('avoids horizontal overflow across the documented viewport matrix', async ({ page }) => {

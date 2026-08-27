@@ -41,14 +41,14 @@ export function LocaleProvider({ children }: { children: React.ReactNode }) {
     } catch {
       // The in-memory fallback keeps the control usable for this session.
     }
+    // The document keeps dir="rtl" so the layout stays stable; only text
+    // blocks flip direction via html[lang='en'] CSS rules.
     document.documentElement.lang = nextLocale
-    document.documentElement.dir = nextLocale === 'he' ? 'rtl' : 'ltr'
     window.dispatchEvent(new Event('locale-change'))
   }, [])
 
   useEffect(() => {
     document.documentElement.lang = locale
-    document.documentElement.dir = locale === 'he' ? 'rtl' : 'ltr'
   }, [locale])
 
   return <LocaleContext.Provider value={{ locale, setLocale }}>{children}</LocaleContext.Provider>
