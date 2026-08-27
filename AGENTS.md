@@ -1,13 +1,13 @@
 # AGENTS.md
 
 Short instructions for coding agents working in this repository.
-Human setup and product behavior live in `README.md` — prefer linking there over duplicating prose.
+Human setup lives in `README.md` — prefer linking there over duplicating prose.
 
 ## Project
 
-- Public portfolio for Ben Dako under the **SYSTEMS / BTD** identity.
-- Next.js 16 App Router, React 19, TypeScript, Tailwind CSS 4, hand-rolled shell CSS.
-- Hebrew-first content with a stable **RTL layout**; language toggle changes copy/`lang`/`dir="auto"` text, not page mirroring.
+- Public site for **BTD / Product & Technology**: owned digital products and selected end-to-end systems. The founder (Ben Dako) is visible, with work, founder, and contact sections.
+- Next.js 16 App Router, React 19, TypeScript, Tailwind CSS 4, hand-rolled shell CSS, Heebo via `next/font`.
+- Hebrew-first with a **stable RTL layout**: `<html dir="rtl">` stays RTL in both languages. The language toggle changes copy and `lang`; text blocks flip via `html[lang='en']` CSS. Do not mirror the page by switching `dir` to `ltr`.
 - Package manager: **pnpm only** (`packageManager` is pinned in `package.json`).
 
 ## Commands
@@ -39,8 +39,8 @@ Keep commits focused. Do not commit secrets (`.env*`, credentials, tokens).
 
 - Do not force-push to `main` or delete `main`.
 - Do not deploy to production or run production-only deploy commands unless the user explicitly asks.
-- Do not invent contact forms, fake demos, or broken live links; omit unavailable demos.
-- UI/branding changes must keep **SYSTEMS / BTD**, stable RTL shell, and bilingual content in `data/portfolio.ts` consistent.
+- Do not invent contact forms. Contact is mailto + copy-email; work items must keep real live/code URLs.
+- UI/branding changes must keep **BTD / Product & Technology**, stable RTL, Heebo body copy, and bilingual content in `data/portfolio.ts` consistent.
 - Do not add Hermes/Codex multi-agent skill trees or `.agents/skills` unless a ticket explicitly requests them (see closed #1; this file is the agent surface).
 
 ## Where things live
@@ -50,7 +50,7 @@ Keep commits focused. Do not commit secrets (`.env*`, credentials, tokens).
 | Page shell | `components/PortfolioShell.tsx` |
 | Copy (he/en) | `data/portfolio.ts` |
 | Styles | `app/globals.css` |
-| Metadata / OG | `app/layout.tsx`, `app/opengraph-image.tsx`, `app/twitter-image.tsx` |
+| Metadata / OG / robots | `app/layout.tsx`, `app/opengraph-image.tsx`, `app/twitter-image.tsx`, `app/robots.ts`, `app/sitemap.ts` |
 | Unit tests | `tests/*.test.mjs` |
 | E2E | `tests/e2e/`, `playwright.config.ts` |
 | CI | `.github/workflows/ci.yml` |
