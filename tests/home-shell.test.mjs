@@ -15,7 +15,7 @@ const appSource = () =>
     .map(read)
     .join("\n");
 
-test("home shell exposes the approved BTD-only structure", () => {
+test("home shell exposes the founder-led BTD structure", () => {
   const page = read("app/page.tsx");
   const shell = read("components/PortfolioShell.tsx");
   const content = read("data/portfolio.ts");
@@ -25,21 +25,21 @@ test("home shell exposes the approved BTD-only structure", () => {
   assert.equal((shell.match(/<footer\b/g) ?? []).length, 1);
   assert.match(shell, /id="what"/);
   assert.match(shell, /id="engines"/);
+  assert.match(shell, /id="work"/);
   assert.match(shell, /id="process"/);
+  assert.match(shell, /id="founder"/);
+  assert.match(shell, /id="contact"/);
   assert.match(shell, /data-engine-card/);
+  assert.match(shell, /data-work-card/);
   assert.match(shell, /data-process-step/);
-  assert.match(shell, /aria-modal="true"/);
-  assert.doesNotMatch(
-    shell,
-    /<form\b|<input\b|<textarea\b|mailto:|github\.com|linkedin\.com/,
-  );
+  assert.doesNotMatch(shell, /<form\b|<input\b|<textarea\b/);
   assert.match(content, /BTD \/ PRODUCT & TECHNOLOGY/);
   assert.match(content, /מוצרים בבעלות BTD/);
   assert.match(content, /מערכות end-to-end נבחרות/);
   assert.match(content, /בונים מוצרים דיגיטליים שעובדים בעולם האמיתי\./);
 });
 
-test("typed bilingual content has two engines and four process steps per locale", () => {
+test("typed bilingual content has two engines, five work items, and four process steps per locale", () => {
   const content = read("data/portfolio.ts");
   assert.match(content, /satisfies Record<Locale, PortfolioContent>/);
 
@@ -49,6 +49,7 @@ test("typed bilingual content has two engines and four process steps per locale"
       ?.split(locale === "he" ? "\n  en: {" : "\n} satisfies")[0];
     assert.ok(localeBlock, `missing ${locale} locale`);
     assert.equal((localeBlock.match(/engineId:/g) ?? []).length, 2);
+    assert.equal((localeBlock.match(/workId:/g) ?? []).length, 5);
     assert.equal((localeBlock.match(/stepId:/g) ?? []).length, 4);
   }
 });
@@ -74,9 +75,18 @@ test("document keeps a stable RTL layout and safely persists locale and theme", 
   );
 });
 
-test("app-facing source contains no person-led or evidence-led legacy positioning", () => {
+test("founder identity and contact path are present without legacy positioning", () => {
+  const content = read("data/portfolio.ts");
+  const shell = read("components/PortfolioShell.tsx");
+
+  assert.match(content, /בן דאקו/);
+  assert.match(content, /Ben Dako/);
+  assert.match(content, /bendk1994@gmail\.com/);
+  assert.match(content, /github\.com\/Bendako/);
+  assert.match(content, /linkedin\.com\/in\/bendako/);
+  assert.match(shell, /mailto:\$\{founderLinks\.email\}/);
   assert.doesNotMatch(
     appSource(),
-    /Ben Dako|BEN\.DAKO|בן\s*(?:דקו|דאקו)|\bBD\b|Hybrid Product Builder|נווה בשדרה|AI-agent\/SBEA|LinkedIn|GitHub|mailto:|founder/i,
+    /Hybrid Product Builder|SYSTEMS \/ BTD|נווה בשדרה|AI-agent\/SBEA/i,
   );
 });
