@@ -1,283 +1,388 @@
-export type Locale = 'he' | 'en'
+export type Locale = "he" | "en";
 
+type Engine = {
+  engineId: "owned" | "selected";
+  title: string;
+  description: string;
+  details: string[];
+};
+type ProcessStep = {
+  stepId: "understand" | "sharpen" | "build" | "operate";
+  title: string;
+  description: string;
+};
+type WorkItem = {
+  workId: "starter-cli" | "mcp-landing" | "letter-blast" | "quiz-app" | "expense-tracker";
+  title: string;
+  tag: string;
+  description: string;
+  liveUrl?: string;
+  codeUrl: string;
+};
 export type PortfolioContent = {
-  skipLink: string
-  brandLabel: string
-  nav: { work: string; about: string; contact: string }
-  controls: {
-    switchLanguage: string
-    switchToDark: string
-    switchToLight: string
-  }
+  skipLink: string;
+  brandLabel: string;
+  nav: { what: string; engines: string; work: string; process: string; contact: string };
+  controls: { switchLanguage: string; switchToDark: string; switchToLight: string };
   hero: {
-    eyebrow: string
-    title: string
-    accent: string
-    description: string
-    primaryCta: string
-    secondaryCta: string
-    consoleLabel: string
-    consoleCaption: string
-    consoleRows: Array<{ signal: string; detail: string; state: string }>
-  }
-  capabilitiesIntro: { eyebrow: string; title: string; description: string }
-  capabilities: Array<{
-    capabilityId: 'product' | 'systems' | 'agents'
-    index: string
-    title: string
-    description: string
-    evidenceLabel: string
-    evidence: string
-  }>
-  workIntro: { eyebrow: string; title: string; description: string }
-  workLabels: { context: string; contribution: string; boundary: string; abstraction: string }
-  works: Array<{
-    workId: 'store' | 'agents'
-    index: string
-    category: string
-    status: string
-    title: string
-    context: string
-    contribution: string
-    boundary: string
-    tags: string[]
-    diagram: string[]
-  }>
-  publicWorkIntro: { eyebrow: string; title: string; description: string }
-  publicWorkLabels: { source: string; live: string }
-  publicWorks: Array<{
-    publicWorkId: 'starter' | 'jobs' | 'letterblast'
-    index: string
-    category: string
-    status: string
-    title: string
-    description: string
-    tags: string[]
-    sourceUrl: string
-    liveUrl?: string
-  }>
-  about: { eyebrow: string; title: string; body: string }
+    eyebrow: string;
+    title: string;
+    description: string;
+    primaryCta: string;
+    secondaryCta: string;
+  };
+  what: { eyebrow: string; title: string; body: string };
+  engines: { eyebrow: string; title: string; body: string; items: Engine[] };
+  work: {
+    eyebrow: string;
+    title: string;
+    body: string;
+    liveLabel: string;
+    codeLabel: string;
+    items: WorkItem[];
+  };
+  process: { eyebrow: string; title: string; body: string; items: ProcessStep[] };
+  founder: {
+    eyebrow: string;
+    title: string;
+    body: string;
+    githubLabel: string;
+    linkedinLabel: string;
+  };
   contact: {
-    eyebrow: string
-    title: string
-    body: string
-    emailCta: string
-    githubLabel: string
-    linkedinLabel: string
-  }
-  footer: { identity: string; note: string }
-  notFound: { eyebrow: string; title: string; body: string; homeCta: string }
-}
+    eyebrow: string;
+    title: string;
+    body: string;
+    emailCta: string;
+    copyCta: string;
+    copiedNote: string;
+  };
+  footer: { identity: string; note: string };
+  notFound: { eyebrow: string; title: string; body: string; homeCta: string };
+};
 
-export const contactLinks = {
-  email: 'mailto:bendk1994@gmail.com',
-  github: 'https://github.com/Bendako',
-  linkedin: 'https://www.linkedin.com/in/bendako/',
-} as const
+export const founderLinks = {
+  email: "bendk1994@gmail.com",
+  github: "https://github.com/Bendako",
+  linkedin: "https://www.linkedin.com/in/bendako/",
+} as const;
 
 export const portfolioContent = {
   he: {
-    skipLink: 'דילוג לתוכן הראשי',
-    brandLabel: 'SYSTEMS / BTD — דף הבית',
-    nav: { work: 'עבודות', about: 'אודות', contact: 'יצירת קשר' },
+    skipLink: "דילוג לתוכן הראשי",
+    brandLabel: "BTD — דף הבית",
+    nav: {
+      what: "מה BTD עושה?",
+      engines: "שני מסלולים",
+      work: "עבודות",
+      process: "איך עובדים",
+      contact: "קשר",
+    },
     controls: {
-      switchLanguage: 'English',
-      switchToDark: 'מעבר לערכת נושא כהה',
-      switchToLight: 'מעבר לערכת נושא בהירה',
+      switchLanguage: "English",
+      switchToDark: "מעבר לערכת נושא כהה",
+      switchToLight: "מעבר לערכת נושא בהירה",
     },
     hero: {
-      eyebrow: 'PRODUCT / ENGINEERING / BOUNDED AI',
-      title: 'בונה מוצרים שמחברים',
-      accent: 'שיקול דעת וקוד.',
-      description: 'אני Hybrid Product Builder: מתרגם צרכי משתמשים למוצר, למערכת Full Stack ולתהליכי AI ואוטומציה עם גבולות, בקרה ואימות.',
-      primaryCta: 'לצפייה בעבודות',
-      secondaryCta: 'בואו נדבר',
-      consoleLabel: 'תצוגת מערכת להמחשה בלבד',
-      consoleCaption: 'דוגמה סינתטית — ללא נתונים תפעוליים אמיתיים',
-      consoleRows: [
-        { signal: 'DISCOVER', detail: 'צורך → גבולות מוצר', state: 'READY' },
-        { signal: 'BUILD', detail: 'ממשק ↔ מערכת ↔ תפעול', state: 'VERIFIED' },
-        { signal: 'AUTOMATE', detail: 'מדיניות → פעולה', state: 'HUMAN GATE' },
+      eyebrow: "OWNED PRODUCTS / SELECTED SYSTEMS",
+      title: "בונים מוצרים דיגיטליים שעובדים בעולם האמיתי.",
+      description:
+        "BTD היא סטודיו למוצר וטכנולוגיה בהובלת מייסד: שיקול דעת מוצרי, ביצוע Full Stack, אוטומציה ו־AI בגבולות ברורים — ותפעול שממשיך גם אחרי ההשקה.",
+      primaryCta: "לראות מה בנינו",
+      secondaryCta: "בואו נדבר",
+    },
+    what: {
+      eyebrow: "01 / WHAT BTD DOES",
+      title: "מה BTD עושה?",
+      body: "BTD בונה ומפעילה מוצרים דיגיטליים בבעלותה, ובמקביל בונה מערכות end-to-end נבחרות עבור צרכים ברורים. בשני המסלולים אנחנו מחברים החלטות מוצר, ביצוע Full Stack, אוטומציה ו־AI בגבולות ברורים, ותפעול שאפשר להמשיך לשפר.",
+    },
+    engines: {
+      eyebrow: "02 / TWO ENGINES",
+      title: "שני מסלולים משלימים",
+      body: "אותה דרך עבודה, בשני הקשרים: בעלות ארוכת טווח על מוצר, או בנייה ממוקדת של מערכת נבחרת.",
+      items: [
+        {
+          engineId: "owned",
+          title: "מוצרים בבעלות BTD",
+          description: "BTD מזהה בעיות, מחדדת הזדמנויות, בונה מוצרים ומפעילה אותם לאורך זמן.",
+          details: ["בחירת בעיה והגדרת מוצר", "בנייה, מדידה ותפעול", "שיפור רציף לפי שימוש ולמידה"],
+        },
+        {
+          engineId: "selected",
+          title: "מערכות end-to-end נבחרות",
+          description:
+            "BTD עובדת עם שותפים נבחרים על מערכות שדורשות חיבור בין מוצר, טכנולוגיה ותפעול.",
+          details: [
+            "הבנת הבעיה והמשתמשים",
+            "מערכת מלאה ולא רק שכבת ממשק",
+            "גבולות ברורים למסירה ולהמשך",
+          ],
+        },
       ],
     },
-    capabilitiesIntro: {
-      eyebrow: '01 / CAPABILITIES',
-      title: 'שלוש שכבות, בעלות אחת',
-      description: 'לא רשימת טכנולוגיות, אלא דרך עבודה שמחברת החלטות מוצר, ביצוע הנדסי ותפעול אחראי.',
+    work: {
+      eyebrow: "03 / SELECTED WORK",
+      title: "מבחר מהעבודות",
+      body: "מוצרים וכלים שבנינו ואנחנו מפעילים — חיים, זמינים, ואפשר לנסות אותם עכשיו.",
+      liveLabel: "גרסה חיה",
+      codeLabel: "קוד",
+      items: [
+        {
+          workId: "starter-cli",
+          title: "Next.js Starter CLI",
+          tag: "כלי פיתוח",
+          description:
+            "כלי שורת פקודה שמקים פרויקט Next.js מוכן לעבודה — תבניות, תצורה ותקנים — בפקודה אחת.",
+          codeUrl: "https://github.com/Bendako/next-starter-script",
+        },
+        {
+          workId: "mcp-landing",
+          title: "Next Starter MCP",
+          tag: "דף מוצר",
+          description: "דף נחיתה חי לשרת ה־MCP של ה־Starter — מהרעיון ועד production.",
+          liveUrl: "https://next-starter-mcp-landing-page.vercel.app/",
+          codeUrl: "https://github.com/Bendako/next-starter-mcp-landing-page",
+        },
+        {
+          workId: "letter-blast",
+          title: "LetterBlast",
+          tag: "משחק",
+          description: "משחק דפדפן מהיר לתרגול הקלדה — נבנה, שוחרר, ופועל.",
+          liveUrl: "https://letter-blast.vercel.app/",
+          codeUrl: "https://github.com/Bendako/LetterBlast",
+        },
+        {
+          workId: "quiz-app",
+          title: "React Quiz App",
+          tag: "אפליקציה",
+          description: "אפליקציית טריוויה עם ניקוד, התקדמות ומשוב מיידי.",
+          liveUrl: "https://react-quiz-app-iota.vercel.app/",
+          codeUrl: "https://github.com/Bendako/react-quiz-app",
+        },
+        {
+          workId: "expense-tracker",
+          title: "Expense Tracker",
+          tag: "אפליקציה",
+          description: "מעקב הוצאות פשוט ומהיר לניהול תקציב יומיומי.",
+          liveUrl: "https://expense-tracker-app-react.vercel.app/",
+          codeUrl: "https://github.com/Bendako/Expense-Tracker-App",
+        },
+      ],
     },
-    capabilities: [
-      {
-        capabilityId: 'product', index: '01', title: 'חשיבה מוצרית ובעלות',
-        description: 'מחדד בעיה, קהל, זרימה וגבולות לפני שמרחיב את הפתרון.',
-        evidenceLabel: 'EVIDENCE', evidence: 'בנווה בשדרה, חוויית הקנייה ב־RTL ותהליכי ההזמנות והמלאי נבנים כמוצר ותפעול אחד.',
-      },
-      {
-        capabilityId: 'systems', index: '02', title: 'מערכות Full Stack ותפעול',
-        description: 'מחבר ממשק, הרשאות, נתונים וכלי ניהול לזרימה שאפשר להפעיל ולבדוק.',
-        evidenceLabel: 'EVIDENCE', evidence: 'נווה בשדרה כולל checkout, הרשאות, הזמנות, מלאי ותפעול מנהלים בסביבת staging פעילה.',
-      },
-      {
-        capabilityId: 'agents', index: '03', title: 'סוכני AI ואוטומציה תחומה',
-        description: 'מתכנן אוטומציה עם state מתמשך, policies, שערים אנושיים ואימות עצמאי.',
-        evidenceLabel: 'EVIDENCE', evidence: 'מערכת ה־AI-agent/SBEA הפנימית מפרידה בין תזמון, החלטה, פעולה ובקרת QA.',
-      },
-    ],
-    workIntro: {
-      eyebrow: '02 / FEATURED WORK', title: 'מערכות נבחרות',
-      description: 'שתי דוגמאות ציבוריות ובטוחות שמציגות את ההקשר, תחום האחריות והגבולות — בלי נתונים פרטיים או טענות תוצאה לא מאומתות.',
+    process: {
+      eyebrow: "04 / PROCESS",
+      title: "מהבעיה למערכת פעילה",
+      body: "תהליך מעשי שמתקדם בשלבים ברורים, עם החלטות, גבולות ובקרה לאורך הדרך.",
+      items: [
+        {
+          stepId: "understand",
+          title: "מבינים את הבעיה",
+          description: "ממפים צורך, משתמשים, הקשר ואילוצים לפני שמציעים פתרון.",
+        },
+        {
+          stepId: "sharpen",
+          title: "מחדדים את המוצר",
+          description: "מגדירים מה בונים, למי, מה לא בונים ואיך נדע שהכיוון נכון.",
+        },
+        {
+          stepId: "build",
+          title: "בונים ומחברים",
+          description:
+            "מממשים מוצר ומערכת Full Stack, ומשלבים אוטומציה ו־AI רק היכן שהם משרתים את המטרה.",
+        },
+        {
+          stepId: "operate",
+          title: "מפעילים ומשפרים",
+          description: "מעלים לתפעול, בודקים את המציאות, ומשפרים את המוצר והמערכת באופן רציף.",
+        },
+      ],
     },
-    workLabels: { context: 'ההקשר', contribution: 'תחום האחריות', boundary: 'סטטוס וגבול', abstraction: 'המחשת ארכיטקטורה' },
-    works: [
-      {
-        workId: 'store', index: '01', category: 'COMMERCE + OPERATIONS', status: 'ACTIVE STAGING / PRE-LAUNCH', title: 'נווה בשדרה',
-        context: 'מוצר מסחר ותפעול לחנות מקומית, עם קנייה ב־RTL וזרימות checkout, הזמנות ומלאי.',
-        contribution: 'תכנון ובנייה של חוויית הלקוח, הרשאות, תהליכי ההזמנות וכלי התפעול למנהלים.',
-        boundary: 'סביבת staging פעילה לפני השקה. המוצר אינו מוצג כאן כ־live או production.',
-        tags: ['Next.js', 'Commerce', 'Permissions', 'Operations'], diagram: ['SHOP', 'CHECKOUT', 'ORDERS', 'INVENTORY', 'ADMIN'],
-      },
-      {
-        workId: 'agents', index: '02', category: 'AI-AGENT ORCHESTRATION', status: 'INTERNAL / ILLUSTRATIVE', title: 'AI-agent/SBEA',
-        context: 'מערכת הפעלה פנימית מרובת סוכנים עם state מתמשך, תזמון ומדיניות פעולה.',
-        contribution: 'הגדרת גבולות פעולה, שערים אנושיים, תיאום בין תפקידים ואימות עצמאי לאחר ביצוע.',
-        boundary: 'מערכת פנימית. התרשים והתיאורים כאן סינתטיים ואינם חושפים רשומות, מזהים או נתונים פרטיים.',
-        tags: ['Agents', 'Durable state', 'Policies', 'Independent QA'], diagram: ['TRIGGER', 'ROUTER', 'POLICY', 'ACTION', 'QA', 'HUMAN GATE'],
-      },
-    ],
-    publicWorkIntro: {
-      eyebrow: '03 / PUBLIC PROOF', title: 'קוד ומוצרים שאפשר לפתוח',
-      description: 'שלוש הוכחות ציבוריות שמרחיבות את התמונה: כלי פיתוח, מערכת Full Stack וחוויית למידה אינטראקטיבית.',
-    },
-    publicWorkLabels: { source: 'לקוד', live: 'למוצר החי' },
-    publicWorks: [
-      {
-        publicWorkId: 'starter', index: '01', category: 'DEVELOPER TOOLING + MCP', status: 'OPEN SOURCE + LIVE', title: 'Next.js Starter MCP',
-        description: 'כלי שמאחד אוטומציית setup ל־Next.js עם TypeScript, Tailwind, Convex ו־Clerk, לצד אתר מוצר ציבורי.',
-        tags: ['Next.js', 'Automation', 'MCP', 'Developer Experience'],
-        sourceUrl: 'https://github.com/Bendako/next-starter-script', liveUrl: 'https://next-starter-mcp-landing-page.vercel.app/',
-      },
-      {
-        publicWorkId: 'jobs', index: '02', category: 'FULL-STACK PRODUCT', status: 'PUBLIC REPOSITORY', title: 'Jobs Center',
-        description: 'מערכת לניהול חיפוש עבודה, מועמדויות וראיונות. הקוד נשאר ציבורי; קישור הדמו הושמט עד שיחזור לפעילות.',
-        tags: ['Next.js', 'TypeScript', 'Prisma', 'Product Workflow'],
-        sourceUrl: 'https://github.com/Bendako/jobs-center',
-      },
-      {
-        publicWorkId: 'letterblast', index: '03', category: 'INTERACTIVE LEARNING', status: 'OPEN SOURCE + LIVE', title: 'LetterBlast',
-        description: 'משחק לימוד אנגלית שהופך תרגול מילים לחוויה תלת־ממדית אינטראקטיבית בדפדפן.',
-        tags: ['Next.js', 'TypeScript', 'Three.js', 'Interaction Design'],
-        sourceUrl: 'https://github.com/Bendako/LetterBlast', liveUrl: 'https://letter-blast.vercel.app/',
-      },
-    ],
-    about: {
-      eyebrow: '04 / ABOUT', title: 'בין החלטת מוצר לביצוע אחראי',
-      body: 'אני אוהב לעבוד במקום שבו צריך להבין את האדם שמאחורי הבקשה, לקבל החלטות מוצר מדויקות, ולבנות את המערכת שמגשימה אותן. מבחינתי AI הוא שכבת יכולת — לא תחליף לאחריות, לבדיקות או לשיקול דעת אנושי.',
+    founder: {
+      eyebrow: "05 / WHO IS BEHIND BTD",
+      title: "מי מאחורי BTD",
+      body: "BTD מובלת על ידי בן דאקו — בונה מוצרים Full Stack שמחבר בין הבנת הבעיה, החלטות מוצר, קוד ותפעול. כל פרויקט, בבעלות מלאה או עבור שותף, מקבל את אותה רמת אחריות: להבין, לבנות, להפעיל ולשפר.",
+      githubLabel: "GitHub",
+      linkedinLabel: "LinkedIn",
     },
     contact: {
-      eyebrow: '05 / CONTACT', title: 'יש מוצר, מערכת או תהליך שכדאי לבנות נכון?',
-      body: 'אפשר לפנות ישירות במייל לגבי תפקידי פיתוח ומוצר, בניית מערכות או שיתוף פעולה. אין כאן טופס מדומה — רק ערוצי קשר אמיתיים.',
-      emailCta: 'שליחת מייל', githubLabel: 'פרופיל GitHub', linkedinLabel: 'פרופיל LinkedIn',
+      eyebrow: "06 / CONTACT",
+      title: "בואו נדבר",
+      body: "יש בעיה ששווה לפתור, מוצר שצריך להיבנות, או מערכת שדורשת חיבור מקצה לקצה? נשמח לשמוע.",
+      emailCta: "שליחת אימייל",
+      copyCta: "העתקת הכתובת",
+      copiedNote: "הכתובת הועתקה",
     },
-    footer: { identity: 'SYSTEMS / BTD — HYBRID PRODUCT BUILDER', note: 'מוצר, Full Stack ו־AI תחום — עם בקרה ואימות.' },
-    notFound: { eyebrow: '404 / NOT FOUND', title: 'העמוד הזה לא נמצא', body: 'הכתובת אינה קיימת או שהעמוד הועבר. אפשר לחזור לדף הבית ולהמשיך משם.', homeCta: 'חזרה לדף הבית' },
+    footer: {
+      identity: "BTD / PRODUCT & TECHNOLOGY",
+      note: "מוצרים בבעלות. מערכות נבחרות. ביצוע ותפעול אחראיים.",
+    },
+    notFound: {
+      eyebrow: "404 / NOT FOUND",
+      title: "העמוד הזה לא נמצא",
+      body: "הכתובת אינה קיימת. אפשר לחזור לדף הבית ולהמשיך משם.",
+      homeCta: "חזרה לדף הבית",
+    },
   },
   en: {
-    skipLink: 'Skip to main content',
-    brandLabel: 'SYSTEMS / BTD — homepage',
-    nav: { work: 'Work', about: 'About', contact: 'Contact' },
+    skipLink: "Skip to main content",
+    brandLabel: "BTD — homepage",
+    nav: {
+      what: "What BTD does",
+      engines: "Two engines",
+      work: "Work",
+      process: "How we work",
+      contact: "Contact",
+    },
     controls: {
-      switchLanguage: 'עברית',
-      switchToDark: 'Switch to dark theme',
-      switchToLight: 'Switch to light theme',
+      switchLanguage: "עברית",
+      switchToDark: "Switch to dark theme",
+      switchToLight: "Switch to light theme",
     },
     hero: {
-      eyebrow: 'PRODUCT / ENGINEERING / BOUNDED AI',
-      title: 'I build products that connect', accent: 'judgment and code.',
-      description: 'I am a Hybrid Product Builder: translating user needs into products, full-stack systems, and bounded AI and automation with control and verification.',
-      primaryCta: 'View selected work', secondaryCta: 'Let’s talk',
-      consoleLabel: 'Illustrative system view', consoleCaption: 'Synthetic example — no real operational data',
-      consoleRows: [
-        { signal: 'DISCOVER', detail: 'need → product boundaries', state: 'READY' },
-        { signal: 'BUILD', detail: 'interface ↔ system ↔ operations', state: 'VERIFIED' },
-        { signal: 'AUTOMATE', detail: 'policy → action', state: 'HUMAN GATE' },
+      eyebrow: "OWNED PRODUCTS / SELECTED SYSTEMS",
+      title: "We build digital products that work in the real world.",
+      description:
+        "BTD is a founder-led product and technology studio: product judgment, full-stack delivery, automation and AI within clear boundaries — and operations that continue after launch.",
+      primaryCta: "See what we built",
+      secondaryCta: "Let's talk",
+    },
+    what: {
+      eyebrow: "01 / WHAT BTD DOES",
+      title: "What does BTD do?",
+      body: "BTD builds and operates owned digital products, while also building selected end-to-end systems for clear needs. In both tracks, we connect product decisions, full-stack delivery, automation and AI within clear boundaries, and operations that can keep improving.",
+    },
+    engines: {
+      eyebrow: "02 / TWO ENGINES",
+      title: "Two complementary tracks",
+      body: "One way of working in two contexts: long-term ownership of a product, or focused delivery of a selected system.",
+      items: [
+        {
+          engineId: "owned",
+          title: "BTD-owned products",
+          description:
+            "BTD identifies problems, sharpens opportunities, builds products, and operates them over time.",
+          details: [
+            "Select a problem and define the product",
+            "Build, measure, and operate",
+            "Continuously improve through use and learning",
+          ],
+        },
+        {
+          engineId: "selected",
+          title: "Selected end-to-end systems",
+          description:
+            "BTD works with selected partners on systems that require product, technology, and operations to connect.",
+          details: [
+            "Understand the problem and users",
+            "Build the full system, not just the interface",
+            "Set clear boundaries for handoff and continuation",
+          ],
+        },
       ],
     },
-    capabilitiesIntro: {
-      eyebrow: '01 / CAPABILITIES', title: 'Three layers, one owner',
-      description: 'Not a technology list, but a way of working that connects product decisions, engineering delivery, and responsible operations.',
+    work: {
+      eyebrow: "03 / SELECTED WORK",
+      title: "Selected work",
+      body: "Products and tools we built and operate — live, available, and ready to try right now.",
+      liveLabel: "Live",
+      codeLabel: "Code",
+      items: [
+        {
+          workId: "starter-cli",
+          title: "Next.js Starter CLI",
+          tag: "Dev tool",
+          description:
+            "A command-line tool that scaffolds a production-ready Next.js project — templates, configuration, and conventions — in one command.",
+          codeUrl: "https://github.com/Bendako/next-starter-script",
+        },
+        {
+          workId: "mcp-landing",
+          title: "Next Starter MCP",
+          tag: "Product page",
+          description: "A live landing page for the Starter's MCP server — from idea to production.",
+          liveUrl: "https://next-starter-mcp-landing-page.vercel.app/",
+          codeUrl: "https://github.com/Bendako/next-starter-mcp-landing-page",
+        },
+        {
+          workId: "letter-blast",
+          title: "LetterBlast",
+          tag: "Game",
+          description: "A fast browser game for typing practice — built, shipped, and running.",
+          liveUrl: "https://letter-blast.vercel.app/",
+          codeUrl: "https://github.com/Bendako/LetterBlast",
+        },
+        {
+          workId: "quiz-app",
+          title: "React Quiz App",
+          tag: "App",
+          description: "A trivia app with scoring, progress, and instant feedback.",
+          liveUrl: "https://react-quiz-app-iota.vercel.app/",
+          codeUrl: "https://github.com/Bendako/react-quiz-app",
+        },
+        {
+          workId: "expense-tracker",
+          title: "Expense Tracker",
+          tag: "App",
+          description: "A simple, fast expense tracker for everyday budgeting.",
+          liveUrl: "https://expense-tracker-app-react.vercel.app/",
+          codeUrl: "https://github.com/Bendako/Expense-Tracker-App",
+        },
+      ],
     },
-    capabilities: [
-      {
-        capabilityId: 'product', index: '01', title: 'Product thinking and ownership',
-        description: 'Clarifying the problem, audience, flow, and boundaries before expanding the solution.',
-        evidenceLabel: 'EVIDENCE', evidence: 'For Neve Basdera, the RTL shopping experience and order and inventory flows are shaped as one product and operations system.',
-      },
-      {
-        capabilityId: 'systems', index: '02', title: 'Full-stack systems and operations',
-        description: 'Connecting interface, permissions, data, and admin tools into an operable, verifiable flow.',
-        evidenceLabel: 'EVIDENCE', evidence: 'Neve Basdera includes checkout, permissions, orders, inventory, and admin operations in active staging.',
-      },
-      {
-        capabilityId: 'agents', index: '03', title: 'AI agents and bounded automation',
-        description: 'Designing automation with durable state, policies, human gates, and independent verification.',
-        evidenceLabel: 'EVIDENCE', evidence: 'The internal AI-agent/SBEA system separates scheduling, decisions, actions, and independent QA.',
-      },
-    ],
-    workIntro: {
-      eyebrow: '02 / FEATURED WORK', title: 'Selected systems',
-      description: 'Two public-safe examples showing context, ownership, and boundaries — without private data or unverified outcome claims.',
+    process: {
+      eyebrow: "04 / PROCESS",
+      title: "From problem to active system",
+      body: "A practical process that moves through clear stages, with decisions, boundaries, and control throughout.",
+      items: [
+        {
+          stepId: "understand",
+          title: "Understand the problem",
+          description: "Map the need, users, context, and constraints before proposing a solution.",
+        },
+        {
+          stepId: "sharpen",
+          title: "Sharpen the product",
+          description:
+            "Define what to build, for whom, what not to build, and how to know the direction is right.",
+        },
+        {
+          stepId: "build",
+          title: "Build and connect",
+          description:
+            "Deliver the product and full-stack system, adding automation and AI only where they serve the goal.",
+        },
+        {
+          stepId: "operate",
+          title: "Operate and improve",
+          description:
+            "Put it into operation, check reality, and continuously improve the product and system.",
+        },
+      ],
     },
-    workLabels: { context: 'Context', contribution: 'Contribution', boundary: 'Status and boundary', abstraction: 'Architecture abstraction' },
-    works: [
-      {
-        workId: 'store', index: '01', category: 'COMMERCE + OPERATIONS', status: 'ACTIVE STAGING / PRE-LAUNCH', title: 'נווה בשדרה / Neve Basdera',
-        context: 'A commerce and operations product for a local store, with RTL shopping and checkout, order, and inventory flows.',
-        contribution: 'Planning and building the customer experience, permissions, order flows, and admin operations tools.',
-        boundary: 'Active staging before launch. The product is not presented here as live or in production.',
-        tags: ['Next.js', 'Commerce', 'Permissions', 'Operations'], diagram: ['SHOP', 'CHECKOUT', 'ORDERS', 'INVENTORY', 'ADMIN'],
-      },
-      {
-        workId: 'agents', index: '02', category: 'AI-AGENT ORCHESTRATION', status: 'INTERNAL / ILLUSTRATIVE', title: 'AI-agent/SBEA',
-        context: 'An internal multi-agent operating system with durable state, scheduling, and action policies.',
-        contribution: 'Defining action boundaries, human gates, role coordination, and independent post-action verification.',
-        boundary: 'Internal system. The diagram and descriptions are synthetic and reveal no records, identifiers, or private data.',
-        tags: ['Agents', 'Durable state', 'Policies', 'Independent QA'], diagram: ['TRIGGER', 'ROUTER', 'POLICY', 'ACTION', 'QA', 'HUMAN GATE'],
-      },
-    ],
-    publicWorkIntro: {
-      eyebrow: '03 / PUBLIC PROOF', title: 'Code and products you can open',
-      description: 'Three public proofs that broaden the picture: developer tooling, a full-stack system, and an interactive learning experience.',
-    },
-    publicWorkLabels: { source: 'View source', live: 'Open live product' },
-    publicWorks: [
-      {
-        publicWorkId: 'starter', index: '01', category: 'DEVELOPER TOOLING + MCP', status: 'OPEN SOURCE + LIVE', title: 'Next.js Starter MCP',
-        description: 'A tool combining automated Next.js setup with TypeScript, Tailwind, Convex, and Clerk, supported by a public product site.',
-        tags: ['Next.js', 'Automation', 'MCP', 'Developer Experience'],
-        sourceUrl: 'https://github.com/Bendako/next-starter-script', liveUrl: 'https://next-starter-mcp-landing-page.vercel.app/',
-      },
-      {
-        publicWorkId: 'jobs', index: '02', category: 'FULL-STACK PRODUCT', status: 'PUBLIC REPOSITORY', title: 'Jobs Center',
-        description: 'A system for managing a job search, applications, and interviews. The code remains public; the demo link is omitted until it is operational again.',
-        tags: ['Next.js', 'TypeScript', 'Prisma', 'Product Workflow'],
-        sourceUrl: 'https://github.com/Bendako/jobs-center',
-      },
-      {
-        publicWorkId: 'letterblast', index: '03', category: 'INTERACTIVE LEARNING', status: 'OPEN SOURCE + LIVE', title: 'LetterBlast',
-        description: 'An English-learning game that turns vocabulary practice into an interactive 3D browser experience.',
-        tags: ['Next.js', 'TypeScript', 'Three.js', 'Interaction Design'],
-        sourceUrl: 'https://github.com/Bendako/LetterBlast', liveUrl: 'https://letter-blast.vercel.app/',
-      },
-    ],
-    about: {
-      eyebrow: '04 / ABOUT', title: 'From product judgment to responsible delivery',
-      body: 'I like working where understanding the person behind a request, making precise product decisions, and building the system are all part of the same job. To me, AI is a capability layer — not a substitute for ownership, testing, or human judgment.',
+    founder: {
+      eyebrow: "05 / WHO IS BEHIND BTD",
+      title: "Who is behind BTD",
+      body: "BTD is led by Ben Dako — a full-stack product builder connecting problem understanding, product decisions, code, and operations. Every project, fully owned or built for a partner, gets the same level of ownership: understand, build, operate, improve.",
+      githubLabel: "GitHub",
+      linkedinLabel: "LinkedIn",
     },
     contact: {
-      eyebrow: '05 / CONTACT', title: 'Have a product, system, or process worth building well?',
-      body: 'Reach out directly about engineering and product roles, system building, or collaboration. There is no simulated form here — only real contact channels.',
-      emailCta: 'Send an email', githubLabel: 'GitHub profile', linkedinLabel: 'LinkedIn profile',
+      eyebrow: "06 / CONTACT",
+      title: "Let's talk",
+      body: "A problem worth solving, a product that needs building, or a system that requires an end-to-end connection? We would love to hear.",
+      emailCta: "Send an email",
+      copyCta: "Copy address",
+      copiedNote: "Address copied",
     },
-    footer: { identity: 'SYSTEMS / BTD — HYBRID PRODUCT BUILDER', note: 'Product, full stack, and bounded AI — with control and verification.' },
-    notFound: { eyebrow: '404 / NOT FOUND', title: 'This page could not be found', body: 'The address does not exist or the page may have moved. Return home to continue.', homeCta: 'Back to homepage' },
+    footer: {
+      identity: "BTD / PRODUCT & TECHNOLOGY",
+      note: "Owned products. Selected systems. Responsible delivery and operations.",
+    },
+    notFound: {
+      eyebrow: "404 / NOT FOUND",
+      title: "This page could not be found",
+      body: "The address does not exist. Return home to continue.",
+      homeCta: "Back to homepage",
+    },
   },
-} satisfies Record<Locale, PortfolioContent>
+} satisfies Record<Locale, PortfolioContent>;
