@@ -10,7 +10,7 @@ export default function PortfolioShell() {
   const { locale, setLocale } = useLocale();
   const { theme, setTheme } = useTheme();
   const content = portfolioContent[locale];
-  const [copied, setCopied] = useState(false);
+  const [copyStatus, setCopyStatus] = useState<"idle" | "success" | "error">("idle");
   const copyResetRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
@@ -22,11 +22,12 @@ export default function PortfolioShell() {
   const copyEmail = async () => {
     try {
       await navigator.clipboard.writeText(founderLinks.email);
-      setCopied(true);
+      setCopyStatus("success");
       if (copyResetRef.current) clearTimeout(copyResetRef.current);
-      copyResetRef.current = setTimeout(() => setCopied(false), 2500);
+      copyResetRef.current = setTimeout(() => setCopyStatus("idle"), 2500);
     } catch {
-      // Clipboard access can be denied; the visible address keeps contact possible.
+      if (copyResetRef.current) clearTimeout(copyResetRef.current);
+      setCopyStatus("error");
     }
   };
 
@@ -228,10 +229,13 @@ export default function PortfolioShell() {
                 {content.contact.emailCta}
               </a>
               <button className="button secondary-button" type="button" onClick={copyEmail}>
-                {copied ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}
-                {copied ? content.contact.copiedNote : content.contact.copyCta}
+                {copyStatus === "success" ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}
+                {copyStatus === "success" ? content.contact.copiedNote : content.contact.copyCta}
               </button>
             </div>
+            <p className="copy-status" role="status" aria-live="polite">
+              {copyStatus === "success" ? content.contact.copiedNote : copyStatus === "error" ? content.contact.copyError : ""}
+            </p>
           </div>
         </section>
       </main>

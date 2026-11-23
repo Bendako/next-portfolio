@@ -1,55 +1,28 @@
 "use client"
 
-import { createContext, useCallback, useContext, useEffect, useSyncExternalStore } from 'react'
+import { createContext, useCallback, useContext, useEffect, useState } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
 import type { Locale } from '@/data/portfolio'
+import { localePaths } from '@/lib/locale-paths'
 
-type LocaleContextType = {
-  locale: Locale
-  setLocale: (locale: Locale) => void
-}
-
-const STORAGE_KEY = 'portfolio-locale'
+type LocaleContextType = { locale: Locale; setLocale: (locale: Locale) => void }
 const LocaleContext = createContext<LocaleContextType | undefined>(undefined)
-let volatileLocale: Locale | null = null
 
-const getStoredLocale = (): Locale => {
-  try {
-    const savedLocale = localStorage.getItem(STORAGE_KEY)
-    if (savedLocale === 'en' || savedLocale === 'he') return savedLocale
-  } catch {
-    return volatileLocale ?? 'he'
-  }
-  return volatileLocale ?? 'he'
-}
-
-const subscribeToLocale = (onStoreChange: () => void) => {
-  window.addEventListener('storage', onStoreChange)
-  window.addEventListener('locale-change', onStoreChange)
-  return () => {
-    window.removeEventListener('storage', onStoreChange)
-    window.removeEventListener('locale-change', onStoreChange)
-  }
-}
-
-export function LocaleProvider({ children }: { children: React.ReactNode }) {
-  const locale = useSyncExternalStore(subscribeToLocale, getStoredLocale, () => 'he' as const)
+export function LocaleProvider({ children, initialLocale }: { children: React.ReactNode; initialLocale: Locale }) {
+  const router = useRouter()
+  const pathname = usePathname()
+  const [fallbackLocale, setFallbackLocale] = useState(initialLocale)
+  const locale = pathname === '/en' ? 'en' : pathname === '/' ? 'he' : fallbackLocale
 
   const setLocale = useCallback((nextLocale: Locale) => {
-    volatileLocale = nextLocale
-    try {
-      localStorage.setItem(STORAGE_KEY, nextLocale)
-    } catch {
-      // The in-memory fallback keeps the control usable for this session.
+    if (pathname === '/' || pathname === '/en') {
+      router.push(localePaths[nextLocale] + window.location.hash, { scroll: false })
+    } else {
+      setFallbackLocale(nextLocale)
     }
-    // The document keeps dir="rtl" so the layout stays stable; only text
-    // blocks flip direction via html[lang='en'] CSS rules.
-    document.documentElement.lang = nextLocale
-    window.dispatchEvent(new Event('locale-change'))
-  }, [])
+  }, [pathname, router])
 
-  useEffect(() => {
-    document.documentElement.lang = locale
-  }, [locale])
+  useEffect(() => { document.documentElement.lang = locale }, [locale])
 
   return <LocaleContext.Provider value={{ locale, setLocale }}>{children}</LocaleContext.Provider>
 }

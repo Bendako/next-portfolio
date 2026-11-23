@@ -1,3 +1,5 @@
+import { headers } from "next/headers";
+import { siteUrl } from "@/lib/site";
 import type { Metadata } from "next";
 import { Heebo } from "next/font/google";
 import "./globals.css";
@@ -14,7 +16,7 @@ const heebo = Heebo({
 const siteTitle = "BTD / Product & Technology";
 const siteDescription =
   "BTD builds and operates digital products and selected end-to-end systems.";
-const siteUrl = "https://next-portfolio-nine-chi.vercel.app";
+
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -59,19 +61,20 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+  const locale = (await headers()).get("x-portfolio-locale") === "en" ? "en" : "he";
   return (
-    <html lang="he" dir="rtl" className={heebo.variable} suppressHydrationWarning>
+    <html lang={locale} dir="rtl" className={heebo.variable} suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `(function(){try{var l=localStorage.getItem('portfolio-locale');if(l!=='he'&&l!=='en')l='he';document.documentElement.lang=l;var t=localStorage.getItem('theme');if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.classList.add(t)}catch(e){document.documentElement.lang='he'}})()`,
+            __html: `(function(){var t;try{t=localStorage.getItem('theme')}catch(e){}if(t!=='dark'&&t!=='light')t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.classList.add(t)})()`,
           }}
         />
       </head>
       <body suppressHydrationWarning>
         <ThemeProvider>
-          <LocaleProvider>{children}</LocaleProvider>
+          <LocaleProvider initialLocale={locale}>{children}</LocaleProvider>
         </ThemeProvider>
       </body>
     </html>

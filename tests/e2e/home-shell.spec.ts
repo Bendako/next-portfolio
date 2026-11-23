@@ -29,7 +29,7 @@ test('switches language without moving the layout', async ({ page }) => {
   await expect(page.locator('html')).toHaveAttribute('lang', 'he')
   await expect(page.locator('html')).toHaveAttribute('dir', 'rtl')
 
-  const stableSelectors = ['.brand', '.header-controls', '.hero-actions', '.hero-mark']
+  const stableSelectors = ['.brand', '.header-controls', '.hero-actions', '.hero-mark', '#engines .section-heading > div', '#work .section-heading > div', '.footer-inner strong']
   const xPositions = async () =>
     Promise.all(
       stableSelectors.map(async (selector) => (await page.locator(selector).boundingBox())?.x),
@@ -38,6 +38,7 @@ test('switches language without moving the layout', async ({ page }) => {
 
   await page.getByRole('button', { name: 'English' }).click()
 
+  await expect(page).toHaveURL(/\/en$/)
   await expect(page.locator('html')).toHaveAttribute('lang', 'en')
   await expect(page.locator('html')).toHaveAttribute('dir', 'rtl')
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
@@ -51,7 +52,7 @@ test('switches language without moving the layout', async ({ page }) => {
   expect(await xPositions()).toEqual(hebrewPositions)
 })
 
-test('persists language and theme preferences across reloads', async ({ page }) => {
+test('preserves the locale URL and theme preference across reloads', async ({ page }) => {
   await page.emulateMedia({ colorScheme: 'dark' })
   await page.goto('/')
 
@@ -61,12 +62,13 @@ test('persists language and theme preferences across reloads', async ({ page }) 
   await page.getByRole('button', { name: 'Switch to light theme' }).click()
   await page.reload()
 
+  await expect(page).toHaveURL(/\/en$/)
   await expect(page.locator('html')).toHaveAttribute('lang', 'en')
   await expect(page.locator('html')).toHaveAttribute('dir', 'rtl')
   await expect(page.locator('html')).toHaveClass(/light/)
 })
 
-test('presents five live work items with working links', async ({ page }) => {
+test('presents five work items with their published links', async ({ page }) => {
   await page.goto('/')
 
   await expect(page.locator('[data-work-card]')).toHaveCount(5)
@@ -161,4 +163,65 @@ test('supports keyboard focus, anchors, reduced motion, and a clean console', as
   expect(motionStyles.animationDuration).toBeLessThanOrEqual(0.00001)
   expect(motionStyles.transitionDuration).toBeLessThanOrEqual(0.00001)
   expect(consoleErrors).toEqual([])
+})
+
+
+test('renders shareable locales and matching metadata without JavaScript', async ({ browser }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false })
+  const page = await context.newPage()
+  for (const [path, lang, heading, ogLocale] of [
+    ['/', 'he', 'בונים מוצרים דיגיטליים שעובדים בעולם האמיתי.', 'he_IL'],
+    ['/en', 'en', 'We build digital products that work in the real world.', 'en_US'],
+  ]) {
+    await page.goto(path)
+    await expect(page.locator('html')).toHaveAttribute('lang', lang)
+    await expect(page.locator('html')).toHaveAttribute('dir', 'rtl')
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText(heading)
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', `https://next-portfolio-nine-chi.vercel.app${path === '/' ? '' : path}`)
+    await expect(page.locator('meta[property="og:locale"]')).toHaveAttribute('content', ogLocale)
+    await expect(page.locator('link[hreflang="en"]')).toHaveAttribute('href', 'https://next-portfolio-nine-chi.vercel.app/en')
+  }
+  await context.close()
+})
+
+test('announces successful copying and a useful error when clipboard access is denied', async ({ page }) => {
+  await page.goto('/en')
+  await page.evaluate(() => Object.defineProperty(navigator, 'clipboard', {
+    configurable: true,
+    value: { writeText: async (text: string) => { (window as Window & { copiedEmail?: string }).copiedEmail = text } },
+  }))
+  await page.getByRole('button', { name: 'Copy address' }).click()
+  await expect(page.getByRole('status')).toHaveText('Address copied')
+  expect(await page.evaluate(() => (window as Window & { copiedEmail?: string }).copiedEmail)).toBe('bendk1994@gmail.com')
+  await page.evaluate(() => Object.defineProperty(navigator, 'clipboard', {
+    configurable: true,
+    value: { writeText: async () => { throw new Error('Denied') } },
+  }))
+  await page.getByRole('button', { name: 'Address copied' }).click()
+  await expect(page.getByRole('status')).toContainText('Could not copy.')
+  await expect(page.getByRole('button', { name: 'Copy address' })).toBeVisible()
+})
+
+test('keeps language and theme controls usable when storage is blocked', async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(window, 'localStorage', { get() { throw new Error('Storage blocked') } })
+  })
+  await page.emulateMedia({ colorScheme: 'dark' })
+  await page.goto('/')
+  await expect(page.locator('html')).toHaveClass(/dark/)
+  await page.getByRole('button', { name: 'English' }).click()
+  await expect(page).toHaveURL(/\/en$/)
+  await page.getByRole('button', { name: 'Switch to light theme' }).click()
+  await expect(page.locator('html')).toHaveClass(/light/)
+  await page.getByRole('button', { name: 'Switch to dark theme' }).click()
+  await expect(page.locator('html')).toHaveClass(/dark/)
+})
+
+test('language navigation preserves the active section and browser history', async ({ page }) => {
+  await page.goto('/#work')
+  await page.getByRole('button', { name: 'English' }).click()
+  await expect(page).toHaveURL(/\/en#work$/)
+  await page.goBack()
+  await expect(page.locator('html')).toHaveAttribute('lang', 'he')
+  await expect(page).toHaveURL(/\/#work$/)
 })
