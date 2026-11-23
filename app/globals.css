@@ -57,13 +57,13 @@ button {
    nothing moves when the locale toggles; only text blocks flip direction. */
 html[lang='en'] .hero-copy,
 html[lang='en'] .prose-section,
-html[lang='en'] .section-heading,
+html[lang='en'] .section-heading > *,
 html[lang='en'] .engine-card,
 html[lang='en'] .work-card,
 html[lang='en'] .process-list li,
 html[lang='en'] .founder-panel,
 html[lang='en'] .contact-panel,
-html[lang='en'] .footer-inner,
+html[lang='en'] .footer-inner > *,
 html[lang='en'] .not-found-panel {
   direction: ltr;
 }
@@ -277,7 +277,8 @@ p {
   font-size: clamp(1.1rem, 2vw, 1.45rem);
 }
 .section-heading {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: 2rem;
   align-items: end;
   justify-content: space-between;
@@ -575,3 +576,5 @@ p {
   margin: 1.2rem 0 2rem;
   color: hsl(var(--muted));
 }
+
+.copy-status { min-height: 1.6em; margin-top: 0.75rem; color: hsl(var(--muted)); }

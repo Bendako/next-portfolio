@@ -11,6 +11,8 @@ type ProcessStep = {
   title: string;
   description: string;
 };
+// Project details checked against the linked Starter, landing-page and LetterBlast READMEs.
+// No usage, revenue or performance metrics are claimed.
 type WorkItem = {
   workId: "starter-cli" | "mcp-landing" | "letter-blast" | "quiz-app" | "expense-tracker";
   title: string;
@@ -56,6 +58,7 @@ export type PortfolioContent = {
     emailCta: string;
     copyCta: string;
     copiedNote: string;
+    copyError: string;
   };
   footer: { identity: string; note: string };
   notFound: { eyebrow: string; title: string; body: string; homeCta: string };
@@ -132,14 +135,14 @@ export const portfolioContent = {
           title: "Next.js Starter CLI",
           tag: "כלי פיתוח",
           description:
-            "כלי שורת פקודה שמקים פרויקט Next.js מוכן לעבודה — תבניות, תצורה ותקנים — בפקודה אחת.",
+            "כדי לצמצם הקמה חוזרת של פרויקטים, בנינו מחולל Bash ושרת MCP מקומי שמשתמש באותו מחולל. הערכה כוללת תבניות ושילובי Clerk ו־Convex לבחירה; קוד המקור זמין לבדיקה ולהתאמה.",
           codeUrl: "https://github.com/Bendako/next-starter-script",
         },
         {
           workId: "mcp-landing",
           title: "Next Starter MCP",
           tag: "דף מוצר",
-          description: "דף נחיתה חי לשרת ה־MCP של ה־Starter — מהרעיון ועד production.",
+          description: "בנינו דף מוצר ב־Next.js ו־TypeScript שמסביר את ערכת ה־Starter המקומית. הוראות ההתקנה והתבניות תואמות לתיעוד המוצר; האתר זמין לצפייה, והרכישה עדיין אינה פעילה.",
           liveUrl: "https://next-starter-mcp-landing-page.vercel.app/",
           codeUrl: "https://github.com/Bendako/next-starter-mcp-landing-page",
         },
@@ -147,7 +150,7 @@ export const portfolioContent = {
           workId: "letter-blast",
           title: "LetterBlast",
           tag: "משחק",
-          description: "משחק דפדפן מהיר לתרגול הקלדה — נבנה, שוחרר, ופועל.",
+          description: "כדי להפוך תרגול איות למשחק, בנינו משחק דפדפן ב־Three.js וב־TypeScript: פגיעה באותיות תלת־ממדיות ליצירת מילים, עם רמות קושי ושליטה בעכבר או במגע.",
           liveUrl: "https://letter-blast.vercel.app/",
           codeUrl: "https://github.com/Bendako/LetterBlast",
         },
@@ -211,6 +214,7 @@ export const portfolioContent = {
       emailCta: "שליחת אימייל",
       copyCta: "העתקת הכתובת",
       copiedNote: "הכתובת הועתקה",
+      copyError: "לא ניתן להעתיק. אפשר לסמן את הכתובת ולהעתיק ידנית, או לפתוח הודעת דוא״ל.",
     },
     footer: {
       identity: "BTD / PRODUCT & TECHNOLOGY",
@@ -292,14 +296,14 @@ export const portfolioContent = {
           title: "Next.js Starter CLI",
           tag: "Dev tool",
           description:
-            "A command-line tool that scaffolds a production-ready Next.js project — templates, configuration, and conventions — in one command.",
+            "To reduce repeated project setup, we built a Bash generator and a local MCP server that calls the same generator. The kit includes templates and optional Clerk and Convex scaffolding, with source code to inspect and adapt.",
           codeUrl: "https://github.com/Bendako/next-starter-script",
         },
         {
           workId: "mcp-landing",
           title: "Next Starter MCP",
           tag: "Product page",
-          description: "A live landing page for the Starter's MCP server — from idea to production.",
+          description: "A Next.js and TypeScript product page explaining the local Starter kit. Installation steps and templates mirror the product documentation; the site is available to explore, with checkout still pending.",
           liveUrl: "https://next-starter-mcp-landing-page.vercel.app/",
           codeUrl: "https://github.com/Bendako/next-starter-mcp-landing-page",
         },
@@ -307,7 +311,7 @@ export const portfolioContent = {
           workId: "letter-blast",
           title: "LetterBlast",
           tag: "Game",
-          description: "A fast browser game for typing practice — built, shipped, and running.",
+          description: "To turn spelling practice into play, we built a browser game with Three.js and TypeScript: shoot 3D letters to form words, with difficulty levels and mouse or touch controls.",
           liveUrl: "https://letter-blast.vercel.app/",
           codeUrl: "https://github.com/Bendako/LetterBlast",
         },
@@ -373,6 +377,7 @@ export const portfolioContent = {
       emailCta: "Send an email",
       copyCta: "Copy address",
       copiedNote: "Address copied",
+      copyError: "Could not copy. Select the address to copy it manually, or open an email.",
     },
     footer: {
       identity: "BTD / PRODUCT & TECHNOLOGY",

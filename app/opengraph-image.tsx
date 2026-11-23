@@ -1,3 +1,4 @@
+import { siteHost } from '@/lib/site'
 import { ImageResponse } from 'next/og'
 
 export const alt = 'BTD / Product & Technology'
@@ -79,7 +80,7 @@ export default function OpenGraphImage() {
             color: '#b3aba2',
           }}
         >
-          <div style={{ display: 'flex' }}>next-portfolio-nine-chi.vercel.app</div>
+          <div style={{ display: 'flex' }}>{siteHost}</div>
           <div style={{ display: 'flex', color: '#68cfb7' }}>OWNED PRODUCTS / SELECTED SYSTEMS</div>
         </div>
       </div>
