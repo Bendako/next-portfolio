@@ -72,6 +72,12 @@ test('presents five work items with their published links', async ({ page }) => 
   await page.goto('/')
 
   await expect(page.locator('[data-work-card]')).toHaveCount(5)
+  const firstProject = page.locator('[data-work-card]').first()
+  await expect(firstProject.getByRole('heading')).toHaveText('Shiftbook')
+  await expect(firstProject.getByRole('link', { name: 'הורדת גרסת בדיקה' })).toHaveAttribute(
+    'href', 'https://github.com/Bendako/shiftbook-android-updates/releases',
+  )
+  await expect(page.getByRole('heading', { name: 'React Quiz App' })).toHaveCount(0)
   await expect(page.locator('a[href="https://letter-blast.vercel.app/"]')).toBeVisible()
   await expect(
     page.locator('a[href="https://next-starter-mcp-landing-page.vercel.app/"]'),
@@ -79,6 +85,12 @@ test('presents five work items with their published links', async ({ page }) => 
   await expect(
     page.locator('a[href="https://github.com/Bendako/next-starter-script"]'),
   ).toBeVisible()
+  await page.getByRole('button', { name: 'English' }).click()
+  await expect(firstProject.getByRole('heading')).toHaveText('Shiftbook')
+  await expect(firstProject.getByRole('link', { name: 'Testing download' })).toHaveAttribute(
+    'href', 'https://github.com/Bendako/shiftbook-android-updates/releases',
+  )
+  await expect(firstProject.getByRole('link')).toHaveCount(1)
 })
 
 test('introduces the founder and offers a real contact path', async ({ page }) => {

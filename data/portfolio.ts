@@ -11,15 +11,17 @@ type ProcessStep = {
   title: string;
   description: string;
 };
-// Project details checked against the linked Starter, landing-page and LetterBlast READMEs.
+// Project details checked against the project READMEs and public Shiftbook testing releases.
 // No usage, revenue or performance metrics are claimed.
 type WorkItem = {
-  workId: "starter-cli" | "mcp-landing" | "letter-blast" | "quiz-app" | "expense-tracker";
+  workId: "starter-cli" | "mcp-landing" | "letter-blast" | "shiftbook" | "expense-tracker";
   title: string;
   tag: string;
   description: string;
   liveUrl?: string;
-  codeUrl: string;
+  codeUrl?: string;
+  downloadUrl?: string;
+  downloadLabel?: string;
 };
 export type PortfolioContent = {
   skipLink: string;
@@ -126,10 +128,18 @@ export const portfolioContent = {
     work: {
       eyebrow: "03 / SELECTED WORK",
       title: "מבחר מהעבודות",
-      body: "מוצרים וכלים שבנינו ואנחנו מפעילים — חיים, זמינים, ואפשר לנסות אותם עכשיו.",
+      body: "מוצרים וכלים שבנינו — זמינים לשימוש, להורדת גרסת בדיקה או לעיון בקוד.",
       liveLabel: "גרסה חיה",
       codeLabel: "קוד",
       items: [
+        {
+          workId: "shiftbook",
+          title: "Shiftbook",
+          tag: "Android · גרסת בדיקה",
+          description: "אפליקציית Android ללא פרסומות למעקב שעות עבודה ולהערכת שכר ברוטו. כוללת כניסה ויציאה ממשמרת, דוחות שבועיים וחודשיים, שמירה מקומית ללא חיבור לרשת ותמיכה בעברית ובאנגלית. זמינה להורדה כגרסת בדיקה.",
+          downloadUrl: "https://github.com/Bendako/shiftbook-android-updates/releases",
+          downloadLabel: "הורדת גרסת בדיקה",
+        },
         {
           workId: "starter-cli",
           title: "Next.js Starter CLI",
@@ -153,14 +163,6 @@ export const portfolioContent = {
           description: "כדי להפוך תרגול איות למשחק, בנינו משחק דפדפן ב־Three.js וב־TypeScript: פגיעה באותיות תלת־ממדיות ליצירת מילים, עם רמות קושי ושליטה בעכבר או במגע.",
           liveUrl: "https://letter-blast.vercel.app/",
           codeUrl: "https://github.com/Bendako/LetterBlast",
-        },
-        {
-          workId: "quiz-app",
-          title: "React Quiz App",
-          tag: "אפליקציה",
-          description: "אפליקציית טריוויה עם ניקוד, התקדמות ומשוב מיידי.",
-          liveUrl: "https://react-quiz-app-iota.vercel.app/",
-          codeUrl: "https://github.com/Bendako/react-quiz-app",
         },
         {
           workId: "expense-tracker",
@@ -287,10 +289,18 @@ export const portfolioContent = {
     work: {
       eyebrow: "03 / SELECTED WORK",
       title: "Selected work",
-      body: "Products and tools we built and operate — live, available, and ready to try right now.",
+      body: "Products and tools we built — available to use, download for testing, or explore through source code.",
       liveLabel: "Live",
       codeLabel: "Code",
       items: [
+        {
+          workId: "shiftbook",
+          title: "Shiftbook",
+          tag: "Android · Testing",
+          description: "An ad-free native Android app for tracking work hours and estimating gross pay, with clock-in/out, weekly and monthly reports, offline storage, and Hebrew and English support. Available as a testing download.",
+          downloadUrl: "https://github.com/Bendako/shiftbook-android-updates/releases",
+          downloadLabel: "Testing download",
+        },
         {
           workId: "starter-cli",
           title: "Next.js Starter CLI",
@@ -314,14 +324,6 @@ export const portfolioContent = {
           description: "To turn spelling practice into play, we built a browser game with Three.js and TypeScript: shoot 3D letters to form words, with difficulty levels and mouse or touch controls.",
           liveUrl: "https://letter-blast.vercel.app/",
           codeUrl: "https://github.com/Bendako/LetterBlast",
-        },
-        {
-          workId: "quiz-app",
-          title: "React Quiz App",
-          tag: "App",
-          description: "A trivia app with scoring, progress, and instant feedback.",
-          liveUrl: "https://react-quiz-app-iota.vercel.app/",
-          codeUrl: "https://github.com/Bendako/react-quiz-app",
         },
         {
           workId: "expense-tracker",
