@@ -1,8 +1,7 @@
-import { headers } from "next/headers";
 import { siteUrl } from "@/lib/site";
 import type { Metadata } from "next";
 import { Heebo } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 import { ThemeProvider } from "@/components/Theme-Provider";
 import { LocaleProvider } from "@/components/Locale-Provider";
 
@@ -61,8 +60,10 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const locale = (await headers()).get("x-portfolio-locale") === "en" ? "en" : "he";
+export function generateStaticParams() { return [{ locale: "he" }, { locale: "en" }]; }
+
+export default async function RootLayout({ children, params }: Readonly<{ children: React.ReactNode; params: Promise<{ locale: string }> }>) {
+  const locale = (await params).locale === "en" ? "en" : "he";
   return (
     <html lang={locale} dir="rtl" className={heebo.variable} suppressHydrationWarning>
       <head>

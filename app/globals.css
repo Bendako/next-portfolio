@@ -578,3 +578,10 @@ p {
 }
 
 .copy-status { min-height: 1.6em; margin-top: 0.75rem; color: hsl(var(--muted)); }
+
+.copy-email-control { display: contents; }
+.contact-actions .copy-status { flex-basis: 100%; }
+.work-case-study { margin: 1.4rem 0 0; font-size: 0.9rem; }
+.work-case-study > div + div { margin-top: 0.8rem; }
+.work-case-study dt { font-weight: 700; }
+.work-case-study dd { margin: 0.25rem 0 0; color: hsl(var(--muted)); }

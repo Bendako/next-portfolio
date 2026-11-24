@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Languages, Moon, Sun } from "lucide-react";
 import { useLocale } from "@/components/Locale-Provider";
 import { useTheme } from "@/components/Theme-Provider";
+import { localePaths } from "@/lib/locale-paths";
 import { portfolioContent } from "@/data/portfolio";
 
 export default function NotFound() {
@@ -36,7 +37,7 @@ export default function NotFound() {
         <p className="eyebrow">{content.notFound.eyebrow}</p>
         <h1>{content.notFound.title}</h1>
         <p>{content.notFound.body}</p>
-        <Link href="/" className="button primary-button">
+        <Link href={localePaths[locale]} className="button primary-button">
           {content.notFound.homeCta}
         </Link>
       </section>

@@ -1,36 +1,10 @@
-"use client";
+import { ArrowUpRight, Mail } from "lucide-react";
+import { founderLinks, portfolioContent, type Locale, type PortfolioContent } from "@/data/portfolio";
+import { HeaderControls } from "@/components/HeaderControls";
+import { CopyEmail } from "@/components/CopyEmail";
 
-import { useEffect, useRef, useState } from "react";
-import { ArrowUpRight, Check, Copy, Languages, Mail, Moon, Sun } from "lucide-react";
-import { founderLinks, portfolioContent } from "@/data/portfolio";
-import { useLocale } from "@/components/Locale-Provider";
-import { useTheme } from "@/components/Theme-Provider";
-
-export default function PortfolioShell() {
-  const { locale, setLocale } = useLocale();
-  const { theme, setTheme } = useTheme();
-  const content = portfolioContent[locale];
-  const [copyStatus, setCopyStatus] = useState<"idle" | "success" | "error">("idle");
-  const copyResetRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  useEffect(() => {
-    return () => {
-      if (copyResetRef.current) clearTimeout(copyResetRef.current);
-    };
-  }, []);
-
-  const copyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText(founderLinks.email);
-      setCopyStatus("success");
-      if (copyResetRef.current) clearTimeout(copyResetRef.current);
-      copyResetRef.current = setTimeout(() => setCopyStatus("idle"), 2500);
-    } catch {
-      if (copyResetRef.current) clearTimeout(copyResetRef.current);
-      setCopyStatus("error");
-    }
-  };
-
+export default function PortfolioShell({ locale }: { locale: Locale }) {
+  const content: PortfolioContent = portfolioContent[locale];
   return (
     <div className="site-shell">
       <a className="skip-link" href="#main-content">
@@ -53,29 +27,10 @@ export default function PortfolioShell() {
             <a href="#process">{content.nav.process}</a>
             <a href="#contact">{content.nav.contact}</a>
           </nav>
-          <div className="header-controls">
-            <button
-              className="control-button"
-              type="button"
-              onClick={() => setLocale(locale === "he" ? "en" : "he")}
-            >
-              <Languages aria-hidden="true" />
-              <span>{content.controls.switchLanguage}</span>
-            </button>
-            <button
-              className="control-button icon-button"
-              type="button"
-              aria-label={
-                theme === "dark" ? content.controls.switchToLight : content.controls.switchToDark
-              }
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-            >
-              {theme === "dark" ? <Sun aria-hidden="true" /> : <Moon aria-hidden="true" />}
-            </button>
-          </div>
+          <HeaderControls locale={locale} controls={content.controls} />
         </div>
       </header>
-      <main id="main-content">
+      <main id="main-content" tabIndex={-1}>
         <section className="hero-section" id="top">
           <div className="shell-container hero-layout">
             <div className="hero-copy">
@@ -149,9 +104,14 @@ export default function PortfolioShell() {
                   <span className="work-tag">{item.tag}</span>
                   <h3>{item.title}</h3>
                   <p>{item.description}</p>
+                  {item.caseStudy ? <dl className="work-case-study">
+                    {(["problem", "approach", "delivery"] as const).map((key) => (
+                      <div key={key}><dt>{content.work.caseLabels[key]}</dt><dd>{item.caseStudy?.[key]}</dd></div>
+                    ))}
+                  </dl> : null}
                   <div className="work-links">
                     {item.liveUrl ? (
-                      <a href={item.liveUrl} target="_blank" rel="noreferrer">
+                      <a aria-label={`${item.title} — ${content.work.liveLabel}`} href={item.liveUrl} target="_blank" rel="noreferrer">
                         {content.work.liveLabel}
                         <ArrowUpRight aria-hidden="true" />
                       </a>
@@ -163,7 +123,7 @@ export default function PortfolioShell() {
                       </a>
                     ) : null}
                     {item.codeUrl ? (
-                      <a href={item.codeUrl} target="_blank" rel="noreferrer">
+                      <a aria-label={`${item.title} — ${content.work.codeLabel}`} href={item.codeUrl} target="_blank" rel="noreferrer">
                         {content.work.codeLabel}
                         <ArrowUpRight aria-hidden="true" />
                       </a>
@@ -236,14 +196,8 @@ export default function PortfolioShell() {
                 <Mail aria-hidden="true" />
                 {content.contact.emailCta}
               </a>
-              <button className="button secondary-button" type="button" onClick={copyEmail}>
-                {copyStatus === "success" ? <Check aria-hidden="true" /> : <Copy aria-hidden="true" />}
-                {copyStatus === "success" ? content.contact.copiedNote : content.contact.copyCta}
-              </button>
+              <CopyEmail email={founderLinks.email} copy={content.contact} />
             </div>
-            <p className="copy-status" role="status" aria-live="polite">
-              {copyStatus === "success" ? content.contact.copiedNote : copyStatus === "error" ? content.contact.copyError : ""}
-            </p>
           </div>
         </section>
       </main>

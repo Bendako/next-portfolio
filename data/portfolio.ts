@@ -22,6 +22,7 @@ type WorkItem = {
   codeUrl?: string;
   downloadUrl?: string;
   downloadLabel?: string;
+  caseStudy?: { problem: string; approach: string; delivery: string };
 };
 export type PortfolioContent = {
   skipLink: string;
@@ -41,6 +42,7 @@ export type PortfolioContent = {
     eyebrow: string;
     title: string;
     body: string;
+    caseLabels: { problem: string; approach: string; delivery: string };
     liveLabel: string;
     codeLabel: string;
     items: WorkItem[];
@@ -129,11 +131,13 @@ export const portfolioContent = {
       eyebrow: "03 / SELECTED WORK",
       title: "מבחר מהעבודות",
       body: "מוצרים וכלים שבנינו — זמינים לשימוש, להורדת גרסת בדיקה או לעיון בקוד.",
+      caseLabels: { problem: "הצורך", approach: "הגישה", delivery: "מה נמסר" },
       liveLabel: "גרסה חיה",
       codeLabel: "קוד",
       items: [
         {
           workId: "shiftbook",
+          caseStudy: {"problem": "מעקב שעות והערכת שכר ברוטו.", "approach": "אפליקציית Android עם שמירה מקומית ותמיכה בעברית ובאנגלית.", "delivery": "גרסת בדיקה להורדה עם דוחות שבועיים וחודשיים."},
           title: "Shiftbook",
           tag: "Android · גרסת בדיקה",
           description: "אפליקציית Android ללא פרסומות למעקב שעות עבודה ולהערכת שכר ברוטו. כוללת כניסה ויציאה ממשמרת, דוחות שבועיים וחודשיים, שמירה מקומית ללא חיבור לרשת ותמיכה בעברית ובאנגלית. זמינה להורדה כגרסת בדיקה.",
@@ -142,6 +146,7 @@ export const portfolioContent = {
         },
         {
           workId: "starter-cli",
+          caseStudy: {"problem": "הקמה חוזרת של פרויקטי פיתוח.", "approach": "מחולל Bash משותף ל־CLI ולשרת MCP מקומי.", "delivery": "קוד פתוח לבדיקה ולהתאמה, עם תבניות ושילובים לבחירה."},
           title: "Next.js Starter CLI",
           tag: "כלי פיתוח",
           description:
@@ -158,6 +163,7 @@ export const portfolioContent = {
         },
         {
           workId: "letter-blast",
+          caseStudy: {"problem": "הפיכת תרגול איות למשחק.", "approach": "יצירת מילים באמצעות פגיעה באותיות תלת־ממדיות ב־Three.js.", "delivery": "משחק דפדפן עם רמות קושי ושליטה בעכבר או במגע."},
           title: "LetterBlast",
           tag: "משחק",
           description: "כדי להפוך תרגול איות למשחק, בנינו משחק דפדפן ב־Three.js וב־TypeScript: פגיעה באותיות תלת־ממדיות ליצירת מילים, עם רמות קושי ושליטה בעכבר או במגע.",
@@ -290,11 +296,13 @@ export const portfolioContent = {
       eyebrow: "03 / SELECTED WORK",
       title: "Selected work",
       body: "Products and tools we built — available to use, download for testing, or explore through source code.",
+      caseLabels: { problem: "The need", approach: "The approach", delivery: "Delivered" },
       liveLabel: "Live",
       codeLabel: "Code",
       items: [
         {
           workId: "shiftbook",
+          caseStudy: {"problem": "Track working hours and estimate gross pay.", "approach": "Native Android with offline storage and Hebrew and English support.", "delivery": "A testing download with weekly and monthly reports."},
           title: "Shiftbook",
           tag: "Android · Testing",
           description: "An ad-free native Android app for tracking work hours and estimating gross pay, with clock-in/out, weekly and monthly reports, offline storage, and Hebrew and English support. Available as a testing download.",
@@ -303,6 +311,7 @@ export const portfolioContent = {
         },
         {
           workId: "starter-cli",
+          caseStudy: {"problem": "Repeated setup for development projects.", "approach": "One Bash generator shared by the CLI and a local MCP server.", "delivery": "Inspectable source code with templates and optional integrations."},
           title: "Next.js Starter CLI",
           tag: "Dev tool",
           description:
@@ -319,6 +328,7 @@ export const portfolioContent = {
         },
         {
           workId: "letter-blast",
+          caseStudy: {"problem": "Turn spelling practice into play.", "approach": "Build words by shooting 3D letters, using Three.js.", "delivery": "A browser game with difficulty levels and mouse or touch controls."},
           title: "LetterBlast",
           tag: "Game",
           description: "To turn spelling practice into play, we built a browser game with Three.js and TypeScript: shoot 3D letters to form words, with difficulty levels and mouse or touch controls.",

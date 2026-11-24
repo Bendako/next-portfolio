@@ -12,10 +12,10 @@ export function LocaleProvider({ children, initialLocale }: { children: React.Re
   const router = useRouter()
   const pathname = usePathname()
   const [fallbackLocale, setFallbackLocale] = useState(initialLocale)
-  const locale = pathname === '/en' ? 'en' : pathname === '/' ? 'he' : fallbackLocale
+  const locale = pathname === '/en' ? 'en' : (pathname === '/' || pathname === '/he') ? 'he' : fallbackLocale
 
   const setLocale = useCallback((nextLocale: Locale) => {
-    if (pathname === '/' || pathname === '/en') {
+    if (pathname === '/' || pathname === '/he' || pathname === '/en') {
       router.push(localePaths[nextLocale] + window.location.hash, { scroll: false })
     } else {
       setFallbackLocale(nextLocale)

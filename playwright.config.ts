@@ -6,6 +6,7 @@ const baseURL = `http://127.0.0.1:${port}`
 export default defineConfig({
   testDir: './tests/e2e',
   fullyParallel: true,
+  projects: [{ name: 'chromium', use: { browserName: 'chromium' } }, { name: 'firefox', use: { browserName: 'firefox' } }, { name: 'webkit', use: { browserName: 'webkit' } }],
   forbidOnly: Boolean(process.env.CI),
   retries: process.env.CI ? 2 : 0,
   reporter: 'line',

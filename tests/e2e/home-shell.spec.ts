@@ -34,6 +34,7 @@ test('switches language without moving the layout', async ({ page }) => {
     Promise.all(
       stableSelectors.map(async (selector) => (await page.locator(selector).boundingBox())?.x),
     )
+  await page.evaluate(() => document.fonts.ready)
   const hebrewPositions = await xPositions()
 
   await page.getByRole('button', { name: 'English' }).click()
@@ -49,7 +50,15 @@ test('switches language without moving the layout', async ({ page }) => {
       .getByRole('heading', { level: 1 })
       .evaluate((element) => getComputedStyle(element).direction),
   ).toBe('ltr')
-  expect(await xPositions()).toEqual(hebrewPositions)
+  await page.evaluate(() => document.fonts.ready)
+  // Firefox can choose slightly different generic-font metrics per language.
+  // Permit subpixel rounding while still rejecting visible layout movement.
+  const englishPositions = await xPositions()
+  for (const [index, x] of englishPositions.entries()) {
+    expect(x).toBeDefined()
+    expect(hebrewPositions[index]).toBeDefined()
+    expect(Math.abs(x! - hebrewPositions[index]!)).toBeLessThan(1)
+  }
 })
 
 test('preserves the locale URL and theme preference across reloads', async ({ page }) => {
@@ -119,7 +128,7 @@ test('serves a bilingual 404 that links back home without moving its controls', 
   await page.getByRole('button', { name: 'English' }).click()
 
   await expect(page.getByRole('heading', { name: 'This page could not be found' })).toBeVisible()
-  await expect(page.getByRole('link', { name: 'Back to homepage' })).toHaveAttribute('href', '/')
+  await expect(page.getByRole('link', { name: 'Back to homepage' })).toHaveAttribute('href', '/en')
   expect((await page.locator('.not-found-controls').boundingBox())?.x).toBe(hebrewControlsX)
 })
 
@@ -236,4 +245,36 @@ test('language navigation preserves the active section and browser history', asy
   await page.goBack()
   await expect(page.locator('html')).toHaveAttribute('lang', 'he')
   await expect(page).toHaveURL(/\/#work$/)
+})
+
+
+test('keeps English 404 recovery in English', async ({ page }) => {
+  const response = await page.goto('/en/missing')
+  expect(response?.status()).toBe(404)
+  await expect(page.locator('html')).toHaveAttribute('lang', 'en')
+  await page.getByRole('link', { name: 'Back to homepage' }).click()
+  await expect(page).toHaveURL(/\/en$/)
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('We build digital products that work in the real world.')
+})
+
+test('skip link moves keyboard focus into main content', async ({ page }) => {
+  await page.goto('/')
+  await page.keyboard.press('Tab')
+  await page.keyboard.press('Enter')
+  await expect(page.locator('#main-content')).toBeFocused()
+})
+
+test('serves social images with production URLs for both locales', async ({ page, request }) => {
+  for (const path of ['/', '/en']) {
+    await page.goto(path)
+    for (const selector of ['meta[property="og:image"]', 'meta[name="twitter:image"]']) {
+      const content = await page.locator(selector).getAttribute('content')
+      expect(content).toBeTruthy()
+      const url = new URL(content!)
+      expect(url.origin).toBe('https://next-portfolio-nine-chi.vercel.app')
+      const response = await request.get(url.pathname + url.search)
+      expect(response.ok()).toBe(true)
+      expect(response.headers()['content-type']).toContain('image/png')
+    }
+  }
 })

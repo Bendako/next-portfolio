@@ -17,6 +17,7 @@ test('published project links are HTTPS and agree across translations', () => {
   for (const item of portfolioContent.he.work.items) {
     const translated = portfolioContent.en.work.items.find((entry) => entry.workId === item.workId)
     assert.ok(translated)
+    assert.equal(Boolean(item.caseStudy), Boolean(translated.caseStudy))
     for (const key of ['liveUrl', 'codeUrl', 'downloadUrl']) {
       assert.equal(item[key], translated[key])
       if (item[key]) assert.equal(new URL(item[key]).protocol, 'https:')
