@@ -156,10 +156,18 @@ export default function PortfolioShell() {
                         <ArrowUpRight aria-hidden="true" />
                       </a>
                     ) : null}
-                    <a href={item.codeUrl} target="_blank" rel="noreferrer">
-                      {content.work.codeLabel}
-                      <ArrowUpRight aria-hidden="true" />
-                    </a>
+                    {item.downloadUrl ? (
+                      <a href={item.downloadUrl} target="_blank" rel="noreferrer">
+                        {item.downloadLabel}
+                        <ArrowUpRight aria-hidden="true" />
+                      </a>
+                    ) : null}
+                    {item.codeUrl ? (
+                      <a href={item.codeUrl} target="_blank" rel="noreferrer">
+                        {content.work.codeLabel}
+                        <ArrowUpRight aria-hidden="true" />
+                      </a>
+                    ) : null}
                   </div>
                 </article>
               ))}

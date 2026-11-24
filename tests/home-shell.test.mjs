@@ -17,11 +17,15 @@ test('published project links are HTTPS and agree across translations', () => {
   for (const item of portfolioContent.he.work.items) {
     const translated = portfolioContent.en.work.items.find((entry) => entry.workId === item.workId)
     assert.ok(translated)
-    for (const key of ['liveUrl', 'codeUrl']) {
+    for (const key of ['liveUrl', 'codeUrl', 'downloadUrl']) {
       assert.equal(item[key], translated[key])
       if (item[key]) assert.equal(new URL(item[key]).protocol, 'https:')
     }
-    assert.ok(item.codeUrl)
+    assert.ok(item.codeUrl || item.liveUrl || item.downloadUrl)
+    if (item.downloadUrl) {
+      assert.ok(item.downloadLabel)
+      assert.ok(translated.downloadLabel)
+    }
   }
   assert.match(founderLinks.email, /^[^\s@]+@[^\s@]+\.[^\s@]+$/)
 })
