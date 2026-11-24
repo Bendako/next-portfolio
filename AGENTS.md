@@ -50,7 +50,7 @@ Keep commits focused. Do not commit secrets (`.env*`, credentials, tokens).
 | Page shell | `components/PortfolioShell.tsx` |
 | Copy (he/en) | `data/portfolio.ts` |
 | Styles | `app/globals.css` |
-| Metadata / OG / robots | `app/layout.tsx`, `app/opengraph-image.tsx`, `app/twitter-image.tsx`, `app/robots.ts`, `app/sitemap.ts` |
+| Metadata / OG / robots | `app/[locale]/layout.tsx`, `app/[locale]/opengraph-image.tsx`, `app/[locale]/twitter-image.tsx`, `app/robots.ts`, `app/sitemap.ts` |
 | Unit tests | `tests/*.test.mjs` |
 | E2E | `tests/e2e/`, `playwright.config.ts` |
 | CI | `.github/workflows/ci.yml` |
