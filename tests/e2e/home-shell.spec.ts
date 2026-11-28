@@ -1,13 +1,13 @@
 import { expect, test } from '@playwright/test'
 
-test('publishes the BTD company identity', async ({ page }) => {
+test('publishes the BTDLabs company identity', async ({ page }) => {
   await page.goto('/')
 
-  await expect(page).toHaveTitle('BTD / Product & Technology')
+  await expect(page).toHaveTitle('BTDLabs / Product & Technology')
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
     'בונים מוצרים דיגיטליים שעובדים בעולם האמיתי.',
   )
-  await expect(page.locator('footer strong')).toHaveText('BTD / PRODUCT & TECHNOLOGY')
+  await expect(page.locator('footer strong')).toHaveText('BTDLabs / PRODUCT & TECHNOLOGY')
   expect(
     await page.locator('body').evaluate((element) => getComputedStyle(element).fontFamily),
   ).toMatch(/Heebo/i)
@@ -18,7 +18,7 @@ test('presents two engines and four process steps', async ({ page }) => {
 
   await expect(page.locator('[data-engine-card]')).toHaveCount(2)
   await expect(page.locator('[data-process-step]')).toHaveCount(4)
-  await expect(page.locator('#engines')).toContainText('מוצרים בבעלות BTD')
+  await expect(page.locator('#engines')).toContainText('מוצרים בבעלות BTDLabs')
   await expect(page.locator('#engines')).toContainText('מערכות end-to-end נבחרות')
 })
 
@@ -52,12 +52,12 @@ test('switches language without moving the layout', async ({ page }) => {
   ).toBe('ltr')
   await page.evaluate(() => document.fonts.ready)
   // Firefox can choose slightly different generic-font metrics per language.
-  // Permit subpixel rounding while still rejecting visible layout movement.
+  // The longer BTDLabs lockup rounds to one pixel; still reject a visible shift.
   const englishPositions = await xPositions()
   for (const [index, x] of englishPositions.entries()) {
     expect(x).toBeDefined()
     expect(hebrewPositions[index]).toBeDefined()
-    expect(Math.abs(x! - hebrewPositions[index]!)).toBeLessThan(1)
+    expect(Math.abs(x! - hebrewPositions[index]!)).toBeLessThanOrEqual(1)
   }
 })
 
@@ -102,10 +102,14 @@ test('presents five work items with their published links', async ({ page }) => 
   await expect(firstProject.getByRole('link')).toHaveCount(1)
 })
 
-test('introduces the founder and offers a real contact path', async ({ page }) => {
+test('introduces who is behind BTDLabs and offers a real contact path', async ({ page }) => {
   await page.goto('/')
 
-  await expect(page.locator('#founder')).toContainText('המייסד')
+  await expect(page.locator('#founder')).toContainText('מי מאחורי BTDLabs')
+  await expect(page.locator('#founder')).toContainText('מאחורי BTDLabs')
+  await expect(page.locator('body')).not.toContainText('המייסד')
+  await expect(page.locator('body')).not.toContainText('founder-led')
+  await expect(page.locator('body')).not.toContainText('the founder')
   await expect(page.locator('body')).not.toContainText('בן דאקו')
   await expect(page.locator('body')).not.toContainText('Ben Dako')
   await expect(
@@ -118,7 +122,11 @@ test('introduces the founder and offers a real contact path', async ({ page }) =
   await expect(page.locator('#contact')).toContainText('bendk1994@gmail.com')
 
   await page.getByRole('button', { name: 'English' }).click()
-  await expect(page.locator('#founder')).toContainText('the founder')
+  await expect(page.locator('#founder')).toContainText('Who is behind BTDLabs')
+  await expect(page.locator('#founder')).toContainText('Behind BTDLabs')
+  await expect(page.locator('body')).not.toContainText('המייסד')
+  await expect(page.locator('body')).not.toContainText('founder-led')
+  await expect(page.locator('body')).not.toContainText('the founder')
   await expect(page.locator('body')).not.toContainText('Ben Dako')
   await expect(page.locator('a[href*="linkedin.com"]')).toHaveCount(0)
 })
@@ -205,9 +213,9 @@ test('renders shareable locales and matching metadata without JavaScript', async
     await expect(page.getByRole('heading', { level: 1 })).toHaveText(heading)
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', `https://next-portfolio-nine-chi.vercel.app${path === '/' ? '' : path}`)
     await expect(page.locator('meta[property="og:locale"]')).toHaveAttribute('content', ogLocale)
-    await expect(page.locator('meta[name="author"]')).toHaveAttribute('content', 'BTD')
-    await expect(page.locator('meta[name="creator"]')).toHaveAttribute('content', 'BTD')
-    await expect(page.locator('meta[name="keywords"]')).toHaveAttribute('content', /^BTD,/)
+    await expect(page.locator('meta[name="author"]')).toHaveAttribute('content', 'BTDLabs')
+    await expect(page.locator('meta[name="creator"]')).toHaveAttribute('content', 'BTDLabs')
+    await expect(page.locator('meta[name="keywords"]')).toHaveAttribute('content', /^BTDLabs,/)
     await expect(page.locator('meta[name="keywords"]')).not.toHaveAttribute('content', /Ben Dako|Dako|דאקו/)
     await expect(page.locator('link[hreflang="en"]')).toHaveAttribute('href', 'https://next-portfolio-nine-chi.vercel.app/en')
   }

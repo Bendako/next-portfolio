@@ -12,9 +12,9 @@ const heebo = Heebo({
   variable: "--font-heebo",
 });
 
-const siteTitle = "BTD / Product & Technology";
+const siteTitle = "BTDLabs / Product & Technology";
 const siteDescription =
-  "BTD builds and operates digital products and selected end-to-end systems.";
+  "BTDLabs builds and operates digital products and selected end-to-end systems.";
 
 
 export const metadata: Metadata = {
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   title: siteTitle,
   description: siteDescription,
   keywords: [
-    "BTD",
+    "BTDLabs",
     "product",
     "technology",
     "full stack",
@@ -30,13 +30,13 @@ export const metadata: Metadata = {
     "AI",
     "operations",
   ],
-  authors: [{ name: "BTD" }],
-  creator: "BTD",
+  authors: [{ name: "BTDLabs" }],
+  creator: "BTDLabs",
   openGraph: {
     title: siteTitle,
     description: "Digital products and selected end-to-end systems.",
     url: siteUrl,
-    siteName: "BTD",
+    siteName: "BTDLabs",
     locale: "he_IL",
     alternateLocale: ["en_US"],
     type: "website",

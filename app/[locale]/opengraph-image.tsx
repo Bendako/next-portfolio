@@ -1,7 +1,7 @@
 import { siteHost } from '@/lib/site'
 import { ImageResponse } from 'next/og'
 
-export const alt = 'BTD / Product & Technology'
+export const alt = 'BTDLabs / Product & Technology'
 export const size = {
   width: 1200,
   height: 630,
@@ -41,20 +41,19 @@ export default function OpenGraphImage() {
           </div>
         </div>
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '22px', maxWidth: '920px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '22px', maxWidth: '1056px' }}>
           <div
             style={{
               display: 'flex',
-              alignItems: 'baseline',
-              fontSize: 92,
+              flexDirection: 'column',
+              gap: '8px',
               lineHeight: 0.95,
               letterSpacing: '-0.04em',
               fontWeight: 700,
-              color: '#f5f1eb',
             }}
           >
-            <span>BTD</span>
-            <span style={{ color: '#f1904b' }}> / PRODUCT & TECHNOLOGY</span>
+            <div style={{ display: 'flex', fontSize: 84, color: '#f5f1eb', whiteSpace: 'nowrap' }}>BTDLabs</div>
+            <div style={{ display: 'flex', fontSize: 42, color: '#f1904b', whiteSpace: 'nowrap' }}>/ PRODUCT & TECHNOLOGY</div>
           </div>
           <div
             style={{

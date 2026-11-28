@@ -9,24 +9,24 @@ export { localePaths } from './locale-paths'
 export function localeMetadata(locale: Locale): Metadata {
   const content = portfolioContent[locale]
   return {
-    title: 'BTD / Product & Technology',
+    title: 'BTDLabs / Product & Technology',
     description: content.hero.description,
     alternates: {
       canonical: localePaths[locale],
       languages: { he: '/', en: '/en', 'x-default': '/' },
     },
     openGraph: {
-      title: 'BTD / Product & Technology',
+      title: 'BTDLabs / Product & Technology',
       description: content.hero.description,
       url: localePaths[locale],
-      siteName: 'BTD',
+      siteName: 'BTDLabs',
       locale: locale === 'he' ? 'he_IL' : 'en_US',
       alternateLocale: [locale === 'he' ? 'en_US' : 'he_IL'],
       type: 'website',
     },
     twitter: {
       card: 'summary_large_image',
-      title: 'BTD / Product & Technology',
+      title: 'BTDLabs / Product & Technology',
       description: content.hero.description,
     },
   }

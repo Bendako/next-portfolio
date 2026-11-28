@@ -173,7 +173,6 @@ html[lang='en'] .not-found-panel {
     700 0.75rem/1.3 ui-monospace,
     monospace;
   letter-spacing: 0.1em;
-  text-transform: uppercase;
 }
 h1,
 h2,
@@ -246,7 +245,7 @@ p {
   align-self: center;
   color: hsl(var(--accent));
   font:
-    900 clamp(4rem, 12vw, 9rem) / 0.8 ui-monospace,
+    900 clamp(2.6rem, 6.5vw, 4.75rem) / 0.85 ui-monospace,
     monospace;
   letter-spacing: -0.1em;
 }
