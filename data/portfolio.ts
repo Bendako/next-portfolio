@@ -69,7 +69,7 @@ export type PortfolioContent = {
 
 export const founderLinks = {
   email: "bendk1994@gmail.com",
-  github: "https://github.com/Bendako",
+  github: "https://github.com/btdlabs",
 } as const;
 
 export const portfolioContent = {
@@ -139,7 +139,7 @@ export const portfolioContent = {
           title: "Shiftbook",
           tag: "Android · גרסת בדיקה",
           description: "אפליקציית Android ללא פרסומות למעקב שעות עבודה ולהערכת שכר ברוטו. כוללת כניסה ויציאה ממשמרת, דוחות שבועיים וחודשיים, שמירה מקומית ללא חיבור לרשת ותמיכה בעברית ובאנגלית. זמינה להורדה כגרסת בדיקה.",
-          downloadUrl: "https://github.com/Bendako/shiftbook-android-updates/releases",
+          downloadUrl: "https://github.com/btdlabs/shiftbook-android-updates/releases",
           downloadLabel: "הורדת גרסת בדיקה",
         },
         {
@@ -149,7 +149,7 @@ export const portfolioContent = {
           tag: "כלי פיתוח",
           description:
             "כדי לצמצם הקמה חוזרת של פרויקטים, בנינו מחולל Bash ושרת MCP מקומי שמשתמש באותו מחולל. הערכה כוללת תבניות ושילובי Clerk ו־Convex לבחירה; קוד המקור זמין לבדיקה ולהתאמה.",
-          codeUrl: "https://github.com/Bendako/next-starter-script",
+          codeUrl: "https://github.com/btdlabs/next-starter-script",
         },
         {
           workId: "mcp-landing",
@@ -157,7 +157,7 @@ export const portfolioContent = {
           tag: "דף מוצר",
           description: "בנינו דף מוצר ב־Next.js ו־TypeScript שמסביר את ערכת ה־Starter המקומית. הוראות ההתקנה והתבניות תואמות לתיעוד המוצר; האתר זמין לצפייה, והרכישה עדיין אינה פעילה.",
           liveUrl: "https://next-starter-mcp-landing-page.vercel.app/",
-          codeUrl: "https://github.com/Bendako/next-starter-mcp-landing-page",
+          codeUrl: "https://github.com/btdlabs/next-starter-mcp-landing-page",
         },
         {
           workId: "letter-blast",
@@ -166,7 +166,7 @@ export const portfolioContent = {
           tag: "משחק",
           description: "כדי להפוך תרגול איות למשחק, בנינו משחק דפדפן ב־Three.js וב־TypeScript: פגיעה באותיות תלת־ממדיות ליצירת מילים, עם רמות קושי ושליטה בעכבר או במגע.",
           liveUrl: "https://letter-blast.vercel.app/",
-          codeUrl: "https://github.com/Bendako/LetterBlast",
+          codeUrl: "https://github.com/btdlabs/LetterBlast",
         },
         {
           workId: "expense-tracker",
@@ -174,7 +174,7 @@ export const portfolioContent = {
           tag: "אפליקציה",
           description: "מעקב הוצאות פשוט ומהיר לניהול תקציב יומיומי.",
           liveUrl: "https://expense-tracker-app-react.vercel.app/",
-          codeUrl: "https://github.com/Bendako/Expense-Tracker-App",
+          codeUrl: "https://github.com/btdlabs/Expense-Tracker-App",
         },
       ],
     },
@@ -303,7 +303,7 @@ export const portfolioContent = {
           title: "Shiftbook",
           tag: "Android · Testing",
           description: "An ad-free native Android app for tracking work hours and estimating gross pay, with clock-in/out, weekly and monthly reports, offline storage, and Hebrew and English support. Available as a testing download.",
-          downloadUrl: "https://github.com/Bendako/shiftbook-android-updates/releases",
+          downloadUrl: "https://github.com/btdlabs/shiftbook-android-updates/releases",
           downloadLabel: "Testing download",
         },
         {
@@ -313,7 +313,7 @@ export const portfolioContent = {
           tag: "Dev tool",
           description:
             "To reduce repeated project setup, we built a Bash generator and a local MCP server that calls the same generator. The kit includes templates and optional Clerk and Convex scaffolding, with source code to inspect and adapt.",
-          codeUrl: "https://github.com/Bendako/next-starter-script",
+          codeUrl: "https://github.com/btdlabs/next-starter-script",
         },
         {
           workId: "mcp-landing",
@@ -321,7 +321,7 @@ export const portfolioContent = {
           tag: "Product page",
           description: "A Next.js and TypeScript product page explaining the local Starter kit. Installation steps and templates mirror the product documentation; the site is available to explore, with checkout still pending.",
           liveUrl: "https://next-starter-mcp-landing-page.vercel.app/",
-          codeUrl: "https://github.com/Bendako/next-starter-mcp-landing-page",
+          codeUrl: "https://github.com/btdlabs/next-starter-mcp-landing-page",
         },
         {
           workId: "letter-blast",
@@ -330,7 +330,7 @@ export const portfolioContent = {
           tag: "Game",
           description: "To turn spelling practice into play, we built a browser game with Three.js and TypeScript: shoot 3D letters to form words, with difficulty levels and mouse or touch controls.",
           liveUrl: "https://letter-blast.vercel.app/",
-          codeUrl: "https://github.com/Bendako/LetterBlast",
+          codeUrl: "https://github.com/btdlabs/LetterBlast",
         },
         {
           workId: "expense-tracker",
@@ -338,7 +338,7 @@ export const portfolioContent = {
           tag: "App",
           description: "A simple, fast expense tracker for everyday budgeting.",
           liveUrl: "https://expense-tracker-app-react.vercel.app/",
-          codeUrl: "https://github.com/Bendako/Expense-Tracker-App",
+          codeUrl: "https://github.com/btdlabs/Expense-Tracker-App",
         },
       ],
     },
