@@ -84,7 +84,7 @@ test('presents five work items with their published links', async ({ page }) => 
   const firstProject = page.locator('[data-work-card]').first()
   await expect(firstProject.getByRole('heading')).toHaveText('Shiftbook')
   await expect(firstProject.getByRole('link', { name: 'הורדת גרסת בדיקה' })).toHaveAttribute(
-    'href', 'https://github.com/Bendako/shiftbook-android-updates/releases',
+    'href', 'https://github.com/btdlabs/shiftbook-android-updates/releases',
   )
   await expect(page.getByRole('heading', { name: 'React Quiz App' })).toHaveCount(0)
   await expect(page.locator('a[href="https://letter-blast.vercel.app/"]')).toBeVisible()
@@ -92,12 +92,12 @@ test('presents five work items with their published links', async ({ page }) => 
     page.locator('a[href="https://next-starter-mcp-landing-page.vercel.app/"]'),
   ).toBeVisible()
   await expect(
-    page.locator('a[href="https://github.com/Bendako/next-starter-script"]'),
+    page.locator('a[href="https://github.com/btdlabs/next-starter-script"]'),
   ).toBeVisible()
   await page.getByRole('button', { name: 'English' }).click()
   await expect(firstProject.getByRole('heading')).toHaveText('Shiftbook')
   await expect(firstProject.getByRole('link', { name: 'Testing download' })).toHaveAttribute(
-    'href', 'https://github.com/Bendako/shiftbook-android-updates/releases',
+    'href', 'https://github.com/btdlabs/shiftbook-android-updates/releases',
   )
   await expect(firstProject.getByRole('link')).toHaveCount(1)
 })
@@ -113,7 +113,7 @@ test('introduces who is behind BTDLabs and offers a real contact path', async ({
   await expect(page.locator('body')).not.toContainText('בן דאקו')
   await expect(page.locator('body')).not.toContainText('Ben Dako')
   await expect(
-    page.locator('#founder a[href="https://github.com/Bendako"]'),
+    page.locator('#founder a[href="https://github.com/btdlabs"]'),
   ).toBeVisible()
   await expect(page.locator('a[href*="linkedin.com"]')).toHaveCount(0)
   await expect(
