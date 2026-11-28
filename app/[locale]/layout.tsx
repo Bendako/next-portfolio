@@ -23,7 +23,6 @@ export const metadata: Metadata = {
   description: siteDescription,
   keywords: [
     "BTD",
-    "Ben Dako",
     "product",
     "technology",
     "full stack",
@@ -31,8 +30,8 @@ export const metadata: Metadata = {
     "AI",
     "operations",
   ],
-  authors: [{ name: "Ben Dako" }],
-  creator: "Ben Dako",
+  authors: [{ name: "BTD" }],
+  creator: "BTD",
   openGraph: {
     title: siteTitle,
     description: "Digital products and selected end-to-end systems.",

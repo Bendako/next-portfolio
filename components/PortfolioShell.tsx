@@ -171,15 +171,6 @@ export default function PortfolioShell({ locale }: { locale: Locale }) {
                 {content.founder.githubLabel}
                 <ArrowUpRight aria-hidden="true" />
               </a>
-              <a
-                className="control-button"
-                href={founderLinks.linkedin}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {content.founder.linkedinLabel}
-                <ArrowUpRight aria-hidden="true" />
-              </a>
             </div>
           </div>
         </section>

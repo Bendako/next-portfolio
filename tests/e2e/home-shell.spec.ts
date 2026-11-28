@@ -105,17 +105,22 @@ test('presents five work items with their published links', async ({ page }) => 
 test('introduces the founder and offers a real contact path', async ({ page }) => {
   await page.goto('/')
 
-  await expect(page.locator('#founder')).toContainText('בן דאקו')
+  await expect(page.locator('#founder')).toContainText('המייסד')
+  await expect(page.locator('body')).not.toContainText('בן דאקו')
+  await expect(page.locator('body')).not.toContainText('Ben Dako')
   await expect(
     page.locator('#founder a[href="https://github.com/Bendako"]'),
   ).toBeVisible()
-  await expect(
-    page.locator('#founder a[href="https://www.linkedin.com/in/bendako/"]'),
-  ).toBeVisible()
+  await expect(page.locator('a[href*="linkedin.com"]')).toHaveCount(0)
   await expect(
     page.locator('#contact a[href="mailto:bendk1994@gmail.com"]'),
   ).toBeVisible()
   await expect(page.locator('#contact')).toContainText('bendk1994@gmail.com')
+
+  await page.getByRole('button', { name: 'English' }).click()
+  await expect(page.locator('#founder')).toContainText('the founder')
+  await expect(page.locator('body')).not.toContainText('Ben Dako')
+  await expect(page.locator('a[href*="linkedin.com"]')).toHaveCount(0)
 })
 
 test('serves a bilingual 404 that links back home without moving its controls', async ({ page }) => {
@@ -200,6 +205,10 @@ test('renders shareable locales and matching metadata without JavaScript', async
     await expect(page.getByRole('heading', { level: 1 })).toHaveText(heading)
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', `https://next-portfolio-nine-chi.vercel.app${path === '/' ? '' : path}`)
     await expect(page.locator('meta[property="og:locale"]')).toHaveAttribute('content', ogLocale)
+    await expect(page.locator('meta[name="author"]')).toHaveAttribute('content', 'BTD')
+    await expect(page.locator('meta[name="creator"]')).toHaveAttribute('content', 'BTD')
+    await expect(page.locator('meta[name="keywords"]')).toHaveAttribute('content', /^BTD,/)
+    await expect(page.locator('meta[name="keywords"]')).not.toHaveAttribute('content', /Ben Dako|Dako|דאקו/)
     await expect(page.locator('link[hreflang="en"]')).toHaveAttribute('href', 'https://next-portfolio-nine-chi.vercel.app/en')
   }
   await context.close()

@@ -53,7 +53,6 @@ export type PortfolioContent = {
     title: string;
     body: string;
     githubLabel: string;
-    linkedinLabel: string;
   };
   contact: {
     eyebrow: string;
@@ -71,7 +70,6 @@ export type PortfolioContent = {
 export const founderLinks = {
   email: "bendk1994@gmail.com",
   github: "https://github.com/Bendako",
-  linkedin: "https://www.linkedin.com/in/bendako/",
 } as const;
 
 export const portfolioContent = {
@@ -211,9 +209,8 @@ export const portfolioContent = {
     founder: {
       eyebrow: "05 / WHO IS BEHIND BTD",
       title: "מי מאחורי BTD",
-      body: "BTD מובלת על ידי בן דאקו — בונה מוצרים Full Stack שמחבר בין הבנת הבעיה, החלטות מוצר, קוד ותפעול. כל פרויקט, בבעלות מלאה או עבור שותף, מקבל את אותה רמת אחריות: להבין, לבנות, להפעיל ולשפר.",
+      body: "BTD מובלת על ידי המייסד — בונה מוצרים Full Stack שמחבר בין הבנת הבעיה, החלטות מוצר, קוד ותפעול. כל פרויקט, בבעלות מלאה או עבור שותף, מקבל את אותה רמת אחריות: להבין, לבנות, להפעיל ולשפר.",
       githubLabel: "GitHub",
-      linkedinLabel: "LinkedIn",
     },
     contact: {
       eyebrow: "06 / CONTACT",
@@ -378,9 +375,8 @@ export const portfolioContent = {
     founder: {
       eyebrow: "05 / WHO IS BEHIND BTD",
       title: "Who is behind BTD",
-      body: "BTD is led by Ben Dako — a full-stack product builder connecting problem understanding, product decisions, code, and operations. Every project, fully owned or built for a partner, gets the same level of ownership: understand, build, operate, improve.",
+      body: "BTD is led by the founder — a full-stack product builder connecting problem understanding, product decisions, code, and operations. Every project, fully owned or built for a partner, gets the same level of ownership: understand, build, operate, improve.",
       githubLabel: "GitHub",
-      linkedinLabel: "LinkedIn",
     },
     contact: {
       eyebrow: "06 / CONTACT",
