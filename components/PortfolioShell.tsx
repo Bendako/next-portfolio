@@ -14,7 +14,7 @@ export default function PortfolioShell({ locale }: { locale: Locale }) {
         <div className="shell-container header-inner">
           <a className="brand" href="#top" aria-label={content.brandLabel}>
             <span className="signal-dot" aria-hidden="true" />
-            <span>BTD</span>
+            <span>BTDLabs</span>
             <span className="brand-suffix">/ PRODUCT &amp; TECHNOLOGY</span>
           </a>
           <nav
@@ -50,7 +50,7 @@ export default function PortfolioShell({ locale }: { locale: Locale }) {
               </div>
             </div>
             <div className="hero-mark" aria-hidden="true">
-              <span>BTD</span>
+              <span>BTDLabs</span>
               <i />
               <i />
               <i />
@@ -169,15 +169,6 @@ export default function PortfolioShell({ locale }: { locale: Locale }) {
                 rel="noreferrer"
               >
                 {content.founder.githubLabel}
-                <ArrowUpRight aria-hidden="true" />
-              </a>
-              <a
-                className="control-button"
-                href={founderLinks.linkedin}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {content.founder.linkedinLabel}
                 <ArrowUpRight aria-hidden="true" />
               </a>
             </div>

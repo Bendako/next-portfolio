@@ -53,7 +53,6 @@ export type PortfolioContent = {
     title: string;
     body: string;
     githubLabel: string;
-    linkedinLabel: string;
   };
   contact: {
     eyebrow: string;
@@ -71,15 +70,14 @@ export type PortfolioContent = {
 export const founderLinks = {
   email: "bendk1994@gmail.com",
   github: "https://github.com/Bendako",
-  linkedin: "https://www.linkedin.com/in/bendako/",
 } as const;
 
 export const portfolioContent = {
   he: {
     skipLink: "דילוג לתוכן הראשי",
-    brandLabel: "BTD — דף הבית",
+    brandLabel: "BTDLabs — דף הבית",
     nav: {
-      what: "מה BTD עושה?",
+      what: "מה BTDLabs עושה?",
       engines: "שני מסלולים",
       work: "עבודות",
       process: "איך עובדים",
@@ -94,14 +92,14 @@ export const portfolioContent = {
       eyebrow: "OWNED PRODUCTS / SELECTED SYSTEMS",
       title: "בונים מוצרים דיגיטליים שעובדים בעולם האמיתי.",
       description:
-        "BTD היא סטודיו למוצר וטכנולוגיה בהובלת מייסד: שיקול דעת מוצרי, ביצוע Full Stack, אוטומציה ו־AI בגבולות ברורים — ותפעול שממשיך גם אחרי ההשקה.",
+        "BTDLabs היא סטודיו למוצר וטכנולוגיה: שיקול דעת מוצרי, ביצוע Full Stack, אוטומציה ו־AI בגבולות ברורים — ותפעול שממשיך גם אחרי ההשקה.",
       primaryCta: "לראות מה בנינו",
       secondaryCta: "בואו נדבר",
     },
     what: {
-      eyebrow: "01 / WHAT BTD DOES",
-      title: "מה BTD עושה?",
-      body: "BTD בונה ומפעילה מוצרים דיגיטליים בבעלותה, ובמקביל בונה מערכות end-to-end נבחרות עבור צרכים ברורים. בשני המסלולים אנחנו מחברים החלטות מוצר, ביצוע Full Stack, אוטומציה ו־AI בגבולות ברורים, ותפעול שאפשר להמשיך לשפר.",
+      eyebrow: "01 / WHAT BTDLabs DOES",
+      title: "מה BTDLabs עושה?",
+      body: "BTDLabs בונה ומפעילה מוצרים דיגיטליים בבעלותה, ובמקביל בונה מערכות end-to-end נבחרות עבור צרכים ברורים. בשני המסלולים אנחנו מחברים החלטות מוצר, ביצוע Full Stack, אוטומציה ו־AI בגבולות ברורים, ותפעול שאפשר להמשיך לשפר.",
     },
     engines: {
       eyebrow: "02 / TWO ENGINES",
@@ -110,15 +108,15 @@ export const portfolioContent = {
       items: [
         {
           engineId: "owned",
-          title: "מוצרים בבעלות BTD",
-          description: "BTD מזהה בעיות, מחדדת הזדמנויות, בונה מוצרים ומפעילה אותם לאורך זמן.",
+          title: "מוצרים בבעלות BTDLabs",
+          description: "BTDLabs מזהה בעיות, מחדדת הזדמנויות, בונה מוצרים ומפעילה אותם לאורך זמן.",
           details: ["בחירת בעיה והגדרת מוצר", "בנייה, מדידה ותפעול", "שיפור רציף לפי שימוש ולמידה"],
         },
         {
           engineId: "selected",
           title: "מערכות end-to-end נבחרות",
           description:
-            "BTD עובדת עם שותפים נבחרים על מערכות שדורשות חיבור בין מוצר, טכנולוגיה ותפעול.",
+            "BTDLabs עובדת עם שותפים נבחרים על מערכות שדורשות חיבור בין מוצר, טכנולוגיה ותפעול.",
           details: [
             "הבנת הבעיה והמשתמשים",
             "מערכת מלאה ולא רק שכבת ממשק",
@@ -209,11 +207,10 @@ export const portfolioContent = {
       ],
     },
     founder: {
-      eyebrow: "05 / WHO IS BEHIND BTD",
-      title: "מי מאחורי BTD",
-      body: "BTD מובלת על ידי בן דאקו — בונה מוצרים Full Stack שמחבר בין הבנת הבעיה, החלטות מוצר, קוד ותפעול. כל פרויקט, בבעלות מלאה או עבור שותף, מקבל את אותה רמת אחריות: להבין, לבנות, להפעיל ולשפר.",
+      eyebrow: "05 / WHO IS BEHIND BTDLabs",
+      title: "מי מאחורי BTDLabs",
+      body: "מאחורי BTDLabs עומד בונה מוצרים Full Stack שמחבר בין הבנת הבעיה, החלטות מוצר, קוד ותפעול. כל פרויקט, בבעלות מלאה או עבור שותף, מקבל את אותה רמת אחריות: להבין, לבנות, להפעיל ולשפר.",
       githubLabel: "GitHub",
-      linkedinLabel: "LinkedIn",
     },
     contact: {
       eyebrow: "06 / CONTACT",
@@ -225,7 +222,7 @@ export const portfolioContent = {
       copyError: "לא ניתן להעתיק. אפשר לסמן את הכתובת ולהעתיק ידנית, או לפתוח הודעת דוא״ל.",
     },
     footer: {
-      identity: "BTD / PRODUCT & TECHNOLOGY",
+      identity: "BTDLabs / PRODUCT & TECHNOLOGY",
       note: "מוצרים בבעלות. מערכות נבחרות. ביצוע ותפעול אחראיים.",
     },
     notFound: {
@@ -237,9 +234,9 @@ export const portfolioContent = {
   },
   en: {
     skipLink: "Skip to main content",
-    brandLabel: "BTD — homepage",
+    brandLabel: "BTDLabs — homepage",
     nav: {
-      what: "What BTD does",
+      what: "What BTDLabs does",
       engines: "Two engines",
       work: "Work",
       process: "How we work",
@@ -254,14 +251,14 @@ export const portfolioContent = {
       eyebrow: "OWNED PRODUCTS / SELECTED SYSTEMS",
       title: "We build digital products that work in the real world.",
       description:
-        "BTD is a founder-led product and technology studio: product judgment, full-stack delivery, automation and AI within clear boundaries — and operations that continue after launch.",
+        "BTDLabs is a product and technology studio: product judgment, full-stack delivery, automation and AI within clear boundaries — and operations that continue after launch.",
       primaryCta: "See what we built",
       secondaryCta: "Let's talk",
     },
     what: {
-      eyebrow: "01 / WHAT BTD DOES",
-      title: "What does BTD do?",
-      body: "BTD builds and operates owned digital products, while also building selected end-to-end systems for clear needs. In both tracks, we connect product decisions, full-stack delivery, automation and AI within clear boundaries, and operations that can keep improving.",
+      eyebrow: "01 / WHAT BTDLabs DOES",
+      title: "What does BTDLabs do?",
+      body: "BTDLabs builds and operates owned digital products, while also building selected end-to-end systems for clear needs. In both tracks, we connect product decisions, full-stack delivery, automation and AI within clear boundaries, and operations that can keep improving.",
     },
     engines: {
       eyebrow: "02 / TWO ENGINES",
@@ -270,9 +267,9 @@ export const portfolioContent = {
       items: [
         {
           engineId: "owned",
-          title: "BTD-owned products",
+          title: "BTDLabs-owned products",
           description:
-            "BTD identifies problems, sharpens opportunities, builds products, and operates them over time.",
+            "BTDLabs identifies problems, sharpens opportunities, builds products, and operates them over time.",
           details: [
             "Select a problem and define the product",
             "Build, measure, and operate",
@@ -283,7 +280,7 @@ export const portfolioContent = {
           engineId: "selected",
           title: "Selected end-to-end systems",
           description:
-            "BTD works with selected partners on systems that require product, technology, and operations to connect.",
+            "BTDLabs works with selected partners on systems that require product, technology, and operations to connect.",
           details: [
             "Understand the problem and users",
             "Build the full system, not just the interface",
@@ -376,11 +373,10 @@ export const portfolioContent = {
       ],
     },
     founder: {
-      eyebrow: "05 / WHO IS BEHIND BTD",
-      title: "Who is behind BTD",
-      body: "BTD is led by Ben Dako — a full-stack product builder connecting problem understanding, product decisions, code, and operations. Every project, fully owned or built for a partner, gets the same level of ownership: understand, build, operate, improve.",
+      eyebrow: "05 / WHO IS BEHIND BTDLabs",
+      title: "Who is behind BTDLabs",
+      body: "Behind BTDLabs is a full-stack product builder connecting problem understanding, product decisions, code, and operations. Every project, fully owned or built for a partner, gets the same level of ownership: understand, build, operate, improve.",
       githubLabel: "GitHub",
-      linkedinLabel: "LinkedIn",
     },
     contact: {
       eyebrow: "06 / CONTACT",
@@ -392,7 +388,7 @@ export const portfolioContent = {
       copyError: "Could not copy. Select the address to copy it manually, or open an email.",
     },
     footer: {
-      identity: "BTD / PRODUCT & TECHNOLOGY",
+      identity: "BTDLabs / PRODUCT & TECHNOLOGY",
       note: "Owned products. Selected systems. Responsible delivery and operations.",
     },
     notFound: {
